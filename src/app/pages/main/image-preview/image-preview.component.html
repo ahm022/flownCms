@@ -1,0 +1,19 @@
+<div class="image-preview">
+    <img (click)="closeDialog()" class="close-dialog-button" [src]="closeIcon">
+    <div class="image-preview-container">
+      <div>
+        <div class="image-preview-image">
+            <img [src]="data.src">
+        </div>
+        <div class="image-preview-items">
+            <div class="image-preview-item">
+              <span>Size, </span> {{ data.Size }} 
+            </div>
+            <div class="image-preview-item"> <span>Filename, </span>{{ data.Filename }} </div>
+            <div class="image-preview-item"> <span>Dimensions, </span> {{ data.Dimensions }}</div>
+            <div class="image-preview-item"> <span>Uploaded On, </span> {{ data.UploadedOn }}</div>
+            <div class="image-preview-item"> <span>Uploaded By, </span> {{ data.UploadedBy }}</div>
+        </div>
+      </div>
+    </div>
+  </div>

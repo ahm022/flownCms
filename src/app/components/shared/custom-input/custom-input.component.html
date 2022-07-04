@@ -1,0 +1,22 @@
+<div *ngIf="type === 'simple-input'" [class]="'input-container '" [formGroup]="formGroup">
+    <label class="input-label" *ngIf="labelText" [ngClass]="[isRequired ? 'required' : ''] ">{{labelText}}</label>
+    <input class="text-input" [attr.type]="inputType" [formControlName]="controlName" [placeholder]="placeholder">
+    <app-input-validation-error [formGroup]="formGroup" [controlName]="controlName" [validationErrors]="validationErrors"> </app-input-validation-error>
+</div>
+
+<div *ngIf="type === 'editor'" [class]="'input-container editor'" [formGroup]="formGroup">
+    <label class="input-label" *ngIf="labelText" [ngClass]="[isRequired ? 'required' : ''] ">{{labelText}}</label>
+    <textarea class="text-input" [froalaEditor] [formControlName]="controlName" [placeholder]="placeholder"></textarea>
+    <app-input-validation-error [formGroup]="formGroup" [controlName]="controlName" [validationErrors]="validationErrors"> </app-input-validation-error>
+</div>
+
+<div *ngIf="type==='file'" [formGroup]="formGroup">
+    <!-- <label class="input-label" *ngIf="labelText" [ngClass]="[isRequired ? 'required' : ''] ">{{labelText}}</label> -->
+    <input  id="file-upload" (change)="changeNewEvent($event)" class="text-input" [attr.type]="inputType" [formControlName]="controlName" [placeholder]="placeholder">
+</div>
+
+<div *ngIf="type === 'textArea'" [class]="'input-container textArea'" [formGroup]="formGroup">
+    <label class="input-label" *ngIf="labelText" [ngClass]="[isRequired ? 'required' : '']">{{labelText}}</label>
+    <textarea [formControlName]="controlName" [placeholder]="placeholder"></textarea>
+    <app-input-validation-error [formGroup]="formGroup" [controlName]="controlName" [validationErrors]="validationErrors"> </app-input-validation-error>
+</div>

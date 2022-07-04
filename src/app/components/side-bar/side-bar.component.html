@@ -1,0 +1,19 @@
+<div class="sidebar-menu">
+    <div #sidebarContainer class="sidebar-menu-container">
+        <div class="sidebar-menu-item burgerMenu">
+            <div class="txt">Menu</div>
+            <img (click)="hideShowSideBar()" src="../../../assets/icons/menu.svg">
+        </div>
+        <a *ngFor="let item of sidebarLinks" [routerLink]="item.router" routerLinkActive="active" class="sidebar-menu-item">
+            <img [src]="item.icon">
+            <div class="txt">{{item.txt}}</div>
+        </a>
+        <div (click)="logout()" class="logout">
+            <div class="sidebar-menu-item">
+                <img src="../../../assets/icons/logout.svg">
+                <div class="txt">Logout</div>
+            </div>
+        </div>
+    </div>
+</div>
+

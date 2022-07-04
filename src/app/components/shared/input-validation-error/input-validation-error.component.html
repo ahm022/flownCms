@@ -1,0 +1,6 @@
+<div *ngFor="let validationError of validationErrors">
+    <span class="input-hint"
+        *ngIf="formGroup.get(controlName).hasError(validationError.type) && (formGroup.get(controlName).dirty || formGroup.get(controlName).touched)">
+        {{validationError.message}}
+    </span>
+</div>

@@ -1,0 +1,23 @@
+.preview-message {
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid;
+    border: 1px solid var(--gray-secondary-one);
+    font-size: 16px;
+    color: var(--blue-primary);
+    letter-spacing: 0.5px;
+    line-height: 28px;
+}
+
+
+.send-message-container{
+    max-width: 500px;
+    margin: 30px auto;
+    .send-message-title{
+        color: var(--blue-primary);
+    }
+    .send-button-container{
+        display: flex;
+        gap: 8px;
+    }
+}

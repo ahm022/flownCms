@@ -1,0 +1,25 @@
+.navbar{
+    .navbar-container{
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        min-height: 60px;
+        background-color: var(--blue-primary);
+        justify-content: space-between;
+        .navbar-left-item{
+            font-size: 40px;
+            color: var(--white-primary);
+            font-weight: 400;
+            font-style: italic;
+            text-decoration: none;
+        }
+        .navbar-right-item {
+            .avatar{
+                width: 40px;
+                height: 40px;
+                background-color: var(--gray-secondary-one);
+                border-radius: 50%;
+            }
+        }
+    }
+}

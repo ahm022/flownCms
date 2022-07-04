@@ -1,0 +1,103 @@
+<app-page-header [title]="'Pages'"></app-page-header>
+
+<app-btn
+  (clickEvent)="navigateToAddNewPage()"
+  [btnText]="'Add New Page'"
+></app-btn>
+<div class="input-search">
+<app-search-input (changeEvent)="searchPage($event)"></app-search-input>
+</div>
+<div *ngIf="ELEMENT_DATA.length > 0 && isLoaded" class="table-container">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    matSort
+    (matSortChange)="announceSortChange($event)"
+    class="mat-elevation-z8"
+  >
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>Title</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="row-image">
+          <img [src]="element.pageImage" />
+          {{ element.title }}
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- Author Column -->
+    <ng-container matColumnDef="author">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="Sort by author "
+      >
+        Author
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.author }}</td>
+    </ng-container>
+
+    <!-- Slug Column -->
+    <ng-container matColumnDef="slug">
+      <th mat-header-cell *matHeaderCellDef>Slug</th>
+      <td mat-cell *matCellDef="let element">{{ element.slug }}</td>
+    </ng-container>
+
+    <!-- Categories Column -->
+    <ng-container matColumnDef="category">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Categories</th>
+      <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+    </ng-container>
+
+    <!-- lastModified By Column -->
+    <ng-container matColumnDef="lastMOdifiedBy">
+      <th mat-header-cell *matHeaderCellDef>Last Modified By</th>
+      <td mat-cell *matCellDef="let element">{{ element.lastMOdifiedBy }}</td>
+    </ng-container>
+
+    <!-- lastModified Column -->
+    <ng-container matColumnDef="lastMOdified">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Last Modified</th>
+      <td mat-cell *matCellDef="let element">{{ element.lastMOdified }}</td>
+    </ng-container>
+
+    <!-- Page Status  -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let element">
+        <select (change)="selectPageStatus($event.target.value)">
+          <option
+            *ngFor="let item of statusPageOptions"
+            [selected]="element.status === item.value"
+            [value]="item.value"
+          >
+            {{ item.name }}
+          </option>
+        </select>
+      </td>
+    </ng-container>
+
+    <!-- Page Gated -->
+    <ng-container matColumnDef="gated">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Gated</th>
+      <td mat-cell *matCellDef="let element">{{ element.gated }}</td>
+    </ng-container>
+
+    <!-- Page Actions -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="row-actions">
+          <img (click)="deletePage(element.id)" [src]="deleteIcon" alt="" />
+
+          <img (click)="savePage(element.id)" [src]="editIcon" alt="" />
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

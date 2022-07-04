@@ -1,0 +1,19 @@
+<div class="send-message-container">
+  <div class="send-message-title">To: {{ reaceiverName }}</div>
+  <form [formGroup]="messageFormGroup" (ngSubmit)="submitMessage()">
+    <app-custom-input
+      labelText="Message"
+      [isRequired]="true"
+      [controlName]="'messageText'"
+      [formGroup]="messageFormGroup"
+      [type]="'textArea'"
+      [placeholder]="'Enter your message'"
+      [validationErrors]="validationErrorMessages?.messagetext"
+    >
+    </app-custom-input>
+    <div class="send-button-container">
+      <app-btn (clickEvent)="goBackToUsers()" [btnText]="'Cancel'"></app-btn>
+      <app-btn [disabled]="!messageFormGroup.valid" [type]="'submit'" [btnText]="'Send Message'"></app-btn>
+    </div>
+  </form>
+</div>

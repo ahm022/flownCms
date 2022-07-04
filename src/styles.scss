@@ -1,1 +1,71 @@
-/* You can add global styles to this file, and also import other style files */
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$flowCms-primary: mat.define-palette(mat.$indigo-palette);
+$flowCms-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$flowCms-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$flowCms-theme: mat.define-light-theme((
+  color: (
+    primary: $flowCms-primary,
+    accent: $flowCms-accent,
+    warn: $flowCms-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($flowCms-theme);
+
+
+
+
+@import "/src/assets/scss/variable.scss";
+@import "/src/assets/scss/nav.scss";
+@import "/src/assets/scss/side-bar.scss";
+@import "/src/assets/scss/page-header.scss";
+@import "/src/assets/scss/table.scss";
+@import "/src/assets/scss/dialog.scss";
+@import "/src/assets/scss/button.scss";
+@import "/src/assets/scss/form.scss";
+@import "/src/assets/scss/messages.scss";
+@import "/src/assets/scss/gallery.scss";
+@import "/src/assets/scss/loader.scss";
+@import "/src/assets/scss/empty-state.scss";
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+.page-content{
+    display: flex;
+    gap: 20px;
+    .page-right-content{
+      padding-right: 20px;
+      width: 100%;
+      overflow: auto;
+    }
+}
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

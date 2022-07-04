@@ -1,0 +1,67 @@
+<app-page-header [title]="'Add New Block'"></app-page-header>
+
+<div class="form-container">
+  <form [formGroup]="blockFormGroup" (ngSubmit)="submitBlock()">
+    <div class="form-content">
+      <app-custom-input
+        labelText="Page Count"
+        [isRequired]="true"
+        inputType="text"
+        [controlName]="'pageCount'"
+        [formGroup]="blockFormGroup"
+        [type]="'simple-input'"
+        [placeholder]="'Enter page count'"
+      >
+      </app-custom-input>
+
+      <app-custom-select
+        [options]="sortingByOptions"
+        [formGroup]="blockFormGroup"
+        [isRequired]="true"
+        [labelText]="'sorting By'"
+        [controlName]="'sortingby'"
+      >
+      </app-custom-select>
+
+      <app-custom-select
+        [options]="sortingOptions"
+        [formGroup]="blockFormGroup"
+        [isRequired]="true"
+        [labelText]="'sorting'"
+        [controlName]="'sorting'"
+      >
+      </app-custom-select>
+
+      <app-custom-select
+        [options]="contentSelectionOptions"
+        [formGroup]="blockFormGroup"
+        [isRequired]="true"
+        [labelText]="'Content selection'"
+        [controlName]="'contentselection'"
+        (changeEvent)="checkByCategory()"
+      >
+      </app-custom-select>
+    </div>
+
+    <app-btn
+    *ngIf="checkByCategory()"
+      [btnText]="'Add page category'"
+      (clickEvent)="openAddCategoryDialog()"
+    ></app-btn>
+
+    <app-selected-label
+      *ngIf="categories"
+      [list]="categories"
+    ></app-selected-label>
+
+    <div>
+      <app-btn
+        [disabled]="
+          !blockFormGroup.valid || (checkByCategory() && categories.length <= 0)
+        "
+        [btnText]="'Get Pages'"
+        (clickEvent)="GetPages()"
+      ></app-btn>
+    </div>
+  </form>
+</div>
