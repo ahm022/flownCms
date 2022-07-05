@@ -50,17 +50,17 @@
     ></app-btn>
 
     <app-selected-label
-      *ngIf="categories"
-      [list]="categories"
+      *ngIf="selectedCategories && checkByCategory()"
+      [list]="selectedCategories"
     ></app-selected-label>
 
     <div>
       <app-btn
         [disabled]="
-          !blockFormGroup.valid || (checkByCategory() && categories.length <= 0)
+          !blockFormGroup.valid || (checkByCategory() && selectedCategories.length <= 0)
         "
         [btnText]="'Get Pages'"
-        (clickEvent)="GetPages()"
+        (clickEvent)="getPages()"
       ></app-btn>
     </div>
   </form>

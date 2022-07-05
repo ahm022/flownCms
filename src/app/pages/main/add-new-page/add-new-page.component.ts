@@ -13,6 +13,8 @@ import { SelectMultipleValueComponent } from 'src/app/components/shared/select-m
 export class AddNewPageComponent implements OnInit {
   pageFormGroup: FormGroup;
   selectedImage;
+  selectedCategories;
+  categories = data.Category;
 
   // Status page options
   statusPageOptions = data.statusPageOptions;
@@ -27,7 +29,7 @@ export class AddNewPageComponent implements OnInit {
     paragraph: [{ type: 'required', message: 'paragraph is required' }],
   };
   constructor(private formBuilder: FormBuilder, private generalservice: GeneralService, private dialog: MatDialog) {}
-  categories;
+  
   ngOnInit(): void {
     this.prepareForm();
   }
@@ -48,7 +50,6 @@ export class AddNewPageComponent implements OnInit {
     });
   }
   getImage(event) {
-    console.log('test');
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       const reader = new FileReader();
@@ -66,11 +67,13 @@ export class AddNewPageComponent implements OnInit {
       maxWidth: "400px",
       minHeight: '477px',
       data: {
-        data: data.Category,
-        checkedData: this.categories || []
+        data: this.categories,
+        checkedData: this.selectedCategories || [],
+        dialogTitle: "Select Page Categories"
       }
     }).afterClosed().subscribe((res)=>{
-      this.categories = res
+      this.selectedCategories = res.checkedData
+      this.categories = res.items
     })
   }
 }

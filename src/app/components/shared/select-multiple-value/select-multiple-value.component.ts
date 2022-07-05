@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
-  MatDialog,
   MatDialogRef,
 } from '@angular/material/dialog';
 
@@ -12,7 +11,9 @@ import {
 })
 export class SelectMultipleValueComponent implements OnInit {
   items = [];
+  searchItems = [];
   selectedItems = [];
+  daialogTitle:string
   debounce: any
   emptyItems = false
   constructor( 
@@ -21,42 +22,55 @@ export class SelectMultipleValueComponent implements OnInit {
   ) {
     dialog.disableClose = true;
   }
-// dialog
+
   ngOnInit(): void {
-    this.items = this.data.data;
-    this.checkValue()
+    this.prepareDialogValues()
+    console.log(this.items);
+  }
+
+
+  prepareDialogValues() {
+    this.items = JSON.parse(JSON.stringify(this.data.data))
+    this.searchItems = JSON.parse(JSON.stringify(this.items))
+    this.daialogTitle = this.data.dialogTitle
+    this.sortedCheckedBox()
     this.selectedItems = this.data.checkedData
   }
+
   addValue(e, name) {
     if (e.target.checked) {
       this.selectedItems.push({name:name, ischecked:true});
-
+      this.items.find((e)=> e.name === name ? e.ischecked = true : '')
+      this.searchItems.find((e)=> e.name === name ? e.ischecked = true : '')
     } else {
       this.selectedItems = this.selectedItems.filter((res) => res.name != name);
+      this.items.find((e)=> e.name === name ? e.ischecked = false : '')
+      this.searchItems.find((e)=> e.name === name ? e.ischecked = false : '')
     }
   }
 
   // check the checked value after reopen dialog
-  checkValue() {
-    this.items = [...this.items, ...this.data.checkedData]
-    this.items = [...new Map(this.items.map(item => [item.name, item])).values()]
+  sortedCheckedBox() {
     this.items = this.items.sort((x, y) => Number(y.ischecked) - Number(x.ischecked))
   }
 
   closeDialog() {
-    this.data = this.selectedItems;
+    this.data = {
+      checkedData : this.selectedItems,
+      items: this.items
+    };
     this.dialog.close(this.data);
   }
-  searchItems(e) {
-    this.emptyItems = false
-    this.items = this.data.data
-    this.checkValue()
+  searchItem(e) {
+    this.emptyItems=false
+    this.items = this.searchItems 
+    this.sortedCheckedBox()
     clearTimeout(this.debounce);
     this.debounce = setTimeout(() => {
       if(e.target.value.length > 0) {
         this.items= this.items.filter(o => o.name.includes(e.target.value))
         if (this.items.length === 0) {
-          this.emptyItems = true
+          this.emptyItems = true 
         }
       }
     }, 500);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { data } from '../../../../../data-config';
+import { data } from 'data-config';
 import { GeneralService } from 'src/app/services/general.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SelectMultipleValueComponent } from 'src/app/components/shared/select-multiple-value/select-multiple-value.component';
@@ -16,7 +16,8 @@ export class AddNewBlockComponent implements OnInit {
   sortingByOptions = data.sortingByOptions
   sortingOptions = data.sortingOptions
   contentSelectionOptions = data.contentSelectionOptions
-  categories = [];
+  categories = data.Category; 
+  selectedCategories
   constructor(private formBuilder: FormBuilder, private generalservice: GeneralService, private dialog: MatDialog) {}
   
   ngOnInit(): void {
@@ -35,7 +36,7 @@ export class AddNewBlockComponent implements OnInit {
     if(this.blockFormGroup.get('contentselection').value === 'byCategory') {
       return true
     }else{
-      this.categories = []
+      this.selectedCategories = []
       return false
     }
   }
@@ -43,18 +44,19 @@ export class AddNewBlockComponent implements OnInit {
     this.dialog.open(SelectMultipleValueComponent,{
       width: '100%',
       maxWidth: "400px",
-      minHeight: "477px",
+      minHeight: '477px',
       data: {
-        data: data.Category,
-        checkedData: this.categories
-      },
+        data: this.categories,
+        checkedData: this.selectedCategories || [],
+        dialogTitle: "Select Block Page Categories"
+      }
     }).afterClosed().subscribe((res)=>{
-      this.categories = res
+      this.selectedCategories = res.checkedData
+      this.categories = res.items
     })
   }
 
-  GetPages() {
-
+  getPages() {
   }
 
   submitBlock() {

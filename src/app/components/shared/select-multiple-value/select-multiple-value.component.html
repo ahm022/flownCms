@@ -1,6 +1,8 @@
-<app-btn [btnText]="'Done'" [btnClass]="'margin-0'" (clickEvent)="closeDialog()"></app-btn>
+<div class="dialog-multiple-value-title">
+    {{daialogTitle}}
+</div>
 <div class="input-search multiple">
-  <app-search-input (changeEvent)="searchItems($event)"></app-search-input>
+  <app-search-input (changeEvent)="searchItem($event)"></app-search-input>
 </div>
 <app-empty-state [emptyLabel]="'no results found'" *ngIf="emptyItems">
 </app-empty-state>
@@ -14,4 +16,7 @@
       [value]="item.name"
     />
   </div>
+</div>
+<div class="dialog-button-container">
+  <app-btn [btnText]="'Done'" [btnClass]="'margin-right-auto'" (clickEvent)="closeDialog()"></app-btn>
 </div>
