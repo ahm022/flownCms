@@ -45,7 +45,7 @@ export class AddNewPageComponent implements OnInit {
       pagestatus: this.formBuilder.control('', [Validators.required]),
       gated: this.formBuilder.control('', [Validators.required]),
       paragraph: this.formBuilder.control('', [Validators.required]),
-      pagethumbnail: this.formBuilder.control('', [Validators.required]),
+      pagethumbnail: this.formBuilder.control(''),
       fileSource: [null],
     });
   }
@@ -61,6 +61,7 @@ export class AddNewPageComponent implements OnInit {
       });
     }
   }
+
   openAddCategoryDialog() {
     this.dialog.open(SelectMultipleValueComponent,{
       width: '100%',

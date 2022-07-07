@@ -147,6 +147,9 @@
   padding-right: 20px;
   max-height: 316px;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   .multiple-value-item {
     display: flex;

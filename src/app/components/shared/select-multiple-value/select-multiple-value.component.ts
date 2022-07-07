@@ -25,7 +25,6 @@ export class SelectMultipleValueComponent implements OnInit {
 
   ngOnInit(): void {
     this.prepareDialogValues()
-    console.log(this.items);
   }
 
 

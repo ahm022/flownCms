@@ -8,7 +8,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { BtnComponent } from './btn/btn.component';
 import { CustomInputComponent } from './custom-input/custom-input.component';
 import { InputValidationErrorComponent } from './input-validation-error/input-validation-error.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CustomSelectComponent } from './custom-select/custom-select.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { RouterModule } from '@angular/router';
@@ -17,6 +17,10 @@ import { SelectMultipleValueComponent } from './select-multiple-value/select-mul
 import { SelectedLabelComponent } from './selected-label/selected-label.component';
 import { LoaderComponent } from './loader/loader.component';
 import { EmptyStateComponent } from './empty-state/empty-state.component';
+import {HttpClientModule} from '@angular/common/http';
+import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
+import {HttpLink} from 'apollo-angular/http';
+import {InMemoryCache} from '@apollo/client/core';
 
 @NgModule({
   declarations: [
@@ -38,8 +42,11 @@ import { EmptyStateComponent } from './empty-state/empty-state.component';
     MatSortModule,
     MatDialogModule,
     ReactiveFormsModule,
+    FormsModule,
     FroalaEditorModule,
     FroalaViewModule,
+    HttpClientModule,
+    ApolloModule,
     RouterModule
   ],
   exports: [
@@ -54,10 +61,11 @@ import { EmptyStateComponent } from './empty-state/empty-state.component';
     SelectedLabelComponent,
     LoaderComponent,
     EmptyStateComponent,
-    MatTableModule, 
+    MatTableModule,
     MatSortModule,
     MatDialogModule,
     ReactiveFormsModule,
+    FormsModule,
     FroalaEditorModule,
     FroalaViewModule,
     RouterModule
