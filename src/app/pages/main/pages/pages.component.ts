@@ -42,9 +42,7 @@ export class PagesComponent implements OnInit {
     private apollo: Apollo
   ) {}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;

@@ -14,7 +14,7 @@ export class AddNewPageComponent implements OnInit {
   pageFormGroup: FormGroup;
   selectedImage;
   selectedCategories;
-  categories = data.Category;
+  categories = JSON.parse(localStorage.getItem('categories'));
 
   // Status page options
   statusPageOptions = data.statusPageOptions;
@@ -29,7 +29,7 @@ export class AddNewPageComponent implements OnInit {
     paragraph: [{ type: 'required', message: 'paragraph is required' }],
   };
   constructor(private formBuilder: FormBuilder, private generalservice: GeneralService, private dialog: MatDialog) {}
-  
+
   ngOnInit(): void {
     this.prepareForm();
   }
@@ -63,6 +63,7 @@ export class AddNewPageComponent implements OnInit {
   }
 
   openAddCategoryDialog() {
+    this.selectedCategories = []
     this.dialog.open(SelectMultipleValueComponent,{
       width: '100%',
       maxWidth: "400px",
@@ -74,7 +75,6 @@ export class AddNewPageComponent implements OnInit {
       }
     }).afterClosed().subscribe((res)=>{
       this.selectedCategories = res.checkedData
-      this.categories = res.items
     })
   }
 }

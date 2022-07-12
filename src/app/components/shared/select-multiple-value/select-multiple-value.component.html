@@ -1,9 +1,9 @@
 <div class="dialog-multiple-value-title">
     {{daialogTitle}}
 </div>
-<div class="input-search multiple">
+<!-- <div class="input-search multiple">
   <app-search-input (changeEvent)="searchItem($event)"></app-search-input>
-</div>
+</div> -->
 <app-empty-state [emptyLabel]="'no results found'" *ngIf="emptyItems">
 </app-empty-state>
 <div class="multiple-value">
@@ -11,7 +11,6 @@
     <label>{{ item.name }}</label>
     <input
       (change)="addValue($event, item.name)"
-      [checked]="item.ischecked"
       type="checkbox"
       [value]="item.name"
     />

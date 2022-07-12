@@ -16,10 +16,10 @@ export class AddNewBlockComponent implements OnInit {
   sortingByOptions = data.sortingByOptions
   sortingOptions = data.sortingOptions
   contentSelectionOptions = data.contentSelectionOptions
-  categories = data.Category; 
+  categories = data.Category;
   selectedCategories
   constructor(private formBuilder: FormBuilder, private generalservice: GeneralService, private dialog: MatDialog) {}
-  
+
   ngOnInit(): void {
     this.prepareForm()
   }
@@ -41,6 +41,7 @@ export class AddNewBlockComponent implements OnInit {
     }
   }
   openAddCategoryDialog() {
+    this.selectedCategories = []
     this.dialog.open(SelectMultipleValueComponent,{
       width: '100%',
       maxWidth: "400px",
@@ -52,7 +53,6 @@ export class AddNewBlockComponent implements OnInit {
       }
     }).afterClosed().subscribe((res)=>{
       this.selectedCategories = res.checkedData
-      this.categories = res.items
     })
   }
 
