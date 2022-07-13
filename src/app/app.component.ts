@@ -1,3 +1,4 @@
+import { GraphqlService } from './services/graphql.service';
 import { QueriesService } from './services/queries.service';
 import { Component } from '@angular/core';
 import { Apollo, gql, Query } from 'apollo-angular';
@@ -16,7 +17,8 @@ export class AppComponent {
   constructor(
     private apollo: Apollo,
     private httpLink: HttpLink,
-    private queries: QueriesService
+    private queries: QueriesService,
+    private graphqlService: GraphqlService
   ) {
     apollo.create({
       cache: new InMemoryCache(),
@@ -30,20 +32,24 @@ export class AppComponent {
   }
 
   getCategories() {
-   this.apollo
-    .watchQuery<any>({query: this.queries.categoryListQuery})
-    .valueChanges.pipe(map((result)=>result.data.cmsTemplate.lookups.categories)).subscribe((data)=>{
-      localStorage.setItem('categories', JSON.stringify(data))
-    })
+  //  this.apollo
+  //   .watchQuery<any>({query: this.queries.categoryListQuery})
+  //   .valueChanges.pipe(map((result)=>result.data.cmsTemplate.lookups.categories)).subscribe((data)=>{
+  //     localStorage.setItem('categories', JSON.stringify(data))
+  //   })
+
+    this.graphqlService
+    .getGraphQL(this.queries.categoryListQuery, false)
+    .then((data) => {
+      localStorage.setItem('categories', JSON.stringify(data.cmsTemplate.lookups.categories))
+    });
   }
-
-  testMutation(name) {
-    this.apollo.mutate({
-      mutation: this.queries.addCategoriesMutation,
-      variables: {name: name},
-    }).subscribe((data)=>{
+  name = "hhhhh"
+  testMutation() {
+    this.graphqlService
+    .mutateGraphQL(this.queries.addCategoriesMutation, {name: this.name})
+    .then((data) => {
       console.log(data);
-    })
-
+    });
   }
 }
