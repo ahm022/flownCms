@@ -3,6 +3,7 @@ import { QueriesService } from './services/queries.service';
 import { Component } from '@angular/core';
 import { Apollo, gql, Query } from 'apollo-angular';
 import { InMemoryCache } from '@apollo/client/core';
+import { AuthenticationService } from "./services/authentication.service";
 import { HttpLink } from 'apollo-angular/http';
 import { Observable, map } from 'rxjs';
 
@@ -18,7 +19,8 @@ export class AppComponent {
     private apollo: Apollo,
     private httpLink: HttpLink,
     private queries: QueriesService,
-    private graphqlService: GraphqlService
+    private graphqlService: GraphqlService,
+    private authenticationService: AuthenticationService,
   ) {
     apollo.create({
       cache: new InMemoryCache(),
@@ -26,18 +28,22 @@ export class AppComponent {
         uri: 'https://dev-leb-graph.diasporaid.com/graphql?sdl',
       }),
     });
+
+    this.authenticationService.checkIfLogin().then(() => {
+      // Logged In
+      if (this.authenticationService.isLoggedIn) {
+        // this.prepareUserInfo();
+        // Not logged In!
+      } else {
+        this.authenticationService.login();
+      }
+    });
   }
   ngOnInit(): void {
     this.getCategories()
   }
 
   getCategories() {
-  //  this.apollo
-  //   .watchQuery<any>({query: this.queries.categoryListQuery})
-  //   .valueChanges.pipe(map((result)=>result.data.cmsTemplate.lookups.categories)).subscribe((data)=>{
-  //     localStorage.setItem('categories', JSON.stringify(data))
-  //   })
-
     this.graphqlService
     .getGraphQL(this.queries.categoryListQuery, false)
     .then((data) => {
@@ -52,4 +58,30 @@ export class AppComponent {
       console.log(data);
     });
   }
+
+  // prepareUserInfo() {
+  //   this.graphqlService.getGraphQL(Queries.checkUserPermission, false).then((permissionsData: any) => {
+  //     const userPermissions = _.get(permissionsData, "backOffice.actions", null);
+  //     this.authenticationService.canManageDiaspora = userPermissions.canManageDiaspora;
+  //     this.graphqlService
+  //     .getGraphQL(Queries.whoAmI, true)
+  //     .then((userInfo) => {
+  //       const userDetails: any = _.get(userInfo, "people.actions.getMyProfile.views", null);
+  //       this.storageService.saveUserInformation(userDetails, userPermissions);
+  //       this.sharingDataService.notifyNewLoggedInUserSubscribers(userDetails);
+
+  //       if (userPermissions.canManageDiaspora) {
+  //         this._fuseNavigationService.setCurrentNavigation("main");
+  //       } else {
+  //         this._fuseSplashScreenService.hide();
+  //         this.generalService.showErrorMessage("User not Authorized to access BackOffice. Are you admin?");
+  //       }  
+  //     })
+  //     .catch((exGql) => {
+  //       this.generalService.showErrorMessage("Error Getting Current User Info");
+  //     }).finally(() => {
+  //       this._fuseSplashScreenService.hide();
+  //     });
+  //   });
+  // }
 }

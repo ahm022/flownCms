@@ -10,10 +10,16 @@ import { CommentsComponent } from './pages/main/comments/comments.component';
 import { GalleryComponent } from './pages/main/gallery/gallery.component';
 import { LayoutComponent } from './pages/main/layout/layout.component';
 import { AddNewBlockComponent } from './pages/main/add-new-block/add-new-block.component';
+import { GuardGuard } from '../app/guard/guard.guard';
 
 
 const routes: Routes = [
-  {path:"dashboard", component:DashboardComponent, children: [
+  {
+    path: "",
+    component: DashboardComponent
+  },
+  {path:"dashboard", component:DashboardComponent,
+   children: [
     {path:'pages', component: PagesComponent},
     {path: 'add-new-page', component: AddNewPageComponent},
     {path: 'add-new-block', component: AddNewBlockComponent},
@@ -24,7 +30,11 @@ const routes: Routes = [
     {path:"messages", component: MessagesComponent},
     {path:"comments", component: CommentsComponent},
     {path:"gallery", component: GalleryComponent}
-  ]}
+  ]},
+  {
+    path: "**",
+    redirectTo: "dashboard/pages"
+  },
 ];
 
 @NgModule({
