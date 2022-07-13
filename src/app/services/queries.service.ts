@@ -29,5 +29,22 @@ export class QueriesService {
       }
     }
   `;
+  whoAmI = `
+    mutation {
+      cmsTemplate {
+        actions {
+          getMyProfile{
+            id
+            views{
+              people_Public{
+                firstName
+                lastName
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
   constructor() {}
 }
