@@ -34,27 +34,29 @@ export class GraphqlService {
         }
       })
     }
-    mutateGraphQL(query: String, variables?: any): Promise<any> {
-      let subscription = null;
+    // mutateGraphQL(query: String, variables?: any): Promise<any> {
+    //   console.log("query",query);
+    //   let subscription = null;
 
-      return new Promise((resolve, reject) => {
+    //   return new Promise((resolve, reject) => {
 
-        let actualQuery = query;
-        try {
-          subscription = this.apollo
-            .mutate<any>({
-              mutation: gql`
-                ${actualQuery}
-              `,
-              variables
-            }).subscribe(({data})=>{
-              resolve(data)
-            })
-        } catch (e) {
-          this.generalService.printError("GraphQL Error", e);
-          reject(e);
-        }
-      })
-    }
+    //     let actualQuery = query;
+    //     try {
+    //       subscription = this.apollo
+    //         .mutate<any>({
+    //           mutation: gql`
+    //             ${actualQuery}
+    //           `,
+    //           variables
+    //         }).subscribe(({data})=>{
+    //           console.log("test",data);
+    //           resolve(data)
+    //         })
+    //     } catch (e) {
+    //       this.generalService.printError("GraphQL Error", e);
+    //       reject(e);
+    //     }
+    //   })
+    // }
 
 }

@@ -13,11 +13,7 @@ export class GuardGuard implements CanActivate {
   constructor(private $authenticationService: AuthenticationService, private generalService: GeneralService) {}
 
   canActivate(): boolean {
-    if(!this.$authenticationService.isLoggedIn) {
-        this.generalService.navigateTo('/')
-      return false
-    }
-    return true
+    return this.$authenticationService.isLoggedIn;
   }
 
 }
