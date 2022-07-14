@@ -11,6 +11,7 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { ImagePreviewComponent } from './image-preview/image-preview.component';
 import { LayoutComponent } from './layout/layout.component';
 import { AddNewBlockComponent } from './add-new-block/add-new-block.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AddNewBlockComponent } from './add-new-block/add-new-block.component';
     ImagePreviewComponent,
     LayoutComponent,
     AddNewBlockComponent,
+    UserInfoComponent,
   ],
   imports: [CommonModule, SharedModule],
   exports: [
@@ -34,7 +36,8 @@ import { AddNewBlockComponent } from './add-new-block/add-new-block.component';
     GalleryComponent,
     ImagePreviewComponent,
     LayoutComponent,
-    AddNewBlockComponent
+    AddNewBlockComponent,
+    UserInfoComponent
   ],
 })
 export class MainPagesModule {}

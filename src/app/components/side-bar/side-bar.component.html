@@ -1,6 +1,6 @@
 <div class="sidebar-menu">
-    <div #sidebarContainer class="sidebar-menu-container">
-        <div class="sidebar-menu-item burgerMenu">
+    <div *ngIf="authService.isLoggedIn" #sidebarContainer class="sidebar-menu-container">
+        <div  class="sidebar-menu-item burgerMenu">
             <div class="txt">Menu</div>
             <img (click)="hideShowSideBar()" src="../../../assets/icons/menu.svg">
         </div>

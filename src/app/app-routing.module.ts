@@ -1,3 +1,4 @@
+import { UserInfoComponent } from './pages/main/user-info/user-info.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -14,10 +15,8 @@ import { GuardGuard } from '../app/guard/guard.guard';
 
 
 const routes: Routes = [
-  {
-    path: "",
-    component: DashboardComponent
-  },
+  {path: "", component: UserInfoComponent},
+  {path: "user-info", component: UserInfoComponent},
   {path:"dashboard", component:DashboardComponent,
    children: [
     {path:'pages', component: PagesComponent},
@@ -31,10 +30,6 @@ const routes: Routes = [
     {path:"comments", component: CommentsComponent},
     {path:"gallery", component: GalleryComponent}
   ]},
-  {
-    path: "**",
-    redirectTo: "dashboard/pages"
-  },
 ];
 
 @NgModule({

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -7,7 +8,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class SideBarComponent implements OnInit {
   @ViewChild('sidebarContainer') sidebarContainer: ElementRef;
-  constructor() { }
+  constructor(public authService: AuthenticationService) { }
 
   sidebarLinks = [
     {
@@ -35,7 +36,7 @@ export class SideBarComponent implements OnInit {
       icon: "../../../assets/icons/comments.svg",
       router: "/dashboard/comments"
     },
-    { 
+    {
       txt:"Gallery",
       icon: "../../../assets/icons/gallery.svg",
       router: "/dashboard/gallery"
@@ -49,6 +50,6 @@ export class SideBarComponent implements OnInit {
   ngOnInit(): void {
   }
   logout() {
-    
+    this.authService.logout();
   }
 }

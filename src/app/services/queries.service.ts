@@ -7,7 +7,7 @@ import { gql } from 'apollo-angular';
 export class QueriesService {
   categoryListQuery =
   `query {
-      cmsTemplate {
+      cmsTemplate2 {
         lookups {
           categories {
             categoryId

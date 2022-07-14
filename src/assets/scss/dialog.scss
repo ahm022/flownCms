@@ -32,6 +32,12 @@
     flex-direction: column;
     height: 100%;
   .image-preview-container {
+    .image-preview-image {
+      width: 100%;
+      background: var(--gray-secondary-three);
+      display: flex;
+      justify-content: center;
+    }
     .image-preview-items {
         display: flex;
         flex-direction: column;

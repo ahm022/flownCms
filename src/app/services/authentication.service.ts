@@ -24,13 +24,14 @@ export class AuthenticationService {
     // private sharingDataService: SharingDataService
   ) {
     // If we're on the browser
-  
+
     this.msalForBrowser = new MsalForBrowser.PublicClientApplication(environment.MsalOptionsForBrowser);
     this.handleRedirectPromise = this.msalForBrowser
       .handleRedirectPromise()
       .then((tokenResponse) => {
         this.startRefreshTokenTimer();
         // redirected back
+        console.log('tokenResponse', tokenResponse);
         if (tokenResponse) {
           this.accounts = [tokenResponse.account.localAccountId];
           this.changeLoginState(tokenResponse.accessToken || tokenResponse.idToken);

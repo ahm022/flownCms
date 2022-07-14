@@ -1,3 +1,5 @@
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
-  constructor() { }
+  hintTitle
+  constructor(public authService: AuthenticationService, public router : Router) { }
 
   ngOnInit(): void {
+    this.hintTitle =  this.router.url === "/" ? true : false
+
   }
 
 }

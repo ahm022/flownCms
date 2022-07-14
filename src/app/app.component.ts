@@ -22,12 +22,7 @@ export class AppComponent {
     private graphqlService: GraphqlService,
     private authenticationService: AuthenticationService,
   ) {
-    apollo.create({
-      cache: new InMemoryCache(),
-      link: httpLink.create({
-        uri: 'https://dev-leb-graph.diasporaid.com/graphql?sdl',
-      }),
-    });
+
 
     this.authenticationService.checkIfLogin().then(() => {
       // Logged In
@@ -75,7 +70,7 @@ export class AppComponent {
   //       } else {
   //         this._fuseSplashScreenService.hide();
   //         this.generalService.showErrorMessage("User not Authorized to access BackOffice. Are you admin?");
-  //       }  
+  //       }
   //     })
   //     .catch((exGql) => {
   //       this.generalService.showErrorMessage("Error Getting Current User Info");

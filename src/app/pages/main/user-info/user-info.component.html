@@ -1,0 +1,48 @@
+<div class="auth">
+  <app-page-header [title]="'Create New User'"></app-page-header>
+<form [formGroup]="userFormGroup" (ngSubmit)="submitUser()">
+  <div class="form-content">
+    <app-custom-input
+      labelText="First name"
+      [isRequired]="true"
+      inputType="text"
+      [controlName]="'firstName'"
+      [formGroup]="userFormGroup"
+      [type]="'simple-input'"
+      [placeholder]="'Enter your first name'"
+      [validationErrors]="validationErrorMessages?.firstName"
+    >
+    </app-custom-input>
+
+    <app-custom-input
+      labelText="Last name"
+      [isRequired]="true"
+      inputType="text"
+      [controlName]="'lastName'"
+      [formGroup]="userFormGroup"
+      [type]="'simple-input'"
+      [placeholder]="'Enter your last name'"
+      [validationErrors]="validationErrorMessages?.lastName"
+    >
+    </app-custom-input>
+
+    <app-custom-input
+      labelText="Contact email"
+      [isRequired]="true"
+      inputType="text"
+      [controlName]="'contactEmail'"
+      [formGroup]="userFormGroup"
+      [type]="'simple-input'"
+      [placeholder]="'Enter your contact email'"
+      [validationErrors]="validationErrorMessages?.contactEmail"
+    >
+    </app-custom-input>
+  </div>
+  <app-btn
+  [disabled]="!userFormGroup.valid"
+  [type]="'submit'"
+  [btnText]="'Submit User'"
+></app-btn>
+</form>
+
+</div>

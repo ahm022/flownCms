@@ -1,9 +1,14 @@
-<app-nav-bar>
-
-</app-nav-bar>
+<app-nav-bar> </app-nav-bar>
 <div class="page-content">
-    <app-side-bar></app-side-bar>
-    <div class="page-right-content">
-        <router-outlet></router-outlet>
+  <app-side-bar></app-side-bar>
+  <div class="page-right-content">
+    <div *ngIf="authService.isLoggedIn && hintTitle" style="text-align: center">
+      <h1 class="hint-title">
+        Welcome To FlowCms
+      </h1>
     </div>
+
+      <div class="hint-title" *ngIf="!authService.isLoggedIn  && hintTitle">You are not logged-In</div>
+      <router-outlet></router-outlet>
+  </div>
 </div>

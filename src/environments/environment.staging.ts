@@ -8,7 +8,7 @@ export const environment = {
   hmr: false,
   ApiUrlsForBrowser: {
     graphql_schema_url: 'https://staging-leb-graph.diasporaid.com/graphql/schema?sdl',
-    graphql_url: 'https://staging-leb-graph.diasporaid.com/graphql?sdl',
+    graphql_url: 'https://dev-leb-graph.diasporaid.com/graphql?sdl',
   },
   MsalOptionsForBrowser: {
     auth: {
