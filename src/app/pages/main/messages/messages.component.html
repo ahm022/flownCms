@@ -60,7 +60,7 @@
       <td mat-cell *matCellDef="let element">
         <div class="row-actions">
           <img (click)="deleteMessage(element.id)" [src]="deleteIcon" alt="" />
-          <app-btn
+          <app-btn *ngIf="!element.isreaded"
             [btnText]="'Mark as read'"
             [btnClass]="'row-button'"
             (clickEvent)="markMessageAsRead(element.id)"

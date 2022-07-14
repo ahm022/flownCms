@@ -4,7 +4,7 @@ import { HttpClientModule } from "@angular/common/http";
 // Apollo
 import { APOLLO_OPTIONS } from "apollo-angular";
 import { HttpLinkModule } from "apollo-angular-link-http";
-import { InMemoryCache } from "apollo-cache-inmemory";
+import {InMemoryCache} from '@apollo/client/core'
 import { createUploadLink } from "apollo-upload-client";
 import { AuthenticationService } from "../services/authentication.service";
 import { ApolloLink, FetchResult, NextLink, Observable, Operation, RequestHandler } from "apollo-link";
