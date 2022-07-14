@@ -16,7 +16,6 @@ export class UserInfoComponent implements OnInit {
     firstName: [{ type: 'required', message: 'First Name  is required' }],
     lastName: [{ type: 'required', message: 'Last name is required' }],
     contactEmail: [{ type: 'required', message: 'contact email is required' }],
-    paragraph: [{ type: 'required', message: 'paragraph is required' }],
   };
 
   constructor(private formBuilder: FormBuilder, private generalService : GeneralService, private queries: QueriesService, private graphqlService: GraphqlService ) {}
@@ -34,7 +33,7 @@ export class UserInfoComponent implements OnInit {
   }
   submitUser() {
     this.graphqlService
-    .mutateGraphQL(this.queries.createUserMutation, {userInfo: this.userFormGroup.value})
+    .getGraphQL(this.queries.createUserMutation, {userInfo: this.userFormGroup.value})
     .then((data) => {
       console.log(data);
       this.generalService.navigateTo('dashboard/pages')

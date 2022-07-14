@@ -1,6 +1,6 @@
 import { UserInfoComponent } from './pages/main/user-info/user-info.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes,PreloadAllModules } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PagesComponent } from './pages/main/pages/pages.component';
 import { AddNewPageComponent } from './pages/main/add-new-page/add-new-page.component';
@@ -15,8 +15,9 @@ import { GuardGuard } from '../app/guard/guard.guard';
 
 
 const routes: Routes = [
+  
   {path: "", component: UserInfoComponent},
-  {path: "user-info", component: UserInfoComponent},
+  {path: "user-info", component: UserInfoComponent,canActivate: [GuardGuard],},
   {path:"dashboard", component:DashboardComponent,
    children: [
     {path:'pages', component: PagesComponent},
@@ -30,10 +31,17 @@ const routes: Routes = [
     {path:"comments", component: CommentsComponent},
     {path:"gallery", component: GalleryComponent}
   ]},
+  {
+    path: "**",
+    component:DashboardComponent
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, useHash: true })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+
+  
+ }

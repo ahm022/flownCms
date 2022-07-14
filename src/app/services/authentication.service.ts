@@ -3,8 +3,9 @@ import { environment } from "../../environments/environment";
 import jwt_decode from "jwt-decode";
 import * as MsalForBrowser from "@azure/msal-browser";
 import { StorageService } from "./storage.service";
-// import { SharingDataService } from "./sharing-data.service";
+import { SharingDataService } from "./sharing-data.service";
 // import { ParametersStorageService } from "src/app/dynamic-ui-service/parametersStorage.service";
+
 
 @Injectable({
   providedIn: "root",
@@ -21,7 +22,7 @@ export class AuthenticationService {
 
   constructor(
     private storageService: StorageService,
-    // private sharingDataService: SharingDataService
+    private sharingDataService: SharingDataService
   ) {
     // If we're on the browser
 
@@ -35,7 +36,7 @@ export class AuthenticationService {
         if (tokenResponse) {
           this.accounts = [tokenResponse.account.localAccountId];
           this.changeLoginState(tokenResponse.accessToken || tokenResponse.idToken);
-          // this.sharingDataService.notifyUserInformationSubscribers(true);
+          this.sharingDataService.notifyUserInformationSubscribers(true);
         }
       })
       .catch((error) => {
@@ -70,6 +71,7 @@ export class AuthenticationService {
     return this.msalForBrowser
       .acquireTokenSilent(silentRequest)
       .then((silentResult) => {
+        console.log('silentResult', silentResult);
         if (silentResult) {
           this.changeLoginState(silentResult.accessToken || silentResult.idToken);
           return true;
@@ -78,7 +80,7 @@ export class AuthenticationService {
         }
       })
       .catch((error) => {
-        if (!environment.production) {
+        if (!environment) {
           // console.error("Error in ssoSilent", error);
         }
         return false;
