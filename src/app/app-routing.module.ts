@@ -17,7 +17,7 @@ import { GuardGuard } from '../app/guard/guard.guard';
 const routes: Routes = [
   
   {path: "", component: UserInfoComponent},
-  {path: "user-info", component: UserInfoComponent,canActivate: [GuardGuard],},
+  {path: "user-info", component: UserInfoComponent},
   {path:"dashboard", component:DashboardComponent,
    children: [
     {path:'pages', component: PagesComponent},

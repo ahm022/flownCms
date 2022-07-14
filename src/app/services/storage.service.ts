@@ -7,20 +7,20 @@ export class StorageService {
 
   // User Information
   public saveUserInformation(userInformation: any, userPermissions: any) {
-    localStorage.setItem('backOffice_user_information', JSON.stringify(userInformation));
-    localStorage.setItem('backOffice_user_permissions', JSON.stringify(userPermissions));
+    localStorage.setItem('cms_user_information', JSON.stringify(userInformation));
+    localStorage.setItem('cms_user_permissions', JSON.stringify(userPermissions));
   }
 
   public getUserInformation() {
-    return localStorage.getItem('backOffice_user_information') ? JSON.parse(localStorage.getItem('backOffice_user_information')) : null;
+    return localStorage.getItem('cms_user_information') ? JSON.parse(localStorage.getItem('cms_user_information')) : null;
   }
 
   public getUserPermissions() {
-    return localStorage.getItem('backOffice_user_permissions') ? JSON.parse(localStorage.getItem('backOffice_user_permissions')) : null;
+    return localStorage.getItem('cms_user_permissions') ? JSON.parse(localStorage.getItem('cms_user_permissions')) : null;
   }
 
   public checkIfUserIsLoggedIn() {
-    return localStorage.getItem('backOffice_user_information') ? true : false;
+    return localStorage.getItem('cms_user_information') ? true : false;
   }
 
   // User Id
