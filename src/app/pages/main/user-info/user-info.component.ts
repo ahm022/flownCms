@@ -1,3 +1,5 @@
+import { GraphqlService } from './../../../services/graphql.service';
+import { QueriesService } from './../../../services/queries.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { GeneralService } from 'src/app/services/general.service';
@@ -9,13 +11,15 @@ import { GeneralService } from 'src/app/services/general.service';
 })
 export class UserInfoComponent implements OnInit {
   userFormGroup: FormGroup;
+
   validationErrorMessages = {
     firstName: [{ type: 'required', message: 'First Name  is required' }],
     lastName: [{ type: 'required', message: 'Last name is required' }],
     contactEmail: [{ type: 'required', message: 'contact email is required' }],
     paragraph: [{ type: 'required', message: 'paragraph is required' }],
   };
-  constructor(private formBuilder: FormBuilder, private generalService : GeneralService) {}
+
+  constructor(private formBuilder: FormBuilder, private generalService : GeneralService, private queries: QueriesService, private graphqlService: GraphqlService ) {}
 
   ngOnInit(): void {
     this.prepareForm();
@@ -29,7 +33,11 @@ export class UserInfoComponent implements OnInit {
     });
   }
   submitUser() {
-    console.log(this.userFormGroup.value);
-    this.generalService.navigateTo('dashboard/pages')
+    this.graphqlService
+    .mutateGraphQL(this.queries.createUserMutation, {userInfo: this.userFormGroup.value})
+    .then((data) => {
+      console.log(data);
+      this.generalService.navigateTo('dashboard/pages')
+    });
   }
 }

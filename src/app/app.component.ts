@@ -33,7 +33,7 @@ export class AppComponent {
     this.authenticationService.checkIfLogin().then(() => {
       // Logged In
       if (this.authenticationService.isLoggedIn) {
-        this.prepareUserInfo();
+        // this.prepareUserInfo();
         // Not logged In!
       } else {
         this.authenticationService.login();
@@ -41,34 +41,19 @@ export class AppComponent {
     });
   }
   ngOnInit(): void {
-    this.getCategories()
   }
 
-  getCategories() {
-    this.graphqlService
-    .getGraphQL(this.queries.categoryListQuery, false)
-    .then((data) => {
-      localStorage.setItem('categories', JSON.stringify(data.cmsTemplate.lookups.categories))
-    });
-  }
-  name = "hhhhh"
-  testMutation() {
-    this.graphqlService
-    .mutateGraphQL(this.queries.addCategoriesMutation, {name: this.name})
-    .then((data) => {
-      console.log(data);
-    });
-  }
 
-  prepareUserInfo() {
-    this.graphqlService.getGraphQL(this.queries.whoAmI, true)
-    .then((userInfo) => {
-      const userDetails: any = _.get(userInfo, "people.actions.getMyProfile.views", null);
-      this.sharingDataService.notifyNewLoggedInUserSubscribers(userDetails);
-    })
-    .catch((exGql) => {
-      this.generalService.showErrorMessage("Error Getting Current User Info");
-    }).finally(() => {
-    });
-  }
+
+  // prepareUserInfo() {
+  //   this.graphqlService.getGraphQL(this.queries.whoAmI, true)
+  //   .then((userInfo) => {
+  //     const userDetails: any = _.get(userInfo, "people.actions.getMyProfile.views", null);
+  //     this.sharingDataService.notifyNewLoggedInUserSubscribers(userDetails);
+  //   })
+  //   .catch((exGql) => {
+  //     this.generalService.showErrorMessage("Error Getting Current User Info");
+  //   }).finally(() => {
+  //   });
+  // }
 }

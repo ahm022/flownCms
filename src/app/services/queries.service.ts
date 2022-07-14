@@ -5,6 +5,16 @@ import { gql } from 'apollo-angular';
   providedIn: 'root',
 })
 export class QueriesService {
+
+  createUserMutation = `
+    mutation createUser($userInfo: CmsTemplate2_createUserInput!){
+      cmsTemplate2{
+        actions{
+          createUser(model: $userInfo)
+        }
+      }
+    }
+  `
   categoryListQuery =
   `query {
       cmsTemplate2 {
