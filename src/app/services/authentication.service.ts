@@ -52,6 +52,8 @@ export class AuthenticationService {
   checkIfLogin(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.handleRedirectPromise.finally(() => {
+        console.log('refreshTokenPromise', this.refreshTokenPromise);
+        console.log('getAccessTokenForBrowser', this.getAccessTokenForBrowser);
         return (this.refreshTokenPromise = this.getAccessTokenForBrowser().finally(() => {
           this.refreshTokenPromise = null;
           resolve(this.accessToken ? true : false);

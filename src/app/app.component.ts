@@ -32,6 +32,7 @@ export class AppComponent implements OnInit, OnDestroy{
 
     this.authenticationService.checkIfLogin().then(() => {
       // Logged In
+      console.log("this.authenticationService.isLoggedIn",this.authenticationService.isLoggedIn)
       if (this.authenticationService.isLoggedIn) {
         this.prepareUserInfo();
         // Not logged In!
