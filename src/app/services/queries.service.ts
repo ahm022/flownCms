@@ -10,7 +10,16 @@ export class QueriesService {
     mutation createUser($userInfo: CmsTemplate2_createUserInput!){
       cmsTemplate2{
         actions{
-          createUser(model: $userInfo)
+          createUser(model: $userInfo){
+            id
+            views{
+              cmsTemplate2_All{
+                firstName
+                lastName
+                email
+              }
+            }
+          }
         }
       }
     }
@@ -41,14 +50,15 @@ export class QueriesService {
   `;
   whoAmI = `
     mutation {
-      cmsTemplate {
+      cmsTemplate2 {
         actions {
           getMyProfile{
             id
             views{
-              people_Public{
+              cmsTemplate2_All{
                 firstName
                 lastName
+                email
               }
             }
           }
