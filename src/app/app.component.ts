@@ -2,7 +2,7 @@ import { GraphqlService } from './services/graphql.service';
 import { QueriesService } from './services/queries.service';
 import { Component } from '@angular/core';
 import { Apollo, gql, Query } from 'apollo-angular';
-import { InMemoryCache } from '@apollo/client/core';
+
 import { AuthenticationService } from "./services/authentication.service";
 import { HttpLink } from 'apollo-angular/http';
 import { StorageService } from "./services/storage.service";

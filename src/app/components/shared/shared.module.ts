@@ -19,8 +19,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { EmptyStateComponent } from './empty-state/empty-state.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
-import {HttpLink} from 'apollo-angular/http';
-import {InMemoryCache} from '@apollo/client/core';
+
 
 @NgModule({
   declarations: [
