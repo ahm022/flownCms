@@ -1,4 +1,4 @@
-import { GeneralService } from 'src/app/services/general.service';
+import { GeneralService } from '../services/general.service';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Route, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
