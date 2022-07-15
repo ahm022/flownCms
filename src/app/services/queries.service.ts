@@ -122,5 +122,82 @@ export class QueriesService {
       }
     }
   `;
+
+  pageQuery = `
+    query{
+      cmsTemplate2{
+        queries{
+          cmsTemplate2_Posts(first:10){
+            items{
+              cmsTemplate2_post{
+                id
+                views{
+                  all{
+                    postTitle
+                    author {
+                      views{
+                        cmsTemplate2_All{
+                          firstName
+                          lastName
+                        }
+                      }
+                    }
+                    slug
+                    status
+                    category {
+                      name
+                    }
+                    postDescription
+                    gated
+                    postImage {
+                      __typename
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `
+  searchPageQuery = `
+    query searchPages($name: String){
+      cmsTemplate2{
+        queries{
+          cmsTemplate2_Posts(first:10, keyword: $name){
+            items{
+              cmsTemplate2_post{
+                id
+                views{
+                  all{
+                    postTitle
+                    author {
+                      views{
+                        cmsTemplate2_All{
+                          firstName
+                          lastName
+                        }
+                      }
+                    }
+                    slug
+                    status
+                    category {
+                      name
+                    }
+                    postDescription
+                    gated
+                    postImage{
+                      __typename
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `
   constructor() {}
 }

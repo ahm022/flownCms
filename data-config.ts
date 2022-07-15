@@ -42,9 +42,9 @@ export class data {
     },
   ];
   static statusPageOptions = [
-    { name: 'Published', value: 'Published' },
-    { name: 'Draft', value: 'Draft' },
-    { name: 'Pending', value: 'Pending' },
+    { name: 'Published', value: 'PUBLISHED' },
+    { name: 'Draft', value: 'DRAFT' },
+    { name: 'Pending', value: 'PENDING' },
   ];
   static gatedPageOptions = [
     { name: 'Yes', value: true },

@@ -66,6 +66,7 @@ import { SkeletonComponent } from './skeleton/skeleton.component';
     EmptyStateComponent,
     BackDropComponent,
     SkeletonComponent,
+    EmptyStateComponent,
     MatTableModule,
     MatSortModule,
     MatDialogModule,

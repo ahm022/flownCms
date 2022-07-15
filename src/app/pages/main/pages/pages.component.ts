@@ -1,3 +1,5 @@
+import { GraphqlService } from './../../../services/graphql.service';
+import { QueriesService } from 'src/app/services/queries.service';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { data } from '../../../../../data-config';
 import { icons } from '../../../../../data-config';
@@ -7,6 +9,9 @@ import { GeneralService } from 'src/app/services/general.service';
 import { DeleteDialogComponent } from 'src/app/components/shared/delete-dialog/delete-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Apollo, gql } from 'apollo-angular';
+import { mapPostToItem } from "src/app/services/mapping-helper";
+import * as _ from "lodash";
+
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
@@ -14,8 +19,9 @@ import { Apollo, gql } from 'apollo-angular';
 })
 export class PagesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
-  ELEMENT_DATA: any = data.pageTableData;
-  dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+  debounce: any;
+  pages = [];
+  isloaded = false
   displayedColumns: string[] = [
     'title',
     'author',
@@ -27,7 +33,6 @@ export class PagesComponent implements OnInit {
     'gated',
     'actions',
   ];
-  isLoaded = true;
 
   // Icons
   deleteIcon = icons.deleteIcon.toString();
@@ -39,18 +44,16 @@ export class PagesComponent implements OnInit {
   constructor(
     private generalService: GeneralService,
     private dialog: MatDialog,
-    private apollo: Apollo
+    private apollo: Apollo,
+    private queries: QueriesService,
+    private graphqlService: GraphqlService
   ) {}
 
-  ngOnInit(): void {}
-
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
+  ngOnInit(): void {
+    this.getPages()
   }
 
-  announceSortChange(sortState: Sort) {
-    this.generalService.filteringTable(sortState);
-  }
+
 
   deletePage(id) {
     this.dialog
@@ -64,23 +67,39 @@ export class PagesComponent implements OnInit {
       .afterClosed()
       .subscribe((res) => {
         if (res === 'true') {
-          let EDIT_ELEMENT_DATA = this.ELEMENT_DATA.filter((el) => {
+          let EDIT_pages = this.pages.filter((el) => {
             return el.id != id;
           });
-          this.ELEMENT_DATA = EDIT_ELEMENT_DATA;
-          this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+          this.pages = EDIT_pages;
         }
       });
   }
 
-  savePage() {}
+  getPages() {
+    this.isloaded = true
+    this.graphqlService.getGraphQL(this.queries.pageQuery, false).then((results)=>{
+      this.pages =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_Posts.items", []).map((x: any) => mapPostToItem(x));
+    }).finally(()=>{
+      this.isloaded = false
+    })
+  }
+
   navigateToAddNewPage() {
     this.generalService.navigateTo('/dashboard/add-new-page');
   }
   selectPageStatus(e) {
     alert('status was changed to ' + e);
   }
-  searchPage(e) {
-    console.log(e.target.value);
+  searchPages(e) {
+    this.isloaded = true
+    clearTimeout(this.debounce);
+    this.debounce = setTimeout(() => {
+      this.graphqlService.getGraphQL(this.queries.searchPageQuery , {name: e.target.value ? e.target.value : null}).then((results)=>{
+        this.pages =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_Posts.items", []).map((x: any) => mapPostToItem(x));
+      }).finally(()=>{
+        this.isloaded = false
+      })
+    }, 1000);
   }
+
 }

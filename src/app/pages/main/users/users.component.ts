@@ -70,7 +70,7 @@ export class UsersComponent implements OnInit {
     .then((results) => {
       console.log("results",results)
       this.users =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_Users.items", []).map((x: any) => mapSearchUserToItem(x));
-      
+
       this.cursor = results.cmsTemplate2.queries.cmsTemplate2_Users.cursor;
     })
     .finally(() => {

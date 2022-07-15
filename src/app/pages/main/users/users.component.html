@@ -1,5 +1,5 @@
 <app-page-header [title]="'Users'"></app-page-header>
-
+<app-skeleton *ngIf="!users"></app-skeleton>
 <div *ngIf="users" class="table-container">
   <table mat-table [dataSource]="users" class="mat-elevation-z8">
     <!-- Name Column -->

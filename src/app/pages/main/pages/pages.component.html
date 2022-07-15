@@ -1,20 +1,21 @@
 <app-page-header [title]="'Pages'"></app-page-header>
 
 <app-btn
-  (clickEvent)="navigateToAddNewPage()"
   [btnText]="'Add New Page'"
+  (clickEvent)="navigateToAddNewPage()"
 ></app-btn>
+
 <div class="input-search">
-<app-search-input  (changeEvent)="searchPage($event)"></app-search-input>
+<app-search-input  (changeEvent)="searchPages($event)"></app-search-input>
 </div>
-<div>
-<app-skeleton *ngIf="ELEMENT_DATA.length <= 0 && !isLoaded"></app-skeleton>
-<div *ngIf="ELEMENT_DATA.length > 0 && isLoaded" class="table-container">
+
+<app-skeleton *ngIf="isloaded"></app-skeleton>
+<app-empty-state [emptyLabel]="'No pages Found'" *ngIf="!isloaded && pages.length <= 0"></app-empty-state>
+<div *ngIf="!isloaded && pages.length > 0" class="table-container">
   <table
     mat-table
-    [dataSource]="dataSource"
+    [dataSource]="pages"
     matSort
-    (matSortChange)="announceSortChange($event)"
     class="mat-elevation-z8"
   >
     <!-- Title Column -->
@@ -22,8 +23,8 @@
       <th mat-header-cell *matHeaderCellDef>Title</th>
       <td mat-cell *matCellDef="let element">
         <div class="row-image">
-          <img [src]="element.pageImage" />
-          {{ element.title }}
+          <img *ngIf="element.postImage" [src]="element.postImage" />
+          {{ element.id }}
         </div>
       </td>
     </ng-container>
@@ -94,7 +95,7 @@
         <div class="row-actions">
           <img (click)="deletePage(element.id)" [src]="deleteIcon" alt="" />
 
-          <img (click)="savePage(element.id)" [src]="editIcon" alt="" />
+          <img  [src]="editIcon" alt="" />
         </div>
       </td>
     </ng-container>
