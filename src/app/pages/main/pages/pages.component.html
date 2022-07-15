@@ -5,8 +5,10 @@
   [btnText]="'Add New Page'"
 ></app-btn>
 <div class="input-search">
-<app-search-input (changeEvent)="searchPage($event)"></app-search-input>
+<app-search-input  (changeEvent)="searchPage($event)"></app-search-input>
 </div>
+<div>
+<app-skeleton *ngIf="ELEMENT_DATA.length <= 0 && !isLoaded"></app-skeleton>
 <div *ngIf="ELEMENT_DATA.length > 0 && isLoaded" class="table-container">
   <table
     mat-table

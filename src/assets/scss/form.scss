@@ -69,6 +69,17 @@
       }
     }
   }
+  .input-label {
+    position: relative;
+    &.required {
+      &:after {
+        content: "*";
+        color: var(--red-primary);
+        position: absolute;
+        top: -6px;
+      }
+    }
+  }
 }
 .input-container-file {
   position: relative;
@@ -124,7 +135,7 @@
     &::placeholder {
       color: var(--gray-secondary-two);
     }
-    &:focus{
+    &:focus {
       border-color: var(--blue-primary);
     }
   }

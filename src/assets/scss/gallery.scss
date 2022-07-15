@@ -23,7 +23,7 @@
           object-fit: contain;
         }
       }
-      
+
     }
     .gallery-filter-button{
       display: flex;
@@ -36,9 +36,10 @@
     margin-top: 20px;
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
     .gallery-item {
-        width: 100px;
-        height: 100px;
+        width: 150px;
+        height: 150px;
         object-fit: cover;
         background-color: var(--gray-secondary-one);
         cursor: pointer;

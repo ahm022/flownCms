@@ -42,11 +42,17 @@ export class AppComponent implements OnInit, OnDestroy{
     });
   }
   ngOnInit(): void {
+    // this.getCtaegories()
   }
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
   }
 
+  getCtaegories() {
+    this.graphqlService.getGraphQL(this.queries.getCategoriesQuery).then((data)=>{
+      // localStorage.setItem('categories', data.cmsTemplate2.lookups.categories)
+    })
+  }
 
   prepareUserInfo() {
     this.graphqlService.getGraphQL(this.queries.whoAmI, true)
