@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 export class GeneralService {
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private route: Router) {}
+  loader = false;
   filteringTable(sortState: Sort) {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);

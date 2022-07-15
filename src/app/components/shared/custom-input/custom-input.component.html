@@ -12,7 +12,7 @@
 
 <div *ngIf="type==='file'" [formGroup]="formGroup">
     <!-- <label class="input-label" *ngIf="labelText" [ngClass]="[isRequired ? 'required' : ''] ">{{labelText}}</label> -->
-    <input  id="file-upload" (change)="changeNewEvent($event)" class="text-input" [attr.type]="inputType" [formControlName]="controlName" [placeholder]="placeholder">
+    <input  id="file-upload" (change)="changeNewEvent($event)" class="text-input" [attr.type]="inputType"  [placeholder]="placeholder">
 </div>
 
 <div *ngIf="type === 'textArea'" [class]="'input-container textArea'" [formGroup]="formGroup">

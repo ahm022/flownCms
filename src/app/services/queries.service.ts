@@ -5,6 +5,28 @@ import { gql } from 'apollo-angular';
   providedIn: 'root',
 })
 export class QueriesService {
+  categoryListQuery = `query {
+      cmsTemplate2 {
+        lookups {
+          categories {
+            categoryId
+            name
+          }
+        }
+      }
+    }`;
+
+    getCategoriesQuery = `
+      query{
+        cmsTemplate2{
+          lookups{
+            categories{
+              name
+            }
+          }
+        }
+      }
+    `
 
   createUserMutation = `
     mutation createUser($userInfo: CmsTemplate2_createUserInput!){
@@ -23,19 +45,30 @@ export class QueriesService {
         }
       }
     }
-  `
-  categoryListQuery =
-  `query {
-      cmsTemplate2 {
-        lookups {
-          categories {
-            categoryId
-            name
+  `;
+  createPageMutation = `
+          mutation createPost($pageInfo: CmsTemplate2_createPostModelInputType!){
+            cmsTemplate2{
+              actions{
+                createPost(createPostModel: $pageInfo){
+                  id
+                  views {
+                    all{
+                      author{
+                        views{
+                          cmsTemplate2_All{
+                            firstName
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
-        }
-      }
-    }`;
 
+   `;
   addCategoriesMutation = `
     mutation addCategory($name: String!) {
       cmsTemplate {

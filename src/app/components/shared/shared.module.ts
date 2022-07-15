@@ -19,6 +19,8 @@ import { LoaderComponent } from './loader/loader.component';
 import { EmptyStateComponent } from './empty-state/empty-state.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
+import { BackDropComponent } from './back-drop/back-drop.component';
+import { SkeletonComponent } from './skeleton/skeleton.component';
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
     SelectedLabelComponent,
     LoaderComponent,
     EmptyStateComponent,
+    BackDropComponent,
+    SkeletonComponent,
   ],
   imports: [
     CommonModule,
@@ -60,6 +64,8 @@ import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
     SelectedLabelComponent,
     LoaderComponent,
     EmptyStateComponent,
+    BackDropComponent,
+    SkeletonComponent,
     MatTableModule,
     MatSortModule,
     MatDialogModule,

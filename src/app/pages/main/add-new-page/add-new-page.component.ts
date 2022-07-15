@@ -1,9 +1,12 @@
+import { QueriesService } from './../../../services/queries.service';
+import { GraphqlService } from './../../../services/graphql.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { data } from 'data-config';
 import { GeneralService } from 'src/app/services/general.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SelectMultipleValueComponent } from 'src/app/components/shared/select-multiple-value/select-multiple-value.component';
+import { validate } from 'graphql';
 
 @Component({
   selector: 'app-add-new-page',
@@ -13,8 +16,10 @@ import { SelectMultipleValueComponent } from 'src/app/components/shared/select-m
 export class AddNewPageComponent implements OnInit {
   pageFormGroup: FormGroup;
   selectedImage;
-  selectedCategories;
-  categories = JSON.parse(localStorage.getItem('categories'));
+  loader= false;
+  postImage;
+  // selectedCategories;
+  categories = data.Category;
 
   // Status page options
   statusPageOptions = data.statusPageOptions;
@@ -23,30 +28,33 @@ export class AddNewPageComponent implements OnInit {
   gatedPageOptions = data.gatedPageOptions;
 
   validationErrorMessages = {
-    pagetitle: [{ type: 'required', message: 'Page title is required' }],
-    permalink: [{ type: 'required', message: 'Permalink is required' }],
+    postTitle: [{ type: 'required', message: 'Page title is required' }],
+    permalink: [{ type: 'required', message: 'Permalink is required' },{type: 'pattern', message: 'Please provide valid url'}],
     slug: [{ type: 'required', message: 'Slug is required' }],
     paragraph: [{ type: 'required', message: 'paragraph is required' }],
   };
-  constructor(private formBuilder: FormBuilder, private generalservice: GeneralService, private dialog: MatDialog) {}
+  constructor(private formBuilder: FormBuilder, private generalservice: GeneralService, private dialog: MatDialog, private graphqlService: GraphqlService, private queries: QueriesService ) {}
 
   ngOnInit(): void {
     this.prepareForm();
   }
   submitPage() {
-    console.log(this.pageFormGroup.value);
-    this.generalservice.navigateTo('/dashboard/pages')
+    this.loader = true
+    this.graphqlService.getGraphQL(this.queries.createPageMutation, {pageInfo: this.pageFormGroup.value}).then((res)=>{
+      this.loader = false
+      this.generalservice.navigateTo('/dashboard/pages')
+    })
   }
   prepareForm() {
     this.pageFormGroup = this.formBuilder.group({
-      pageTitle: this.formBuilder.control('', [Validators.required]),
-      permalink: this.formBuilder.control('', [Validators.required]),
+      postTitle: this.formBuilder.control('', [Validators.required]),
+      permaLink: this.formBuilder.control('', [Validators.required, Validators.pattern('(www)\\.([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]),
       slug: this.formBuilder.control('', [Validators.required]),
-      pagestatus: this.formBuilder.control('', [Validators.required]),
+      // pagestatus: this.formBuilder.control('', [Validators.required]),
+      category: this.formBuilder.control('', Validators.required),
       gated: this.formBuilder.control('', [Validators.required]),
-      paragraph: this.formBuilder.control('', [Validators.required]),
-      pagethumbnail: this.formBuilder.control(''),
-      fileSource: [null],
+      postDesrcription: this.formBuilder.control('', [Validators.required]),
+      // fileSource: [null],
     });
   }
   getImage(event) {
@@ -56,25 +64,23 @@ export class AddNewPageComponent implements OnInit {
       reader.onload = (e) => (this.selectedImage = reader.result);
 
       reader.readAsDataURL(file);
-      this.pageFormGroup.patchValue({
-        fileSource: file,
-      });
+      this.postImage = file
     }
   }
 
-  openAddCategoryDialog() {
-    this.selectedCategories = []
-    this.dialog.open(SelectMultipleValueComponent,{
-      width: '100%',
-      maxWidth: "400px",
-      minHeight: '477px',
-      data: {
-        data: this.categories,
-        checkedData: this.selectedCategories || [],
-        dialogTitle: "Select Page Categories"
-      }
-    }).afterClosed().subscribe((res)=>{
-      this.selectedCategories = res.checkedData
-    })
-  }
+  // openAddCategoryDialog() {
+  //   this.selectedCategories = []
+  //   this.dialog.open(SelectMultipleValueComponent,{
+  //     width: '100%',
+  //     maxWidth: "400px",
+  //     minHeight: '477px',
+  //     data: {
+  //       data: this.categories,
+  //       checkedData: this.selectedCategories || [],
+  //       dialogTitle: "Select Page Categories"
+  //     }
+  //   }).afterClosed().subscribe((res)=>{
+  //     this.selectedCategories = res.checkedData
+  //   })
+  // }
 }
