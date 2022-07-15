@@ -4,7 +4,23 @@
             FLOCMS
         </a>
         <div class="navbar-right-item">
-            <div class="avatar"></div>
+            <div (click)="displaDetails()" class="avatar">
+              <img [src]="avatar" alt="">
+            </div>
+            <div #avatarDetails class="avatar-details">
+              <div class="avatar-details-container">
+                <div class="right-avatar-details-item">
+                  <img [src]="avatar" alt="">
+                </div>
+                <div class="left-avatar-details-item">
+                  <div class="title">Ali mahdi</div>
+                  <div class="subtitle">test@yopmail.com</div>
+                </div>
+              </div>
+              <div class="avatar-details-btn">
+                <app-btn [btnText]="'Logout'" (clickEvent)="logout()"></app-btn>
+              </div>
+            </div>
         </div>
     </div>
 </div>

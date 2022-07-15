@@ -49,7 +49,4 @@ export class SideBarComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  logout() {
-    this.authService.logout();
-  }
 }

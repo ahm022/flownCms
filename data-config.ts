@@ -50,7 +50,7 @@ export class data {
       { name: 'Yes', value: 'yes' },
       { name: 'No', value: 'no' },
     ];
-  
+
     // Users
     static userTableData = [
       {
@@ -73,7 +73,7 @@ export class data {
       { name: 'Editor', value: 'editor' },
       { name: 'Contributer', value: 'contributer' },
     ];
-  
+
     // Messages
     static messageData = [
       {
@@ -94,7 +94,7 @@ export class data {
         id: '2',
       },
     ];
-  
+
     //  Comments
     static commentsData = [
       {
@@ -122,7 +122,7 @@ export class data {
       { name: 'Hidden', value: 'hidden' },
       { name: 'Pending Approval', value: 'pendingapproval' },
     ];
-  
+
     // Gallery
     static galleryImageData = [
       {
@@ -194,12 +194,12 @@ export class data {
       { name: ' By Categories', value: 'byCategory' },
     ];
   }
-  
+
   export class icons {
     static deleteIcon = '/assets/icons/delete.svg';
     static editIcon = '/assets/icons/edit-icon.svg';
     static sendMessageIcon = '/assets/icons/message-blue.svg';
     static closeIcon = '/assets/icons/close.svg';
     static loaderIcon = '/assets/icons/loader.gif';
+    static avatar = '/assets/icons/avatar.svg';
   }
-  

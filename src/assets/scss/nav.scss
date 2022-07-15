@@ -14,12 +14,56 @@
             text-decoration: none;
         }
         .navbar-right-item {
+          position: relative;
             .avatar{
                 width: 40px;
                 height: 40px;
                 background-color: var(--gray-secondary-one);
                 border-radius: 50%;
+                overflow: hidden;
+                cursor: pointer;
             }
+            .avatar-details {
+              display: none;
+              background: white;
+              box-shadow: 0 25.6px 57.6px 0 rgb(0 0 0 / 22%),
+                0 4.8px 14.4px 0 rgb(0 0 0 / 18%);
+              position: absolute;
+              right: 0;
+              top: 60px;
+              border-radius: 4px;
+              padding: 20px;
+              .avatar-details-container {
+                display: flex;
+                gap: 20px;
+                .right-avatar-details-item {
+                  width: 42px;
+                  height: 42px;
+                  background-color: var(--gray-secondary-one);
+                  border-radius: 50%;
+                  overflow: hidden;
+                }
+                .left-avatar-details-item {
+                  .title {
+                    font-size: 16px;
+                    color: var(--blue-primary);
+                  }
+                  .subtitle {
+                    font-size: 13px;
+                    color: var(--gray-secondary-two);
+                  }
+                }
+              }
+              &.show{
+                display: block;
+              }
+            }
+            .avatar-details-btn{
+              display: flex;
+              justify-content: flex-end;
+            }
+
         }
     }
 }
+
