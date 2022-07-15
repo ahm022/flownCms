@@ -66,5 +66,28 @@ export class QueriesService {
       }
     }
   `;
+  users = `
+    query{
+      cmsTemplate2{
+        queries{
+          cmsTemplate2_Users(first:10){
+            items{
+              system_User{
+                id
+                views{
+                  cmsTemplate2_All{
+                    firstName
+                    lastName
+                    email
+                  }
+                }
+              }
+            }
+            cursor
+          }
+        }
+      }
+    }
+  `;
   constructor() {}
 }

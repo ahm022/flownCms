@@ -4,6 +4,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DeleteDialogComponent } from 'src/app/components/shared/delete-dialog/delete-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { GeneralService } from 'src/app/services/general.service';
+import { GraphqlService } from 'src/app/services/graphql.service';
+import { QueriesService } from 'src/app/services/queries.service';
+import { mapSearchUserToItem } from "src/app/services/mapping-helper";
+import * as _ from "lodash";
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -11,8 +15,10 @@ import { GeneralService } from 'src/app/services/general.service';
 })
 export class UsersComponent implements OnInit {
   // Data Table
-  ELEMENT_DATA: any = data.userTableData;
-  dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+  // ELEMENT_DATA: any = data.userTableData;
+  users: any;
+  cursor: any;
+  // dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   displayedColumns: string[] = [
     'name',
     'email',
@@ -28,33 +34,48 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private queries: QueriesService,
+    private graphqlService: GraphqlService,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
 
-  deleteUser(id) {
-    this.dialog
-      .open(DeleteDialogComponent, {
-        width: '600px',
-        data: {
-          title: 'Delete user',
-          description: ' Would you like to delete this user',
-        },
-      })
-      .afterClosed()
-      .subscribe((res) => {
-        if (res === 'true') {
-          let EDIT_ELEMENT_DATA = this.ELEMENT_DATA.filter((el) => {
-            return el.id != id;
-          });
-          this.ELEMENT_DATA = EDIT_ELEMENT_DATA;
-          this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-          this.generalService.navigateTo('/dashboard/users')
-        }
-      });
+    this.getUsers();
   }
 
+  // deleteUser(id) {
+  //   this.dialog
+  //     .open(DeleteDialogComponent, {
+  //       width: '600px',
+  //       data: {
+  //         title: 'Delete user',
+  //         description: ' Would you like to delete this user',
+  //       },
+  //     })
+  //     .afterClosed()
+  //     .subscribe((res) => {
+  //       if (res === 'true') {
+  //         let EDIT_ELEMENT_DATA = this.ELEMENT_DATA.filter((el) => {
+  //           return el.id != id;
+  //         });
+  //         this.ELEMENT_DATA = EDIT_ELEMENT_DATA;
+  //         this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+  //         this.generalService.navigateTo('/dashboard/users')
+  //       }
+  //     });
+  // }
+  getUsers(){
+    this.graphqlService.getGraphQL(this.queries.users, false)
+    .then((results) => {
+      console.log("results",results)
+      this.users =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_Users.items", []).map((x: any) => mapSearchUserToItem(x));
+      
+      this.cursor = results.cmsTemplate2.queries.cmsTemplate2_Users.cursor;
+    })
+    .finally(() => {
+    });
+  }
   changeUserStatus(targetOption) {
     alert('user status was changed to ' + targetOption);
   }
