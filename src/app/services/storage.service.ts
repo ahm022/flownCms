@@ -35,39 +35,39 @@ export class StorageService {
 
   // Token
   public getAccessToken() {
-    return localStorage.getItem('backOffice_user_token');;
+    return localStorage.getItem('cms_user_token');;
   }
 
   public saveAccessToken(token: string) {
-    localStorage.setItem('backOffice_user_token', token);
+    localStorage.setItem('cms_user_token', token);
   }
 
   public checkIfHasAccessToken() {
-    return localStorage.getItem('backOffice_user_token') ? true : false;
+    return localStorage.getItem('cms_user_token') ? true : false;
   }
 
 
   // Remove Data
   public clearUserInformation() {
-    localStorage.removeItem('backOffice_user_id');
-    localStorage.removeItem('backOffice_user_token');
-    localStorage.removeItem('backOffice_user_information');
+    localStorage.removeItem('cms_user_id');
+    localStorage.removeItem('cms_user_token');
+    localStorage.removeItem('cms_user_information');
   }
 
   // lookups
   public getLookups() {
-    return localStorage.getItem('backOffice_lookups');;
+    return localStorage.getItem('cms_lookups');;
   }
 
   public saveLookups(token: string) {
-    localStorage.setItem('backOffice_lookups', token);
+    localStorage.setItem('cms_lookups', token);
   }
 
   public checkIfHasLookups() {
-    return localStorage.getItem('backOffice_lookups') ? true : false;
+    return localStorage.getItem('cms_lookups') ? true : false;
   }
 
   public clearLookups() {
-    localStorage.removeItem('backOffice_lookups');
+    localStorage.removeItem('cms_lookups');
   }
 }
