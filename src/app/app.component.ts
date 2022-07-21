@@ -45,6 +45,14 @@ export class AppComponent implements OnInit, OnDestroy{
   }
   ngOnInit(): void {
     this.getCategories()
+    if(this.storageService.checkIfUserIsLoggedIn()){
+      console.log("trueeeeeeeee")
+      const layoutId: any = this.storageService.getLayoutId();
+      console.log("layoutId",layoutId)
+    }else{
+      console.log("falseeee")
+      this.createLayout();
+    }
   }
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
@@ -63,6 +71,7 @@ export class AppComponent implements OnInit, OnDestroy{
     .then((userInfo) => {
       const userDetails: any = _.get(userInfo, "cmsTemplate2.actions.getMyProfile.views", null);
       const userId:any = _.get(userInfo, "cmsTemplate2.actions.getMyProfile.id", null);
+      
       this.storageService.saveUserInformation(userDetails,userId,null);
       this.sharingDataService.notifyNewLoggedInUserSubscribers(userDetails);
     })
@@ -71,4 +80,18 @@ export class AppComponent implements OnInit, OnDestroy{
     }).finally(() => {
     });
   }
+
+  createLayout() {
+    this.graphqlService.getGraphQL(this.queries.createlayout, true)
+    .then((layoutId) => {
+      console.log("layoutId",layoutId)
+      const layoutDetails: any = _.get(layoutId, "cmsTemplate2.actions.addLayout.id", null);
+      this.storageService.saveLayoutInformation(layoutDetails);
+    })
+    .catch((exGql) => {
+      this.generalService.showErrorMessage("Error Getting Current User Info");
+    }).finally(() => {
+    });
+  }
+  
 }

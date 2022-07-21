@@ -12,6 +12,12 @@ export class StorageService {
     localStorage.setItem('cms_user_id', JSON.stringify(userId));
   }
 
+  public saveLayoutInformation(layoutId: any) {
+    localStorage.setItem('cms_user_Layout_id', JSON.stringify(layoutId));
+  }
+
+  
+
   public getUserInformation() {
     return localStorage.getItem('cms_user_information') ? JSON.parse(localStorage.getItem('cms_user_information')) : null;
   }
@@ -22,6 +28,10 @@ export class StorageService {
 
   public checkIfUserIsLoggedIn() {
     return localStorage.getItem('cms_user_information') ? true : false;
+  }
+
+  public getLayoutId() {
+    return localStorage.getItem('cms_user_Layout_id') ? JSON.parse(localStorage.getItem('cms_user_Layout_id')) : null;
   }
 
   // User Id
