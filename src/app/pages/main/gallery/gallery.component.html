@@ -1,34 +1,33 @@
+<app-back-drop *ngIf="loader"></app-back-drop>
 <app-page-header [title]="'Gallery'"></app-page-header>
-
-<div class="gallery-page-header">
-  <form [formGroup]="galleryFormGroup" (ngSubmit)="uploadImage()">
-    <div class="custom-file-upload-content">
-      <label for="file-upload" class="custom-file-upload-label">
-        Upload Image
-      </label>
-      <app-custom-input
-        [isRequired]="true"
-        inputType="file"
-        [controlName]="'galleryimage'"
-        [formGroup]="galleryFormGroup"
-        [type]="'file'"
-        (changeEvent)="getImage($event)"
-      >
-      </app-custom-input>
-      <div *ngIf="selectedImage" class="selected-image">
-        <img  [src]="selectedImage" />
-        <app-btn [type]="'submit'" [btnText]="'Upload image'" ></app-btn>
+<app-skeleton *ngIf="isloaded"></app-skeleton>
+<div *ngIf="!isloaded">
+  <div class="gallery-page-header">
+    <form [formGroup]="galleryFormGroup" (ngSubmit)="uploadImage()">
+      <div class="custom-file-upload-content">
+        <label for="file-upload" class="custom-file-upload-label">
+          Upload Image
+        </label>
+        <app-custom-input
+          [isRequired]="true"
+          inputType="file"
+          [controlName]="'galleryimage'"
+          [formGroup]="galleryFormGroup"
+          [type]="'file'"
+          (changeEvent)="getImage($event)"
+        >
+        </app-custom-input>
+        <div *ngIf="selectedImage" class="selected-image">
+          <img [src]="selectedImage" />
+          <app-btn [type]="'submit'" [btnText]="'Submit'"></app-btn>
+        </div>
       </div>
+    </form>
+  </div>
+
+  <div class="gallery-container">
+    <div *ngFor="let item of images" class="gallery-item">
+      <img (click)="getImagePreview(item.id)" [src]="item.imageUrl" alt="" />
     </div>
-  </form>
-  <div class="gallery-filter-button">
-    <app-btn [btnText]="'Filter by dimention'"></app-btn>
-    <app-btn [btnText]="'Filter by size'"></app-btn>
   </div>
 </div>
-
-<div class="gallery-container">
-    <div *ngFor="let item of images" class="gallery-item">
-      <img (click)="getImagePreview(item.id)" [src]="item.src" alt="" />
-    </div>
-  </div>

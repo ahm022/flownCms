@@ -102,7 +102,7 @@
       </app-custom-input>
     </div>
     <app-btn
-      [disabled]="!pageFormGroup.valid"
+      [disabled]="!pageFormGroup.valid || !selectedImage"
       [type]="'submit'"
       [btnText]="'submit page'"
     ></app-btn>

@@ -82,11 +82,9 @@ export class EditPageComponent implements OnInit {
         Validators.pattern('(www)\\.([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'),
       ]),
       slug: this.formBuilder.control('', [Validators.required]),
-      // pagestatus: this.formBuilder.control('', [Validators.required]),
       category: this.formBuilder.control('', Validators.required),
       gated: this.formBuilder.control('', [Validators.required]),
       postDesrcription: this.formBuilder.control('', [Validators.required]),
-      // fileSource: [null],
     });
   }
 
@@ -109,6 +107,7 @@ export class EditPageComponent implements OnInit {
       reader.readAsDataURL(file);
       this.postImage = file;
     }
+    console.log(this.postImage);
     this.graphqlService.getGraphQL(this.queries.updatePostImage,{id:this.pageId, postImage: this.postImage}).then((results)=>{
       console.log(results);
     })

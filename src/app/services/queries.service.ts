@@ -456,14 +456,16 @@ export class QueriesService {
       cmsTemplate2 {
         entities {
           post {
-            updatePostImage(id: $id, postImage: $postImage)
+            updatePostImage(id: $id, postImage: $postImage) {
+              id
+            }
           }
         }
       }
     }
 `;
 
-blocks = `
+  blocks = `
   query getBlocks($layoutId: String!){
     cmsTemplate2{
       entities{
@@ -493,5 +495,90 @@ blocks = `
   }
 `;
 
+  media = `
+  query{
+    cmsTemplate2{
+      entities{
+        mediaGallery(id:"efa346e0-a8f0-4e79-9cd0-6f730b576ac5"){
+          queries{
+            galleryItem(first:10){
+              items{
+                cmsTemplate2_mediaItem{
+                  id
+                  views{
+                    all{
+                      details{
+                        __typename ... on System_ImageMedia{
+                          caption
+                          imageUrl
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+  singleMedia = `
+  query getSingleMedia($id:String!){
+    cmsTemplate2{
+      entities{
+        mediaItem(id:$id) {
+          id
+          views{
+            all{
+              createdDate
+              createdBy
+              details{
+                __typename ... on System_ImageMedia {
+                  caption
+                  imageUrl
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+  uploadMedia = `
+  mutation uploadImage($id: String!, $photo: Upload!, $caption: String!) {
+    cmsTemplate2{
+      entities{
+        mediaGallery{
+          uploadImage(id:$id, photo: $photo, caption: $caption) {
+            id
+            views{
+              all{
+                details{
+                  __typename
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+  deleteMedia = `
+mutation deleteMedai($id: String!) {
+  cmsTemplate2{
+    entities{
+      mediaItem{
+        delete(id: $id)
+      }
+    }
+  }
+}
+`;
   constructor() {}
 }

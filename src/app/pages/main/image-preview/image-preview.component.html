@@ -1,19 +1,21 @@
-<div class="image-preview">
+<div class="loader-image" *ngIf="loader">
+  <img [src]="loaderIcon">
+</div>
+<div *ngIf="!loader" class="image-preview">
+  <div class="image-preview-button">
+    <img (click)="deleteImage(data)" class="close-dialog-button" [src]="deleteIcon">
     <img (click)="closeDialog()" class="close-dialog-button" [src]="closeIcon">
+  </div>
     <div class="image-preview-container">
       <div>
         <div class="image-preview-image">
-            <img [src]="data.src">
+            <img [src]="image?.details.imageUrl">
         </div>
         <div class="image-preview-items">
-            <div class="image-preview-item">
-              <span>Size, </span> {{ data.Size }} 
-            </div>
-            <div class="image-preview-item"> <span>Filename, </span>{{ data.Filename }} </div>
-            <div class="image-preview-item"> <span>Dimensions, </span> {{ data.Dimensions }}</div>
-            <div class="image-preview-item"> <span>Uploaded On, </span> {{ data.UploadedOn }}</div>
-            <div class="image-preview-item"> <span>Uploaded By, </span> {{ data.UploadedBy }}</div>
+            <div class="image-preview-item"> <span>Uploaded On, </span> {{ image?.createdDate | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+            <div class="image-preview-item"> <span>Uploaded By, </span> {{ image?.createdBy }}</div>
         </div>
       </div>
     </div>
   </div>
+

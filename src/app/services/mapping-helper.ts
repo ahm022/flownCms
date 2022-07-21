@@ -71,3 +71,14 @@ export function mapMessageToItem(message: any) {
   }
 }
 
+
+export function mapMediaToItem(post: any) {
+
+  return {
+      id: _.get(post.cmsTemplate2_mediaItem, 'id', null),
+      imageUrl: _.get(post.cmsTemplate2_mediaItem.views.all.details, 'imageUrl', '')
+  }
+}
+
+
+
