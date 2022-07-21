@@ -51,6 +51,18 @@ export class QueriesService {
     }
   `;
 
+  createlayout = `
+    mutation{
+      cmsTemplate2{
+        actions{
+          addLayout{
+            id
+          }
+        }
+      }
+    }
+  `;
+
   whoAmI = `
     mutation {
       cmsTemplate2 {
@@ -449,6 +461,36 @@ export class QueriesService {
         }
       }
     }
+`;
+
+blocks = `
+  query getBlocks($layoutId: String!){
+    cmsTemplate2{
+      entities{
+        layout(id:$layoutId){
+          queries{
+            blocks(first:10){
+              items{
+                cmsTemplate2_Block{
+                  id
+                  views{
+                    all{
+                      pageCount
+                      contentSelection
+                      sortingBy
+                      sorting
+                      createdBy
+                      createdDate
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 `;
 
   constructor() {}

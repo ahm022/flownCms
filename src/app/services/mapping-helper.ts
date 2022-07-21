@@ -34,6 +34,16 @@ export function mapCategories(category: any) {
       name: _.get(category, 'name', null),
   }
 }
+export function mapSearchLayoutToItem(block: any) {
+    return {
+        id: _.get(block.cmsTemplate2_Block, 'id', null),
+        contentSelection: _.get(block.cmsTemplate2_Block.views.all, 'contentSelection', null),
+        sortingBy: _.get(block.cmsTemplate2_Block.views.all, 'sortingBy', null),
+        createdDate: _.get(block.cmsTemplate2_Block.views.all, 'createdDate', null),
+        pageCount: _.get(block.cmsTemplate2_Block.views.all,'pageCount', null),
+        sorting: _.get(block.cmsTemplate2_Block.views.all, 'sorting', null),
+    }
+  }
 
 export function mapCommentToItem(comment: any) {
 

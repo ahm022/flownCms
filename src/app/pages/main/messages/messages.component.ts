@@ -37,9 +37,10 @@ export class MessagesComponent implements OnInit {
   }
 
   getMessages() {
+    const newLogInuser = this.loggedInUser.replace(/"/g, '');
     this.isloaded = true;
     this.graphqlService
-      .getGraphQL(this.queries.messages, {id : this.loggedInUser})
+      .getGraphQL(this.queries.messages, {id : newLogInuser})
       .then((results) => {
         console.log(results);
         this.messages = _.get(
