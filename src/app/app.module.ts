@@ -12,6 +12,7 @@ import { MainPagesModule } from './pages/main/main-pages.module';
 import { GraphqlModule } from './graphql/graphql.module';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

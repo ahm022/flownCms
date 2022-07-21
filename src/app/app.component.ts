@@ -7,7 +7,9 @@ import { AuthenticationService } from "./services/authentication.service";
 import { HttpLink } from 'apollo-angular/http';
 import { StorageService } from "./services/storage.service";
 import { Observable, map } from 'rxjs';
+import { mapCategories } from './services/mapping-helper';
 import * as _ from "lodash";
+
 
 
 @Component({
@@ -16,7 +18,7 @@ import * as _ from "lodash";
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy{
-  categories :  Observable<any>;
+  categories : any;
   sharingDataService: any;
   _fuseNavigationService: any;
   generalService: any;
@@ -42,15 +44,17 @@ export class AppComponent implements OnInit, OnDestroy{
     });
   }
   ngOnInit(): void {
-    // this.getCtaegories()
+    this.getCategories()
   }
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
   }
 
-  getCtaegories() {
-    this.graphqlService.getGraphQL(this.queries.getCategoriesQuery).then((data)=>{
-      // localStorage.setItem('categories', data.cmsTemplate2.lookups.categories)
+  getCategories() {
+    this.graphqlService.getGraphQL(this.queries.getCategoriesQuery).then((results)=>{
+      console.log(results);
+      this.categories =  _.get(results, "cmsTemplate2.lookups.categories", []).map((x: any) => mapCategories(x));
+      localStorage.setItem('categories', JSON.stringify(this.categories))
     })
   }
 
@@ -58,7 +62,8 @@ export class AppComponent implements OnInit, OnDestroy{
     this.graphqlService.getGraphQL(this.queries.whoAmI, true)
     .then((userInfo) => {
       const userDetails: any = _.get(userInfo, "cmsTemplate2.actions.getMyProfile.views", null);
-      this.storageService.saveUserInformation(userDetails,null);
+      const userId:any = _.get(userInfo, "cmsTemplate2.actions.getMyProfile.id", null);
+      this.storageService.saveUserInformation(userDetails,userId,null);
       this.sharingDataService.notifyNewLoggedInUserSubscribers(userDetails);
     })
     .catch((exGql) => {

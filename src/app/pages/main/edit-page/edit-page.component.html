@@ -1,0 +1,110 @@
+<app-back-drop *ngIf="loader"></app-back-drop>
+<app-page-header [title]="'Add New Page'"></app-page-header>
+<div class="form-container">
+  <form [formGroup]="pageFormGroup" (ngSubmit)="submitPage()">
+    <div class="input-container-file">
+      <app-custom-input
+        labelText=""
+        [isRequired]="true"
+        inputType="file"
+        [controlName]="''"
+        [formGroup]="pageFormGroup"
+        [type]="'file'"
+        (changeEvent)="getImage($event)"
+      >
+      </app-custom-input>
+      <div class="selected-image">
+        <img *ngIf="selectedImage" [src]="selectedImage" />
+      </div>
+    </div>
+    <div>
+      <div class="form-content">
+        <app-custom-input
+          labelText="Page Title"
+          [isRequired]="true"
+          inputType="text"
+          [controlName]="'postTitle'"
+          [formGroup]="pageFormGroup"
+          [type]="'simple-input'"
+          [placeholder]="'Enter page title'"
+          [validationErrors]="validationErrorMessages?.postTitle"
+        >
+        </app-custom-input>
+
+        <app-custom-input
+          labelText="PermaLink"
+          [isRequired]="true"
+          inputType="text"
+          [controlName]="'permaLink'"
+          [formGroup]="pageFormGroup"
+          [type]="'simple-input'"
+          [placeholder]="'Enter page permalink'"
+          [validationErrors]="validationErrorMessages?.permalink"
+        >
+        </app-custom-input>
+
+        <app-custom-input
+          labelText="Slug"
+          [isRequired]="true"
+          inputType="text"
+          [controlName]="'slug'"
+          [formGroup]="pageFormGroup"
+          [type]="'simple-input'"
+          [placeholder]="'Enter page slug'"
+          [validationErrors]="validationErrorMessages?.slug"
+        >
+        </app-custom-input>
+
+        <!-- <app-custom-select
+        [options]="statusPageOptions"
+        [formGroup]="pageFormGroup"
+        [isRequired]="true"
+        [labelText]="'Page status'"
+        [controlName]="'pagestatus'"
+      >
+      </app-custom-select> -->
+
+        <app-custom-select
+          [options]="categories"
+          [formGroup]="pageFormGroup"
+          [isRequired]="true"
+          [labelText]="'Category'"
+          [controlName]="'category'"
+        >
+        </app-custom-select>
+
+        <app-custom-select
+          [options]="gatedPageOptions"
+          [formGroup]="pageFormGroup"
+          [isRequired]="true"
+          [labelText]="'Gated'"
+          [controlName]="'gated'"
+        >
+        </app-custom-select>
+      </div>
+
+      <!-- <app-btn
+      [btnText]="'Add page category'"
+      (clickEvent)="openAddCategoryDialog()"
+    ></app-btn>
+
+    <app-selected-label [list]="selectedCategories"></app-selected-label> -->
+
+      <app-custom-input
+        labelText="Page description"
+        [isRequired]="true"
+        [controlName]="'postDesrcription'"
+        [formGroup]="pageFormGroup"
+        [type]="'editor'"
+        [placeholder]="'Enter page description'"
+        [validationErrors]="validationErrorMessages?.paragraph"
+      >
+      </app-custom-input>
+    </div>
+    <app-btn
+      [disabled]="!pageFormGroup.valid"
+      [type]="'submit'"
+      [btnText]="'submit page'"
+    ></app-btn>
+  </form>
+</div>

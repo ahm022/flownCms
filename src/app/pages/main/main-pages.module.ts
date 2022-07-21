@@ -12,6 +12,7 @@ import { ImagePreviewComponent } from './image-preview/image-preview.component';
 import { LayoutComponent } from './layout/layout.component';
 import { AddNewBlockComponent } from './add-new-block/add-new-block.component';
 import { UserInfoComponent } from './user-info/user-info.component';
+import { EditPageComponent } from './edit-page/edit-page.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { UserInfoComponent } from './user-info/user-info.component';
     LayoutComponent,
     AddNewBlockComponent,
     UserInfoComponent,
+    EditPageComponent,
   ],
   imports: [CommonModule, SharedModule],
   exports: [

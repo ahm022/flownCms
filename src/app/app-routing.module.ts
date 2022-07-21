@@ -12,15 +12,17 @@ import { GalleryComponent } from './pages/main/gallery/gallery.component';
 import { LayoutComponent } from './pages/main/layout/layout.component';
 import { AddNewBlockComponent } from './pages/main/add-new-block/add-new-block.component';
 import { GuardGuard } from '../app/guard/guard.guard';
+import { EditPageComponent } from './pages/main/edit-page/edit-page.component';
 
 
 const routes: Routes = [
-  
+
   {path: "", component: UserInfoComponent},
   {path: "user-info", component: UserInfoComponent},
   {path:"dashboard", component:DashboardComponent,
    children: [
     {path:'pages', component: PagesComponent},
+    {path:'edit-page/:id', component: EditPageComponent},
     {path: 'add-new-page', component: AddNewPageComponent},
     {path: 'add-new-block', component: AddNewBlockComponent},
     {path: 'users', component: UsersComponent, children: [
@@ -43,5 +45,5 @@ const routes: Routes = [
 })
 export class AppRoutingModule {
 
-  
+
  }

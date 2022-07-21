@@ -9,8 +9,8 @@ import { GeneralService } from 'src/app/services/general.service';
 import { DeleteDialogComponent } from 'src/app/components/shared/delete-dialog/delete-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Apollo, gql } from 'apollo-angular';
-import { mapPostToItem } from "src/app/services/mapping-helper";
-import * as _ from "lodash";
+import { mapPageToItem } from 'src/app/services/mapping-helper';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-pages',
@@ -21,7 +21,7 @@ export class PagesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   debounce: any;
   pages = [];
-  isloaded = false
+  isloaded = false;
   displayedColumns: string[] = [
     'title',
     'author',
@@ -44,16 +44,13 @@ export class PagesComponent implements OnInit {
   constructor(
     private generalService: GeneralService,
     private dialog: MatDialog,
-    private apollo: Apollo,
     private queries: QueriesService,
     private graphqlService: GraphqlService
   ) {}
 
   ngOnInit(): void {
-    this.getPages()
+    this.getPages();
   }
-
-
 
   deletePage(id) {
     this.dialog
@@ -67,39 +64,67 @@ export class PagesComponent implements OnInit {
       .afterClosed()
       .subscribe((res) => {
         if (res === 'true') {
-          let EDIT_pages = this.pages.filter((el) => {
-            return el.id != id;
-          });
-          this.pages = EDIT_pages;
+          this.graphqlService
+            .getGraphQL(this.queries.deletePages, { pageId: id })
+            .then(() => {
+              this.getPages();
+            });
         }
       });
   }
 
   getPages() {
-    this.isloaded = true
-    this.graphqlService.getGraphQL(this.queries.pageQuery, false).then((results)=>{
-      this.pages =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_Posts.items", []).map((x: any) => mapPostToItem(x));
-    }).finally(()=>{
-      this.isloaded = false
-    })
+    this.isloaded = true;
+    this.graphqlService
+      .getGraphQL(this.queries.pageQuery, false)
+      .then((results) => {
+        console.log('results', results);
+        this.pages = _.get(
+          results,
+          'cmsTemplate2.queries.cmsTemplate2_Posts.items',
+          []
+        ).map((x: any) => mapPageToItem(x));
+      })
+      .finally(() => {
+        this.isloaded = false;
+        console.log(this.pages);
+      });
   }
 
   navigateToAddNewPage() {
     this.generalService.navigateTo('/dashboard/add-new-page');
   }
-  selectPageStatus(e) {
-    alert('status was changed to ' + e);
+
+  selectPageStatus(id, e) {
+    this.graphqlService
+    .getGraphQL(this.queries.changePageStatusMutation, { pageId: id, pageStatus: e.target.value })
+    .then((res) => {
+      this.getPages();
+    });
   }
+
   searchPages(e) {
-    this.isloaded = true
+    this.isloaded = true;
     clearTimeout(this.debounce);
     this.debounce = setTimeout(() => {
-      this.graphqlService.getGraphQL(this.queries.searchPageQuery , {name: e.target.value ? e.target.value : null}).then((results)=>{
-        this.pages =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_Posts.items", []).map((x: any) => mapPostToItem(x));
-      }).finally(()=>{
-        this.isloaded = false
-      })
+      this.graphqlService
+        .getGraphQL(this.queries.searchPageQuery, {
+          name: e.target.value ? e.target.value : null,
+        })
+        .then((results) => {
+          this.pages = _.get(
+            results,
+            'cmsTemplate2.queries.cmsTemplate2_Posts.items',
+            []
+          ).map((x: any) => mapPageToItem(x));
+        })
+        .finally(() => {
+          this.isloaded = false;
+        });
     }, 1000);
   }
 
+  goToEditPage(id) {
+    this.generalService.navigateTo('/dashboard/edit-page/'+id)
+  }
 }

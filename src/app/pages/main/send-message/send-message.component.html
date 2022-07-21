@@ -1,4 +1,6 @@
-<div class="send-message-container">
+
+<app-loader *ngIf="loader"></app-loader>
+<div *ngIf="!loader" class="send-message-container">
   <div class="send-message-title">To: {{ reaceiverName }}</div>
   <form [formGroup]="messageFormGroup" (ngSubmit)="submitMessage()">
     <app-custom-input

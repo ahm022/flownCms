@@ -1,10 +1,14 @@
+import { QueriesService } from 'src/app/services/queries.service';
+import { GraphqlService } from 'src/app/services/graphql.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { data, icons } from '../../../../../data-config';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { GeneralService } from 'src/app/services/general.service';
+import * as _ from 'lodash';
 import { DeleteDialogComponent } from 'src/app/components/shared/delete-dialog/delete-dialog.component';
+import { mapCommentToItem, mapMessageToItem } from 'src/app/services/mapping-helper';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
@@ -12,22 +16,43 @@ import { DeleteDialogComponent } from 'src/app/components/shared/delete-dialog/d
 })
 export class MessagesComponent implements OnInit {
   // Data Table
-  ELEMENT_DATA: any = data.messageData;
-  dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+  messages = []
   displayedColumns: string[] = ['message', 'from', 'date', 'status', 'actions'];
+  loggedInUser = localStorage.getItem('cms_user_id')
   messagePreview
-
-  @ViewChild(MatSort) sort: MatSort;
+  isloaded:boolean
 
   // Icon
   deleteIcon = icons.deleteIcon.toString();
 
   constructor(
     public dialog: MatDialog,
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private graphqlService : GraphqlService,
+    private queries: QueriesService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getMessages()
+  }
+
+  getMessages() {
+    this.isloaded = true;
+    this.graphqlService
+      .getGraphQL(this.queries.messages, {id : this.loggedInUser})
+      .then((results) => {
+        console.log(results);
+        this.messages = _.get(
+          results,
+          'system.entities.user.queries.cmsTemplate2_Messages.items',
+          []
+        ).map((x: any) => mapMessageToItem(x));
+        console.log(this.messages);
+      })
+      .finally(() => {
+        this.isloaded = false;
+      });
+  }
   deleteMessage(id) {
     this.dialog
       .open(DeleteDialogComponent, {
@@ -40,22 +65,16 @@ export class MessagesComponent implements OnInit {
       .afterClosed()
       .subscribe((res) => {
         if (res === 'true') {
-          let EDIT_ELEMENT_DATA = this.ELEMENT_DATA.filter((el) => {
-            return el.id != id;
-          });
-          this.ELEMENT_DATA = EDIT_ELEMENT_DATA;
-          this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-          this.messagePreview = ""
+          this.graphqlService
+            .getGraphQL(this.queries.deleteComments, { id: id })
+            .then(() => {
+              this.getMessages();
+            });
         }
       });
   }
   markMessageAsRead(id, status) {
-    this.ELEMENT_DATA.map((res) => {
-      if (res.id === id) {
-        res.status = 'read';
-        res.isreaded = true;
-      }
-    });
+
   }
   getMessagePreview(message) {
     this.messagePreview = message

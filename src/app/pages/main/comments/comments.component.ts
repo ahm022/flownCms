@@ -1,10 +1,16 @@
+import { QueriesService } from 'src/app/services/queries.service';
+import { GraphqlService } from 'src/app/services/graphql.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { data, icons } from '../../../../../data-config';
 import { MatSort } from '@angular/material/sort';
 import { DeleteDialogComponent } from 'src/app/components/shared/delete-dialog/delete-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-
+import * as _ from 'lodash';
+import {
+  mapCommentToItem,
+  mapSearchUserToItem,
+} from 'src/app/services/mapping-helper';
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
@@ -12,8 +18,8 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class CommentsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
-  ELEMENT_DATA: any = data.commentsData;
-  dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+  isloaded: boolean;
+  comments: any;
   displayedColumns: string[] = [
     'comment',
     'pagename',
@@ -29,10 +35,34 @@ export class CommentsComponent implements OnInit {
   // Icon
   deleteIcon = icons.deleteIcon.toString();
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private graphqlService: GraphqlService,
+    private queries: QueriesService
+  ) {}
 
-  ngOnInit(): void {}
-  deleteComments(id) {
+  ngOnInit(): void {
+    this.getComments();
+  }
+
+  getComments() {
+    this.isloaded = true;
+    this.graphqlService
+      .getGraphQL(this.queries.comments, false)
+      .then((results) => {
+        this.comments = _.get(
+          results,
+          'cmsTemplate2.queries.cmsTemplate2_comments.items',
+          []
+        ).map((x: any) => mapCommentToItem(x));
+        console.log(this.comments);
+      })
+      .finally(() => {
+        this.isloaded = false;
+      });
+  }
+
+  deleteComments(id, commentId) {
     this.dialog
       .open(DeleteDialogComponent, {
         width: '600px',
@@ -44,25 +74,31 @@ export class CommentsComponent implements OnInit {
       .afterClosed()
       .subscribe((res) => {
         if (res === 'true') {
-          let EDIT_ELEMENT_DATA = this.ELEMENT_DATA.filter((el) => {
-            return el.id != id;
-          });
-          this.ELEMENT_DATA = EDIT_ELEMENT_DATA;
-          this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-          this.commentPreview = '';
+          this.isloaded=true
+          this.graphqlService
+            .getGraphQL(this.queries.deleteComments, { postId: id, commentId: commentId })
+            .then(() => {
+              this.getComments();
+            });
         }
       });
   }
   getCommentPreview(comment) {
     this.commentPreview = comment;
   }
-  changeCommentStatus(target) {
-    alert(target);
+
+  changeCommentStatus(id, e) {
+    this.graphqlService
+      .getGraphQL(this.queries.changeCommentStatus, {id: id, commentStatus: e.target.value})
+      .then(() => {
+        this.getComments();
+      });
   }
+
   searchComments(e) {
-    clearTimeout(this.debounce);
-    this.debounce = setTimeout(function () {
-      console.log(e.target.value);
-    }, 1000);
+    // clearTimeout(this.debounce);
+    // this.debounce = setTimeout(function () {
+    //   console.log(e.target.value);
+    // }, 1000);
   }
 }

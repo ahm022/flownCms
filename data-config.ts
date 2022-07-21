@@ -44,7 +44,6 @@ export class data {
   static statusPageOptions = [
     { name: 'Published', value: 'PUBLISHED' },
     { name: 'Draft', value: 'DRAFT' },
-    { name: 'Pending', value: 'PENDING' },
   ];
   static gatedPageOptions = [
     { name: 'Yes', value: true },
@@ -118,9 +117,8 @@ export class data {
     },
   ];
   static commentStatus = [
-    { name: 'Approval', value: 'approval' },
-    { name: 'Hidden', value: 'hidden' },
-    { name: 'Pending Approval', value: 'pendingapproval' },
+    { name: 'APPROVED', value: 'APPROVED' },
+    { name: 'HIDDEN', value: 'HIDDEN' },
   ];
 
   // Gallery
@@ -259,6 +257,6 @@ export class icons {
   static editIcon = '/assets/icons/edit-icon.svg';
   static sendMessageIcon = '/assets/icons/message-blue.svg';
   static closeIcon = '/assets/icons/close.svg';
-  static loaderIcon = '/assets/icons/loader.gif';
+  static loaderIcon = '/assets/icons/loader.svg';
   static avatar = '/assets/icons/avatar.svg';
 }

@@ -43,32 +43,9 @@ export class UsersComponent implements OnInit {
 
     this.getUsers();
   }
-
-  // deleteUser(id) {
-  //   this.dialog
-  //     .open(DeleteDialogComponent, {
-  //       width: '600px',
-  //       data: {
-  //         title: 'Delete user',
-  //         description: ' Would you like to delete this user',
-  //       },
-  //     })
-  //     .afterClosed()
-  //     .subscribe((res) => {
-  //       if (res === 'true') {
-  //         let EDIT_ELEMENT_DATA = this.ELEMENT_DATA.filter((el) => {
-  //           return el.id != id;
-  //         });
-  //         this.ELEMENT_DATA = EDIT_ELEMENT_DATA;
-  //         this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-  //         this.generalService.navigateTo('/dashboard/users')
-  //       }
-  //     });
-  // }
   getUsers(){
     this.graphqlService.getGraphQL(this.queries.users, false)
     .then((results) => {
-      console.log("results",results)
       this.users =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_Users.items", []).map((x: any) => mapSearchUserToItem(x));
 
       this.cursor = results.cmsTemplate2.queries.cmsTemplate2_Users.cursor;

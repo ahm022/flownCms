@@ -6,9 +6,10 @@ import { Injectable } from '@angular/core';
 export class StorageService {
 
   // User Information
-  public saveUserInformation(userInformation: any, userPermissions: any) {
+  public saveUserInformation(userInformation: any, userId:any, userPermissions: any) {
     localStorage.setItem('cms_user_information', JSON.stringify(userInformation));
     localStorage.setItem('cms_user_permissions', JSON.stringify(userPermissions));
+    localStorage.setItem('cms_user_id', JSON.stringify(userId));
   }
 
   public getUserInformation() {

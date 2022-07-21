@@ -5,8 +5,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { data } from 'data-config';
 import { GeneralService } from 'src/app/services/general.service';
 import { MatDialog } from '@angular/material/dialog';
-import { SelectMultipleValueComponent } from 'src/app/components/shared/select-multiple-value/select-multiple-value.component';
-import { validate } from 'graphql';
 
 @Component({
   selector: 'app-add-new-page',
@@ -19,7 +17,7 @@ export class AddNewPageComponent implements OnInit {
   loader= false;
   postImage;
   // selectedCategories;
-  categories = data.Category;
+  categories = JSON.parse(localStorage.getItem('categories'));
 
   // Status page options
   statusPageOptions = data.statusPageOptions;
@@ -40,7 +38,8 @@ export class AddNewPageComponent implements OnInit {
   }
   submitPage() {
     this.loader = true
-    this.graphqlService.getGraphQL(this.queries.createPageMutation, {pageInfo: this.pageFormGroup.value}).then((res)=>{
+    console.log(this.postImage);
+    this.graphqlService.getGraphQL(this.queries.createPageMutation, {pageInfo: this.pageFormGroup.value, postImageModel:this.postImage}).then((res)=>{
       this.loader = false
       this.generalservice.navigateTo('/dashboard/pages')
     })
