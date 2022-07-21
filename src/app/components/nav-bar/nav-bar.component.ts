@@ -13,7 +13,7 @@ export class NavBarComponent implements OnInit {
   avatar = icons.avatar.toString()
   fullName: string;
   email: string;
-  constructor(private authService: AuthenticationService,private storageService: StorageService,) { 
+  constructor(private authService: AuthenticationService,private storageService: StorageService,) {
 
     this.prepareUserInformation();
   }
@@ -30,8 +30,11 @@ export class NavBarComponent implements OnInit {
     if(this.storageService.checkIfUserIsLoggedIn()) {
        const userInformation: any = this.storageService.getUserInformation();
        console.log("userInformation",userInformation)
-      this.fullName = userInformation.cmsTemplate2_All.firstName + ' ' + userInformation.cmsTemplate2_All.lastName;
-      this.email = userInformation.cmsTemplate2_All.email;
+       if(userInformation) {
+        this.fullName = userInformation.cmsTemplate2_All.firstName + ' ' + userInformation.cmsTemplate2_All.lastName;
+        this.email = userInformation.cmsTemplate2_All.email;
+       }
+
     }
 }
 }
