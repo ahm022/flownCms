@@ -28,6 +28,7 @@ export class EditPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.prepareForm()
+    this.loader = true
     this.activateRoute.params.subscribe((res) => {
       this.pageId = res.id
       this.graphqlService
@@ -36,6 +37,7 @@ export class EditPageComponent implements OnInit {
           this.page = results.cmsTemplate2.entities.post;
         })
         .finally(() => {
+          this.loader=false
           this.setProperties()
         });
     });
