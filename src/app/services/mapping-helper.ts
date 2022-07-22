@@ -28,6 +28,13 @@ export function mapPageToItem(post: any) {
   }
 }
 
+export function mapPagesToItem(pages: any) {
+  return {
+      id: _.get(pages.postPage, 'id', null),
+      postTitle: _.get(pages.postPage.views.all, 'postTitle', ''),
+  }
+}
+
 export function mapCategories(category: any) {
   return {
       value: _.get(category, 'categoryId', null),

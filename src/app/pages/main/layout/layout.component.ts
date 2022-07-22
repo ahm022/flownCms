@@ -31,7 +31,7 @@ export class LayoutComponent implements OnInit {
     .then((results) => {
       this.Blocks =  _.get(results, "cmsTemplate2.entities.layout.queries.blocks.items", []).map((x: any) => mapSearchLayoutToItem(x));
       
-      this.cursor = results.cmsTemplate2.queries.cmsTemplate2_Users.cursor;
+      this.cursor = results.cmsTemplate2.entities.layout.queries.blocks.cursor;
     })
     .finally(() => {
     });

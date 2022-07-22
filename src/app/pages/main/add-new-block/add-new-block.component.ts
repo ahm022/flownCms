@@ -7,7 +7,7 @@ import { SelectMultipleValueComponent } from 'src/app/components/shared/select-m
 
 import { GraphqlService } from 'src/app/services/graphql.service';
 import { QueriesService } from 'src/app/services/queries.service';
-import { mapSearchLayoutToItem } from "src/app/services/mapping-helper";
+import { mapPagesToItem } from "src/app/services/mapping-helper";
 import * as _ from "lodash";
 import internal from 'stream';
 
@@ -72,8 +72,8 @@ export class AddNewBlockComponent implements OnInit {
         this.graphqlService.getGraphQL(this.queries.SearchAscendingPostsByDate,{first:this.pageSize || 10 , categoryId:this.selectedCategories[0] ? this.selectedCategories[0].value : null})
         .then((results) => {
           console.log("results",results)
-          this.pages = results;
-          
+          this.pages =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_SearchAscendingPostsByDate.items", []).map((x: any) => mapPagesToItem(x));
+          console.log("paegs",this.pages)
           // this.cursor = results.cmsTemplate2.queries.cmsTemplate2_Users.cursor;
         })
       }else{
