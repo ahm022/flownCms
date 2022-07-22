@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageHeaderComponent } from './page-header/page-header.component';
@@ -23,11 +24,13 @@ import { BackDropComponent } from './back-drop/back-drop.component';
 import { SkeletonComponent } from './skeleton/skeleton.component';
 
 
+
 @NgModule({
   declarations: [
     PageHeaderComponent,
     DeleteDialogComponent,
     BtnComponent,
+
     CustomInputComponent,
     InputValidationErrorComponent,
     CustomSelectComponent,

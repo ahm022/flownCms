@@ -16,8 +16,6 @@ export class StorageService {
     localStorage.setItem('cms_user_Layout_id', JSON.stringify(layoutId));
   }
 
-  
-
   public getUserInformation() {
     return localStorage.getItem('cms_user_information') ? JSON.parse(localStorage.getItem('cms_user_information')) : null;
   }

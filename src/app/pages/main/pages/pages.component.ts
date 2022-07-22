@@ -127,4 +127,7 @@ export class PagesComponent implements OnInit {
   goToEditPage(id) {
     this.generalService.navigateTo('/dashboard/edit-page/'+id)
   }
+  pageDetails(id) {
+    this.generalService.navigateTo('/dashboard/page-details/'+id)
+  }
 }

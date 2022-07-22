@@ -13,6 +13,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { AddNewBlockComponent } from './add-new-block/add-new-block.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { EditPageComponent } from './edit-page/edit-page.component';
+import { PageDetailsComponent } from './page-details/page-details.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { EditPageComponent } from './edit-page/edit-page.component';
     AddNewBlockComponent,
     UserInfoComponent,
     EditPageComponent,
+    PageDetailsComponent,
   ],
   imports: [CommonModule, SharedModule],
   exports: [
@@ -39,7 +41,8 @@ import { EditPageComponent } from './edit-page/edit-page.component';
     ImagePreviewComponent,
     LayoutComponent,
     AddNewBlockComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    PageDetailsComponent
   ],
 })
 export class MainPagesModule {}

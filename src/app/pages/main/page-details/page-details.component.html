@@ -1,0 +1,49 @@
+<app-loader *ngIf="loader"></app-loader>
+<div style="    padding-bottom: 20px;" *ngIf="!loader">
+  <div  class="page-details">
+    <div class="page-details-container">
+      <div class="image">
+        <img [src]="page?.postImage.imageUrl" alt="" />
+      </div>
+      <div class="page-title">
+        {{ page?.postTitle }}
+      </div>
+      <div class="page-item">
+        <span>Created By</span> :
+        {{ page?.author.views.cmsTemplate2_All.firstName }}
+        {{ page?.author.views.cmsTemplate2_All.lastName }}
+      </div>
+      <div class="page-item"><span>Status</span> : {{ page?.status }}</div>
+      <div class="description">
+        <span>Description : </span>
+        <div [innerHtml]="page?.postDescription"></div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="comments.length > 0" class="comments">
+    <div class="comments-container">
+      <div class="titles">Comments</div>
+      <div class="comment-items">
+        <div *ngFor="let item of comments" class="comment-item">
+          <div class="author">{{item.author}}</div>
+          <div class="desc">{{item.commentText}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-loader *ngIf="commentLoader"></app-loader>
+  <form *ngIf="!commentLoader" [formGroup]="commentFormGroup" (ngSubmit)="submitComment()">
+    <app-custom-input
+      labelText="Comment"
+      [isRequired]="true"
+      inputType="text"
+      [controlName]="'pagecomment'"
+      [formGroup]="commentFormGroup"
+      [type]="'simple-input'"
+      [placeholder]="'Enter your Comment'"
+    >
+    </app-custom-input>
+    <app-btn [disabled]="!commentFormGroup.valid" [btnText]="'submit'" [type]="'submit'"></app-btn>
+  </form>
+
+</div>
