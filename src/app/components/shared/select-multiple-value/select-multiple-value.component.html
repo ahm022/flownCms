@@ -10,9 +10,9 @@
   <div class="multiple-value-item" *ngFor="let item of items">
     <label>{{ item.name }}</label>
     <input
-      (change)="addValue($event, item.name)"
+      (change)="addValue($event, item.name,item.value)"
       type="checkbox"
-      [value]="item.name"
+      [value]="item.value"
     />
   </div>
 </div>

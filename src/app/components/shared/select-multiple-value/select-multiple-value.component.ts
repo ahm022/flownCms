@@ -34,9 +34,9 @@ export class SelectMultipleValueComponent implements OnInit {
     this.selectedItems = this.data.checkedData
   }
 
-  addValue(e, name) {
+  addValue(e, name, value) {
     if (e.target.checked) {
-      this.selectedItems.push({name:name, ischecked:true});
+      this.selectedItems.push({name:name, ischecked:true, value:value});
     } else {
       this.selectedItems = this.selectedItems.filter((res) => res.name != name);
     }

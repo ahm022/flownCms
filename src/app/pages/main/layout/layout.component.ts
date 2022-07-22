@@ -19,7 +19,7 @@ export class LayoutComponent implements OnInit {
 
   constructor(private generalservice: GeneralService,
     private queries: QueriesService,
-    private graphqlService: GraphqlService,) {}
+    private graphqlService: GraphqlService) {}
 
   ngOnInit(): void {
     this.getBlocks()

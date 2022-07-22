@@ -580,5 +580,131 @@ mutation deleteMedai($id: String!) {
   }
 }
 `;
+SearchAscendingPostsByDate = `
+  query getAscendingPostsByDate($first: Int,$categoryId:String){
+    cmsTemplate2{
+      queries{
+        cmsTemplate2_SearchAscendingPostsByDate(first: $first,category:$categoryId){
+          items{
+            postPage{
+              id
+              views{
+                all{
+                  postTitle
+                  createdDate
+                   category{
+                    categoryId
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+SearchDescendingPostsByDate = `
+  query getDescendingPostsByDate($categoryId:String!){
+    cmsTemplate2{
+      queries{
+        cmsTemplate2_SearchDescendingPostsByDate(first:10,category:$categoryId){
+          items{
+            postPage{
+              id
+              views{
+                all{
+                  postTitle
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+SearchAscendingPostsByMostRead = `
+  query getAscendingPostsByMostRead($categoryId:String!){
+    cmsTemplate2{
+      queries{
+        cmsTemplate2_SearchAscendingPostsByMostRead(first:10,category:$categoryId){
+          items{
+            postPage{
+              id
+              views{
+                all{
+                  postTitle
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+SearchDescendingPostsByMostRead = `
+  query getDescendingPostsByMostRead($categoryId:String!){
+    cmsTemplate2{
+      queries{
+        cmsTemplate2_SearchDescendingPostsByMostRead(first:10,category:$categoryId){
+          items{
+            postPage{
+              id
+              views{
+                all{
+                  postTitle
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+SearchAscendingPostsByMostCommented = `
+  query getAscendingPostsByMostCommented($categoryId:String!){
+    cmsTemplate2{
+      queries{
+        cmsTemplate2_SearchAscendingPostsByMostCommented(first:10,category:$categoryId){
+          items{
+            postPage{
+              id
+              views{
+                all{
+                  postTitle
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+SearchDescendingPostsByMostCommented = `
+  query getDescendingPostsByMostCommented($categoryId:String!){
+    cmsTemplate2{
+      queries{
+        cmsTemplate2_SearchDescendingPostsByMostCommented(first:10,category:$categoryId){
+          items{
+            postPage{
+              id
+              views{
+                all{
+                  postTitle
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
   constructor() {}
 }
