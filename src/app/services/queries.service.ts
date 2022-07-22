@@ -339,6 +339,11 @@ export class QueriesService {
                         }
                       }
                     }
+                    postImage {
+                      __typename... on System_ImageMedia {
+                        imageUrl
+                      }
+                    }
                     slug
                     status
                     category {
@@ -392,9 +397,18 @@ export class QueriesService {
             id
             views{
               all{
+                author{
+                  views{
+                    cmsTemplate2_All{
+                      firstName
+                      lastName
+                    }
+                  }
+                }
                 permaLink
                 postTitle
                 postDescription
+                status
                 category {
                   name
                   categoryId
@@ -499,7 +513,7 @@ export class QueriesService {
   query{
     cmsTemplate2{
       entities{
-        mediaGallery(id:"efa346e0-a8f0-4e79-9cd0-6f730b576ac5"){
+        mediaGallery(id:"443c92fe-baef-4c3b-94b3-f3877efc7db4"){
           queries{
             galleryItem(first:10){
               items{
@@ -569,7 +583,7 @@ export class QueriesService {
   }
 `;
 
-  deleteMedia = `
+deleteMedia = `
 mutation deleteMedai($id: String!) {
   cmsTemplate2{
     entities{
@@ -580,6 +594,50 @@ mutation deleteMedai($id: String!) {
   }
 }
 `;
+addComment = `
+  mutation createComment($id:String!, $commentText: String! ) {
+    cmsTemplate2{
+      entities{
+        post{
+          createComment(id: $id, commentTextModule: $commentText){
+            id
+          }
+        }
+      }
+    }
+  }
+`
+getPageComment = `
+query getPageComment($id: String!){
+  cmsTemplate2{
+    entities{
+      post(id:$id){
+        queries{
+          commentsByStatus(first:4){
+            items{
+              cmsTemplate2_comment{
+                views{
+                  all{
+                    author{
+                      views{
+                        cmsTemplate2_All{
+                          firstName
+                          lastName
+                        }
+                      }
+                    }
+                    commentText
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`
 SearchAscendingPostsByDate = `
   query getAscendingPostsByDate($first: Int,$categoryId:String){
     cmsTemplate2{
@@ -705,6 +763,5 @@ SearchDescendingPostsByMostCommented = `
     }
   }
 `;
-
   constructor() {}
 }

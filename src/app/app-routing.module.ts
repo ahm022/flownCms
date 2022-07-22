@@ -1,3 +1,4 @@
+import { PageDetailsComponent } from './pages/main/page-details/page-details.component';
 import { UserInfoComponent } from './pages/main/user-info/user-info.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes,PreloadAllModules } from '@angular/router';
@@ -31,7 +32,9 @@ const routes: Routes = [
     {path:"layout", component: LayoutComponent},
     {path:"messages", component: MessagesComponent},
     {path:"comments", component: CommentsComponent},
-    {path:"gallery", component: GalleryComponent}
+    {path:"gallery", component: GalleryComponent},
+    {path:"page-details/:id", component: PageDetailsComponent}
+
   ]},
   {
     path: "**",

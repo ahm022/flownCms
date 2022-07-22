@@ -24,7 +24,7 @@
       <td mat-cell *matCellDef="let element">
         <div class="row-image">
           <img *ngIf="element.postImage" [src]="element.postImage" />
-          {{ element.postTitle }}
+          <span (click)="pageDetails(element.id)">{{ element.postTitle }}</span>
         </div>
       </td>
     </ng-container>
