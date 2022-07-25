@@ -533,7 +533,7 @@ export class QueriesService {
   query{
     cmsTemplate2{
       entities{
-        mediaGallery(id:"443c92fe-baef-4c3b-94b3-f3877efc7db4"){
+        mediaGallery(id:"4795f3f7-63d4-4a47-9db3-523444bdaaac"){
           queries{
             galleryItem(first:10){
               items{
@@ -815,11 +815,11 @@ createBlock = `
 `;
 
 changeUserRole = `
-  mutation chanageUserRole($id:String!){
+  mutation chanageUserRole($id:String!, $status:String!){
     system{
       entities{
         user{
-          cmsTemplate2_addAdmin(id:$id){
+          cmsTemplate2_addAdmin(id:$id, status: $status){
             id
           }
         }

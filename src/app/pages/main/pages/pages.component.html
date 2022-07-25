@@ -99,7 +99,9 @@
               alt=""
             />
           </button>
-          <img (click)="goToEditPage(element.id)" [src]="editIcon" alt="" />
+          <button (click)="goToEditPage(element.id)" [disabled]="!element.candeletePost" >
+          <img [src]="editIcon" alt="" />
+          </button>
         </div>
       </td>
     </ng-container>
