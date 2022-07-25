@@ -85,7 +85,7 @@ export class QueriesService {
     query{
       cmsTemplate2{
         queries{
-          cmsTemplate2_Users(first:1000){
+          cmsTemplate2_Users(first:100){
             items{
               system_User{
                 id
@@ -381,6 +381,19 @@ export class QueriesService {
       }
     }
   `;
+  setAsRead = `
+    mutation setMessageAsRead($id : String!) {
+      cmsTemplate2{
+        entities{
+          message{
+            setAsRead(id:$id){
+              id
+            }
+          }
+        }
+      }
+    }
+`;
   changePageStatusMutation = `
     mutation changePageStatus($pageId: String!, $pageStatus: CmsTemplate2_postStatus!){
       cmsTemplate2{
@@ -653,6 +666,160 @@ notifications = `
           unreadMessagesCount
           items{
             message
+            id
+          }
+        }
+      }
+    }
+  }
+`
+
+SearchAscendingPostsByDate = `
+  query getAscendingPostsByDate($first: Int,$categoryId:String){
+    cmsTemplate2{
+      queries{
+        cmsTemplate2_SearchAscendingPostsByDate(first: $first,category:$categoryId){
+          items{
+            postPage{
+              id
+              views{
+                all{
+                  postTitle
+                  createdDate
+                   category{
+                    categoryId
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+SearchDescendingPostsByDate = `
+  query getDescendingPostsByDate($categoryId:String!){
+    cmsTemplate2{
+      queries{
+        cmsTemplate2_SearchDescendingPostsByDate(first:10,category:$categoryId){
+          items{
+            postPage{
+              id
+              views{
+                all{
+                  postTitle
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+SearchAscendingPostsByMostRead = `
+  query getAscendingPostsByMostRead($categoryId:String!){
+    cmsTemplate2{
+      queries{
+        cmsTemplate2_SearchAscendingPostsByMostRead(first:10,category:$categoryId){
+          items{
+            postPage{
+              id
+              views{
+                all{
+                  postTitle
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+SearchDescendingPostsByMostRead = `
+  query getDescendingPostsByMostRead($categoryId:String!){
+    cmsTemplate2{
+      queries{
+        cmsTemplate2_SearchDescendingPostsByMostRead(first:10,category:$categoryId){
+          items{
+            postPage{
+              id
+              views{
+                all{
+                  postTitle
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+SearchAscendingPostsByMostCommented = `
+  query getAscendingPostsByMostCommented($categoryId:String!){
+    cmsTemplate2{
+      queries{
+        cmsTemplate2_SearchAscendingPostsByMostCommented(first:10,category:$categoryId){
+          items{
+            postPage{
+              id
+              views{
+                all{
+                  postTitle
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+SearchDescendingPostsByMostCommented = `
+  query getDescendingPostsByMostCommented($categoryId:String!){
+    cmsTemplate2{
+      queries{
+        cmsTemplate2_SearchDescendingPostsByMostCommented(first:10,category:$categoryId){
+          items{
+            postPage{
+              id
+              views{
+                all{
+                  postTitle
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+createBlock = `
+  mutation createBlock($id: String!,$blockModel: CmsTemplate2_blockModelInputType!) {
+    cmsTemplate2{
+      entities{
+        layout{
+          addBlock(id:$id , blockModel:$blockModel,pages:"5700f295-613c-4800-ab92-1649d66e249c"){
+            id
+          }
+        }
+      }
+    }
+  }
+
+`;
+
+changeUserRole = `
+  mutation chanageUserRole($id:String!){
+    system{
+      entities{
+        user{
+          cmsTemplate2_addAdmin(id:$id){
             id
           }
         }

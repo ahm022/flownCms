@@ -53,7 +53,12 @@ export class UsersComponent implements OnInit {
     .finally(() => {
     });
   }
-  changeUserStatus(targetOption) {
+  changeUserStatus(targetOption, id) {
+    this.graphqlService.getGraphQL(this.queries.changeUserRole, {id:id}).then(()=>{
+
+    }).finally(()=>{
+      this.getUsers
+    })
     alert('user status was changed to ' + targetOption);
   }
   goToSendMessage(userId) {

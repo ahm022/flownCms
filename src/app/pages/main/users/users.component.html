@@ -18,7 +18,7 @@
     <ng-container matColumnDef="role">
       <th mat-header-cell *matHeaderCellDef>Role</th>
       <td mat-cell *matCellDef="let element">
-        <select (change)="changeUserStatus($event.target.value)">
+        <select (change)="changeUserStatus($event.target.value, element.id)">
           <option
             *ngFor="let item of userStatus"
             [selected]="element.position === item.value"

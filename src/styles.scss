@@ -84,6 +84,15 @@ $flowCms-theme: mat.define-light-theme((
   margin-top: 100px;
 }
 
+.box{
+  padding: 16px;
+  margin: 16px 0px;
+  border: 1px solid black;
+
+  label{
+    padding-left: 4px;
+  }
+}
 .loader-container{
   display: flex;
   justify-content: center;
