@@ -85,7 +85,7 @@ export class QueriesService {
     query{
       cmsTemplate2{
         queries{
-          cmsTemplate2_Users(first:10){
+          cmsTemplate2_Users(first:15){
             items{
               system_User{
                 id
@@ -374,6 +374,19 @@ export class QueriesService {
       }
     }
   `;
+  setAsRead = `
+    mutation setMessageAsRead($id : String!) {
+      cmsTemplate2{
+        entities{
+          message{
+            setAsRead(id:$id){
+              id
+            }
+          }
+        }
+      }
+    }
+`;
   changePageStatusMutation = `
     mutation changePageStatus($pageId: String!, $pageStatus: CmsTemplate2_postStatus!){
       cmsTemplate2{

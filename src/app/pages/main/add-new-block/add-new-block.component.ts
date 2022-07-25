@@ -106,13 +106,6 @@ export class AddNewBlockComponent implements OnInit {
   createBlock(){
     this.loader = true;
     const newLayoutId = this.layoutId.replace(/"/g, '');
-    // this.blockFormGroup.controls["pageCount"].value
-
-    for (let i=0; i<this.blockFormGroup.value.length; i++){
-      this.blockFormGroup.value[i].pageCount = this.blockFormGroup.value[i].pageCount.replace(/"/g, '');
-    }
-   
-  console.log("this.blockFormGroup.value",this.blockFormGroup.value)
     this.graphqlService.getGraphQL(this.queries.createBlock, {id : newLayoutId ,blockModel: this.blockFormGroup.value }).then((res)=>{
       this.loader = false
       this.generalservice.navigateTo('/dashboard/pages')
