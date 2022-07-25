@@ -237,18 +237,18 @@ export class data {
     { name: 'category 5', value: 'category 5' },
     { name: 'category 6', value: 'category 6' },
   ];
-  static sortingByOptions = [
-    { name: 'By date', value: 'byDate' },
-    { name: 'Most Commented', value: 'mostCommented' },
-    { name: 'Most Read', value: 'mostRead' },
-  ];
   static sortingOptions = [
-    { name: 'Ascending', value: 'ascending' },
-    { name: 'Descending', value: 'descending' },
+    { name: 'By date', value: 'BY_DATE' },
+    { name: 'Most Commented', value: 'MOST_COMMENTED' },
+    { name: 'Most Read', value: 'MOST_READ' },
+  ];
+  static  sortingByOptions  = [
+    { name: 'Ascending', value: 'ASCENDING' },
+    { name: 'Descending', value: 'DESCENDING' },
   ];
   static contentSelectionOptions = [
-    { name: 'All Pages', value: 'allPages' },
-    { name: ' By Categories', value: 'byCategory' },
+    { name: 'Selected Pages', value: 'SELECTED_PAGES' },
+    { name: ' By Categories', value: 'BY_CATEGORY' },
   ];
 }
 

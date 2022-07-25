@@ -21,7 +21,9 @@ export class AddNewBlockComponent implements OnInit {
   cursor: any;
   pageSize;
   blockFormGroup: FormGroup
+  loader= false;
   sortingByOptions = data.sortingByOptions
+  layoutId = localStorage.getItem('cms_user_Layout_id')
   sortingOptions = data.sortingOptions
   contentSelectionOptions = data.contentSelectionOptions
   categories =  JSON.parse(localStorage.getItem('categories'));
@@ -34,15 +36,16 @@ export class AddNewBlockComponent implements OnInit {
   }
   prepareForm() {
     this.blockFormGroup = this.formBuilder.group({
-      pageCount: this.formBuilder.control('', [Validators.required]),
-      sortingby: this.formBuilder.control('', [Validators.required]),
+      pageCount: this.formBuilder.control( null, [Validators.required]),
+      sortingBy: this.formBuilder.control('', [Validators.required]),
       sorting: this.formBuilder.control('', [Validators.required]),
-      contentselection: this.formBuilder.control('', [Validators.required]),
+      contentSelection: this.formBuilder.control('', [Validators.required]),
     });
   }
+  
 
   checkByCategory() {
-    if(this.blockFormGroup.get('contentselection').value === 'byCategory') {
+    if(this.blockFormGroup.get('contentSelection').value === 'BY_CATEGORY') {
       return true
     }else{
       this.selectedCategories = []
@@ -66,22 +69,24 @@ export class AddNewBlockComponent implements OnInit {
   }
 
   getPages() {
+    this.loader = true;
     this.pageSize = parseInt(this.blockFormGroup.get('pageCount').value);
-    if(this.blockFormGroup.get('sortingby').value === 'byDate') {
-      if(this.blockFormGroup.get('sorting').value === 'ascending'){
+    if(this.blockFormGroup.get('sorting').value === 'BY_DATE') {
+      if(this.blockFormGroup.get('sortingBy').value === 'ASCENDING'){
         this.graphqlService.getGraphQL(this.queries.SearchAscendingPostsByDate,{first:this.pageSize || 10 , categoryId:this.selectedCategories[0] ? this.selectedCategories[0].value : null})
         .then((results) => {
           console.log("results",results)
           this.pages =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_SearchAscendingPostsByDate.items", []).map((x: any) => mapPagesToItem(x));
-          console.log("paegs",this.pages)
+          console.log("pages",this.pages)
+          this.loader = false
           // this.cursor = results.cmsTemplate2.queries.cmsTemplate2_Users.cursor;
         })
       }else{
 
       }
 
-    } else if(this.blockFormGroup.get('sortingby').value === 'mostCommented'){
-        if(this.blockFormGroup.get('sorting').value === 'ascending'){
+    } else if(this.blockFormGroup.get('sorting').value === 'MOST_COMMENTED'){
+        if(this.blockFormGroup.get('sortingBy').value === 'ASCENDING'){
 
       }else{
         
@@ -98,6 +103,20 @@ export class AddNewBlockComponent implements OnInit {
   submitBlock() {
 
   }
+  createBlock(){
+    this.loader = true;
+    const newLayoutId = this.layoutId.replace(/"/g, '');
+    // this.blockFormGroup.controls["pageCount"].value
 
+    for (let i=0; i<this.blockFormGroup.value.length; i++){
+      this.blockFormGroup.value[i].pageCount = this.blockFormGroup.value[i].pageCount.replace(/"/g, '');
+    }
+   
+  console.log("this.blockFormGroup.value",this.blockFormGroup.value)
+    this.graphqlService.getGraphQL(this.queries.createBlock, {id : newLayoutId ,blockModel: this.blockFormGroup.value }).then((res)=>{
+      this.loader = false
+      this.generalservice.navigateTo('/dashboard/pages')
+    })
+  }
 
 }

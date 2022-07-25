@@ -763,5 +763,20 @@ SearchDescendingPostsByMostCommented = `
     }
   }
 `;
+createBlock = `
+  mutation createBlock($id: String!,$blockModel: CmsTemplate2_blockModelInputType!) {
+    cmsTemplate2{
+      entities{
+        layout{
+          addBlock(id:$id , blockModel:$blockModel,pages:"5700f295-613c-4800-ab92-1649d66e249c"){
+            id
+          }
+        }
+      }
+    }
+  }
+
+`;
+
   constructor() {}
 }

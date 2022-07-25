@@ -19,7 +19,7 @@
         [formGroup]="blockFormGroup"
         [isRequired]="true"
         [labelText]="'sorting By'"
-        [controlName]="'sortingby'"
+        [controlName]="'sortingBy'"
       >
       </app-custom-select>
 
@@ -37,7 +37,7 @@
         [formGroup]="blockFormGroup"
         [isRequired]="true"
         [labelText]="'Content selection'"
-        [controlName]="'contentselection'"
+        [controlName]="'contentSelection'"
         (changeEvent)="checkByCategory()"
       >
       </app-custom-select>
@@ -63,5 +63,27 @@
         (clickEvent)="getPages()"
       ></app-btn>
     </div>
+    <div *ngIf="pages" class="box">
+      <div class="multiple-value-item" *ngFor="let item of pages">
+        
+        <input
+          type="checkbox"
+          [value]="item.value"
+        />
+        <label>{{ item.postTitle }}</label>
+      </div>
+    </div>
+    <div *ngIf="pages">
+      <app-btn
+        [disabled]="
+          !blockFormGroup.valid || (checkByCategory() && selectedCategories.length <= 0)
+        "
+        [btnText]="'Create Block'"
+        (clickEvent)="createBlock()"
+      ></app-btn>
+    </div>
+   
+
+
   </form>
 </div>
