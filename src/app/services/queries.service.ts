@@ -85,12 +85,13 @@ export class QueriesService {
     query{
       cmsTemplate2{
         queries{
-          cmsTemplate2_Users(first:10){
+          cmsTemplate2_Users(first:1000){
             items{
               system_User{
                 id
                 views{
                   cmsTemplate2_All{
+                    cmsTemplate2_position
                     firstName
                     lastName
                     email
@@ -281,6 +282,9 @@ export class QueriesService {
             items{
               cmsTemplate2_post{
                 id
+                actions{
+                  candeletePost
+                }
                 views{
                   all{
                     createdBy
@@ -324,6 +328,9 @@ export class QueriesService {
             items{
               cmsTemplate2_post{
                 id
+                actions{
+                  candeletePost
+                }
                 views{
                   all{
                     createdBy
@@ -637,6 +644,21 @@ query getPageComment($id: String!){
     }
   }
 }
+`
+notifications = `
+  query getNotification{
+    system{
+      notifications{
+        messages(first:10){
+          unreadMessagesCount
+          items{
+            message
+            id
+          }
+        }
+      }
+    }
+  }
 `
   constructor() {}
 }

@@ -68,9 +68,9 @@ export class data {
     },
   ];
   static userStatus = [
-    { name: 'Admin', value: 'admin' },
-    { name: 'Editor', value: 'editor' },
-    { name: 'Contributer', value: 'contributer' },
+    { name: 'Admin', value: 'Admin' },
+    // { name: 'Editor', value: 'editor' },
+    { name: 'Contributor', value: 'Contributor' },
   ];
 
   // Messages
@@ -259,4 +259,5 @@ export class icons {
   static closeIcon = '/assets/icons/close.svg';
   static loaderIcon = '/assets/icons/loader.svg';
   static avatar = '/assets/icons/avatar.svg';
+  static notification = '/assets/icons/notification.svg';
 }

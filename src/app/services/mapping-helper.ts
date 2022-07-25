@@ -7,7 +7,8 @@ export function mapSearchUserToItem(user: any) {
     return {
         id: _.get(user.system_User, 'id', null),
         name: _.get(user.system_User.views.cmsTemplate2_All, 'firstName', '') + ' ' + _.get(user.system_User.views.cmsTemplate2_All, 'lastName', ''),
-        email: _.get(user.system_User.views.cmsTemplate2_All, 'email', '')
+        email: _.get(user.system_User.views.cmsTemplate2_All, 'email', ''),
+        position : _.get(user.system_User.views.cmsTemplate2_All, 'cmsTemplate2_position', '')
     }
 }
 
@@ -24,7 +25,8 @@ export function mapPageToItem(post: any) {
       modifiedBy:_.get(post.cmsTemplate2_post.views.all, 'modifiedBy', ''),
       createdDate:_.get(post.cmsTemplate2_post.views.all, 'createdDate', ''),
       category: _.get(post.cmsTemplate2_post.views.all.category, 'name', ''),
-      postImage: _.get(post.cmsTemplate2_post.views.all.postImage, 'imageUrl', '')
+      postImage: _.get(post.cmsTemplate2_post.views.all.postImage, 'imageUrl', ''),
+      candeletePost: _.get(post.cmsTemplate2_post.actions, 'candeletePost', null),
   }
 }
 
@@ -80,6 +82,12 @@ export function mapMediaToItem(post: any) {
   }
 }
 
+export function mapNotifications(not: any) {
+  return {
+      id: _.get(not, 'id', null),
+      message: _.get(not, 'message', null),
+  }
+}
 
 
 

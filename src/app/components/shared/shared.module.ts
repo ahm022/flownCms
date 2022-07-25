@@ -22,6 +22,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
 import { BackDropComponent } from './back-drop/back-drop.component';
 import { SkeletonComponent } from './skeleton/skeleton.component';
+import { NotificationsContainerComponent } from './notifications-container/notifications-container.component';
 
 
 
@@ -41,6 +42,7 @@ import { SkeletonComponent } from './skeleton/skeleton.component';
     EmptyStateComponent,
     BackDropComponent,
     SkeletonComponent,
+    NotificationsContainerComponent,
   ],
   imports: [
     CommonModule,
@@ -65,11 +67,13 @@ import { SkeletonComponent } from './skeleton/skeleton.component';
     SearchInputComponent,
     SelectMultipleValueComponent,
     SelectedLabelComponent,
+    NotificationsContainerComponent,
     LoaderComponent,
     EmptyStateComponent,
     BackDropComponent,
     SkeletonComponent,
     EmptyStateComponent,
+
     MatTableModule,
     MatSortModule,
     MatDialogModule,

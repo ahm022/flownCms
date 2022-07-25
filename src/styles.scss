@@ -84,5 +84,11 @@ $flowCms-theme: mat.define-light-theme((
   margin-top: 100px;
 }
 
+.loader-container{
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 ;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

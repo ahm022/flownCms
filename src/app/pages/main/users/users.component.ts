@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
     'name',
     'email',
     'role',
-    'numberOfPages',
+    // 'numberOfPages',
     'actions',
   ];
   userStatus = data.userStatus;
@@ -59,4 +59,5 @@ export class UsersComponent implements OnInit {
   goToSendMessage(userId) {
     this.generalService.navigateTo('/dashboard/users/send-message/'+userId)
   }
+
 }

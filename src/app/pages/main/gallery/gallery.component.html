@@ -24,7 +24,7 @@
       </div>
     </form>
   </div>
-
+  <app-empty-state [emptyLabel]="'No Media Found'" *ngIf="!isloaded && images.length <= 0"></app-empty-state>
   <div class="gallery-container">
     <div *ngFor="let item of images" class="gallery-item">
       <img (click)="getImagePreview(item.id)" [src]="item.imageUrl" alt="" />

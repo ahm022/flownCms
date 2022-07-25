@@ -21,7 +21,7 @@
         <select (change)="changeUserStatus($event.target.value)">
           <option
             *ngFor="let item of userStatus"
-            [selected]="element.status === item.value"
+            [selected]="element.position === item.value"
             [value]="item.value"
           >
             {{ item.name }}
@@ -31,10 +31,10 @@
     </ng-container>
 
     <!-- Number Of Column -->
-    <ng-container matColumnDef="numberOfPages">
+    <!-- <ng-container matColumnDef="numberOfPages">
       <th mat-header-cell *matHeaderCellDef>Number of pages</th>
       <td mat-cell *matCellDef="let element">{{ element.numberOfPages }}</td>
-    </ng-container>
+    </ng-container> -->
 
     <!-- Actions -->
     <ng-container matColumnDef="actions">

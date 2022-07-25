@@ -1,70 +1,101 @@
-.navbar{
-    .navbar-container{
-        display: flex;
-        align-items: center;
-        padding: 0 20px;
-        min-height: 60px;
-        background-color: var(--blue-primary);
-        justify-content: space-between;
-        .navbar-left-item{
-            font-size: 40px;
-            color: var(--white-primary);
-            font-weight: 400;
-            font-style: italic;
-            text-decoration: none;
-        }
-        .navbar-right-item {
-          position: relative;
-            .avatar{
-                width: 40px;
-                height: 40px;
-                background-color: var(--gray-secondary-one);
-                border-radius: 50%;
-                overflow: hidden;
-                cursor: pointer;
-            }
-            .avatar-details {
-              display: none;
-              background: white;
-              box-shadow: 0 25.6px 57.6px 0 rgb(0 0 0 / 22%),
-                0 4.8px 14.4px 0 rgb(0 0 0 / 18%);
-                z-index: 1000;
-              position: absolute;
-              right: 0;
-              top: 60px;
-              border-radius: 4px;
-              padding: 20px;
-              .avatar-details-container {
-                display: flex;
-                gap: 20px;
-                .right-avatar-details-item {
-                  width: 42px;
-                  height: 42px;
-                  background-color: var(--gray-secondary-one);
-                  border-radius: 50%;
-                  overflow: hidden;
-                }
-                .left-avatar-details-item {
-                  .title {
-                    font-size: 16px;
-                    color: var(--blue-primary);
-                  }
-                  .subtitle {
-                    font-size: 13px;
-                    color: var(--gray-secondary-two);
-                  }
-                }
-              }
-              &.show{
-                display: block;
-              }
-            }
-            .avatar-details-btn{
-              display: flex;
-              justify-content: flex-end;
-            }
-
-        }
+.navbar {
+  .navbar-container {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    min-height: 60px;
+    background-color: var(--blue-primary);
+    justify-content: space-between;
+    .navbar-left-item {
+      font-size: 40px;
+      color: var(--white-primary);
+      font-weight: 400;
+      font-style: italic;
+      text-decoration: none;
     }
+    .navbar-right-item {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      .avatar {
+        width: 40px;
+        height: 40px;
+        background-color: var(--gray-secondary-one);
+        border-radius: 50%;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      .avatar-details {
+        display: none;
+        background: white;
+        box-shadow: 0 25.6px 57.6px 0 rgb(0 0 0 / 22%),
+          0 4.8px 14.4px 0 rgb(0 0 0 / 18%);
+        z-index: 1000;
+        position: absolute;
+        right: 0;
+        top: 60px;
+        border-radius: 4px;
+        padding: 20px;
+        .avatar-details-container {
+          display: flex;
+          gap: 20px;
+          .right-avatar-details-item {
+            width: 42px;
+            height: 42px;
+            background-color: var(--gray-secondary-one);
+            border-radius: 50%;
+            overflow: hidden;
+          }
+          .left-avatar-details-item {
+            .title {
+              font-size: 16px;
+              color: var(--blue-primary);
+            }
+            .subtitle {
+              font-size: 13px;
+              color: var(--gray-secondary-two);
+            }
+          }
+        }
+        &.show {
+          display: block;
+        }
+      }
+      .avatar-details-btn {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+    .not-icon-container {
+      img {
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+      }
+      .not-details-container {
+        position: absolute;
+        right: 93px;
+        background: var(--gray-secondary-three);
+        box-shadow: 0 25.6px 57.6px 0 rgb(0 0 0 / 22%),
+        0 4.8px 14.4px 0 rgb(0 0 0 / 18%);
+        top: 60px;
+        z-index: 1000;
+        width: 309px;
+        max-height: 350px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        .not-details-item {
+          width: 300px;
+          padding: 20px;
+          border-bottom: 1px solid var(--gray-secondary-one);
+          .txt{
+            color: var(--gray-primary);
+          }
+        }
+        &.show{
+          display: block;
+        }
+      }
+    }
+  }
 }
-

@@ -8,15 +8,15 @@
       <div class="page-title">
         {{ page?.postTitle }}
       </div>
+      <!-- <div class="page-item"><span>Status</span> : {{ page?.status }}</div> -->
+      <div class="description">
+        <span>Description : </span>
+        <div [innerHtml]="page?.postDescription"></div>
+      </div>
       <div class="page-item">
         <span>Created By</span> :
         {{ page?.author.views.cmsTemplate2_All.firstName }}
         {{ page?.author.views.cmsTemplate2_All.lastName }}
-      </div>
-      <div class="page-item"><span>Status</span> : {{ page?.status }}</div>
-      <div class="description">
-        <span>Description : </span>
-        <div [innerHtml]="page?.postDescription"></div>
       </div>
     </div>
   </div>
