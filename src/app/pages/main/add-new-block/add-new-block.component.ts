@@ -108,7 +108,7 @@ export class AddNewBlockComponent implements OnInit {
     const newLayoutId = this.layoutId.replace(/"/g, '');
     this.graphqlService.getGraphQL(this.queries.createBlock, {id : newLayoutId ,blockModel: this.blockFormGroup.value }).then((res)=>{
       this.loader = false
-      this.generalservice.navigateTo('/dashboard/pages')
+      this.generalservice.navigateTo('/dashboard/layout')
     })
   }
 
