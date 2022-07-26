@@ -78,8 +78,7 @@ export class AddNewBlockComponent implements OnInit {
           console.log("results",results)
           this.pages =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_SearchAscendingPostsByDate.items", []).map((x: any) => mapPagesToItem(x));
           console.log("pages",this.pages)
-          this.loader = false
-          // this.cursor = results.cmsTemplate2.queries.cmsTemplate2_Users.cursor;
+          this.loader = false;
         })
       }else{
 
