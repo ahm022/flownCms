@@ -3,6 +3,7 @@
 <div class="table-container">
     <table mat-table [dataSource]="Blocks" matSort class="mat-elevation-z8">
       <!-- Block page Count Column -->
+     
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef>Block page Count</th>
         <td mat-cell *matCellDef="let element">{{ element.pageCount }}</td>
