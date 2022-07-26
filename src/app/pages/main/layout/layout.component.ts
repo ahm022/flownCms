@@ -30,7 +30,7 @@ export class LayoutComponent implements OnInit {
     this.graphqlService.getGraphQL(this.queries.blocks, { layoutId : newLayoutId})
     .then((results) => {
       this.Blocks =  _.get(results, "cmsTemplate2.entities.layout.queries.blocks.items", []).map((x: any) => mapSearchLayoutToItem(x));
-      
+      console.log("this.Blocks",this.Blocks)
       this.cursor = results.cmsTemplate2.entities.layout.queries.blocks.cursor;
     })
     .finally(() => {
