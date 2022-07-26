@@ -14,7 +14,7 @@ import * as _ from "lodash";
 export class LayoutComponent implements OnInit {
   Blocks: any;
   cursor: any;
-  layoutId = localStorage.getItem('cms_user_Layout_id')
+  layoutId = "b7fa81cc-dce6-456e-bcd4-92423d1fbe83";
   displayedColumns: string[] = ['title', 'author', 'content', 'sorted'];
 
   constructor(private generalservice: GeneralService,
