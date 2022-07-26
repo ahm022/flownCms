@@ -6,18 +6,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { GeneralService } from 'src/app/services/general.service';
 import { GraphqlService } from 'src/app/services/graphql.service';
 import { QueriesService } from 'src/app/services/queries.service';
-import { mapSearchUserToItem } from "src/app/services/mapping-helper";
-import * as _ from "lodash";
+import { mapSearchUserToItem } from 'src/app/services/mapping-helper';
+import * as _ from 'lodash';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
-
   loggedInUser = JSON.parse(localStorage.getItem('cms_user_id'));
-  isloaded
+  isloaded;
   debounce: any;
+  loadMore
   users: any;
   cursor: any;
   displayedColumns: string[] = [
@@ -37,36 +37,42 @@ export class UsersComponent implements OnInit {
     private dialog: MatDialog,
     private generalService: GeneralService,
     private queries: QueriesService,
-    private graphqlService: GraphqlService,
+    private graphqlService: GraphqlService
   ) {}
 
   ngOnInit(): void {
-
     this.getUsers();
   }
-  getUsers(){
+  getUsers() {
     this.isloaded = true;
-    this.graphqlService.getGraphQL(this.queries.users, false)
-    .then((results) => {
-      this.users =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_Users.items", []).map((x: any) => mapSearchUserToItem(x));
+    this.graphqlService
+      .getGraphQL(this.queries.users, false)
+      .then((results) => {
+        this.users = _.get(
+          results,
+          'cmsTemplate2.queries.cmsTemplate2_Users.items',
+          []
+        ).map((x: any) => mapSearchUserToItem(x));
 
-      this.cursor = results.cmsTemplate2.queries.cmsTemplate2_Users.cursor;
-    })
-    .finally(() => {
-      this.users = this.users.filter((item)=>{return item.id !== this.loggedInUser})
-      this.isloaded = false;
-
-    });
+        this.cursor = results.cmsTemplate2.queries.cmsTemplate2_Users.cursor;
+      })
+      .finally(() => {
+        this.users = this.users.filter((item) => {
+          return item.id !== this.loggedInUser;
+        });
+        this.isloaded = false;
+      });
   }
   changeUserStatus(targetOption, id) {
-    this.graphqlService.getGraphQL(this.queries.changeUserRole, {id:id, status: targetOption}).then(()=>{
-
-    }).finally(()=>{
-      this.getUsers
-    })
+    this.graphqlService
+      .getGraphQL(this.queries.changeUserRole, { id: id, status: targetOption })
+      .then(() => {})
+      .finally(() => {
+        this.getUsers;
+      });
   }
   goToSendMessage(userId) {
-    this.generalService.navigateTo('/dashboard/users/send-message/'+userId)
+    this.generalService.navigateTo('/dashboard/users/send-message/' + userId);
   }
   searchUsers(e) {
     this.isloaded = true;
@@ -84,8 +90,10 @@ export class UsersComponent implements OnInit {
           ).map((x: any) => mapSearchUserToItem(x));
         })
         .finally(() => {
-          this.isloaded = false
-          this.users = this.users.filter((item)=>{return item.id !== this.loggedInUser})
+          this.isloaded = false;
+          this.users = this.users.filter((item) => {
+            return item.id !== this.loggedInUser;
+          });
         });
     }, 1000);
   }

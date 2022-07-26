@@ -85,7 +85,7 @@ export class QueriesService {
     query{
       cmsTemplate2{
         queries{
-          cmsTemplate2_Users(first:100){
+          cmsTemplate2_Users(first:10){
 
             items{
               system_User{
@@ -109,6 +109,34 @@ export class QueriesService {
       }
     }
   `;
+
+  getMoreUsers = `
+  query getMoreUsers($cursor:String!){
+    cmsTemplate2{
+      queries{
+        cmsTemplate2_Users(first:1 after: $cursor){
+          items{
+            system_User{
+              actions{
+                cmsTemplate2_canaddAdmin
+              }
+              id
+              views{
+                cmsTemplate2_All{
+                  cmsTemplate2_position
+                  firstName
+                  lastName
+                  email
+                }
+              }
+            }
+          }
+          cursor
+        }
+      }
+    }
+  }
+`;
 
   user = `
     query getSingleUser($userId: String!) {
@@ -895,5 +923,6 @@ changeUserRole = `
     }
   }
 `
+
   constructor() {}
 }

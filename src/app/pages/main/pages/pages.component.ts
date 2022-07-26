@@ -130,4 +130,5 @@ export class PagesComponent implements OnInit {
   pageDetails(id) {
     this.generalService.navigateTo('/dashboard/page-details/'+id)
   }
+
 }

@@ -55,7 +55,7 @@
     <!-- lastModified By Column -->
     <ng-container matColumnDef="lastMOdifiedBy">
       <th mat-header-cell *matHeaderCellDef>Last Modified By</th>
-      <td mat-cell *matCellDef="let element">{{ element.modifiedBy }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.author }}</td>
     </ng-container>
 
     <!-- lastModified Column -->
@@ -105,7 +105,6 @@
         </div>
       </td>
     </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>

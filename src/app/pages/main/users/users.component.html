@@ -62,5 +62,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 </div>
-
+<!-- <app-btn *ngIf="!loadMore" [disabled]="!cursor" [btnText]="'load More'" (clickEvent)="loadMoreUsers()"></app-btn>
+<app-loader *ngIf="loadMore"></app-loader> -->
 <router-outlet></router-outlet>

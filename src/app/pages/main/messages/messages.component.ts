@@ -67,7 +67,7 @@ export class MessagesComponent implements OnInit {
       .subscribe((res) => {
         if (res === 'true') {
           this.graphqlService
-            .getGraphQL(this.queries.deleteComments, { id: id })
+            .getGraphQL(this.queries.deleteMessage, { id: id })
             .then(() => {
               this.getMessages();
             });
