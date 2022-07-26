@@ -23,7 +23,7 @@ export class AddNewBlockComponent implements OnInit {
   blockFormGroup: FormGroup
   loader= false;
   sortingByOptions = data.sortingByOptions
-  layoutId = localStorage.getItem('cms_user_Layout_id')
+  layoutId =  "b7fa81cc-dce6-456e-bcd4-92423d1fbe83";
   sortingOptions = data.sortingOptions
   contentSelectionOptions = data.contentSelectionOptions
   categories =  JSON.parse(localStorage.getItem('categories'));
