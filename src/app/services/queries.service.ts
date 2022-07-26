@@ -743,16 +743,21 @@ SearchAscendingPostsByDate = `
   }
 `;
 SearchDescendingPostsByDate = `
-  query getDescendingPostsByDate($categoryId:String!){
+  query getDescendingPostsByDate($first: Int,$categoryId:String){
     cmsTemplate2{
       queries{
-        cmsTemplate2_SearchDescendingPostsByDate(first:10,category:$categoryId){
+        cmsTemplate2_SearchDescendingPostsByDate(first: $first,category:$categoryId){
           items{
             postPage{
               id
               views{
                 all{
                   postTitle
+                  createdDate
+                   category{
+                    categoryId
+                    name
+                  }
                 }
               }
             }
@@ -763,16 +768,21 @@ SearchDescendingPostsByDate = `
   }
 `;
 SearchAscendingPostsByMostRead = `
-  query getAscendingPostsByMostRead($categoryId:String!){
+  query getAscendingPostsByMostRead($first: Int,$categoryId:String){
     cmsTemplate2{
       queries{
-        cmsTemplate2_SearchAscendingPostsByMostRead(first:10,category:$categoryId){
+        cmsTemplate2_SearchAscendingPostsByMostRead(first: $first,category:$categoryId){
           items{
             postPage{
               id
               views{
                 all{
                   postTitle
+                  createdDate
+                   category{
+                    categoryId
+                    name
+                  }
                 }
               }
             }
@@ -783,16 +793,21 @@ SearchAscendingPostsByMostRead = `
   }
 `;
 SearchDescendingPostsByMostRead = `
-  query getDescendingPostsByMostRead($categoryId:String!){
+  query getDescendingPostsByMostRead($first: Int,$categoryId:String){
     cmsTemplate2{
       queries{
-        cmsTemplate2_SearchDescendingPostsByMostRead(first:10,category:$categoryId){
+        cmsTemplate2_SearchDescendingPostsByMostRead(first: $first,category:$categoryId){
           items{
             postPage{
               id
               views{
                 all{
                   postTitle
+                  createdDate
+                   category{
+                    categoryId
+                    name
+                  }
                 }
               }
             }
@@ -803,16 +818,21 @@ SearchDescendingPostsByMostRead = `
   }
 `;
 SearchAscendingPostsByMostCommented = `
-  query getAscendingPostsByMostCommented($categoryId:String!){
+  query getAscendingPostsByMostCommented($first: Int,$categoryId:String){
     cmsTemplate2{
       queries{
-        cmsTemplate2_SearchAscendingPostsByMostCommented(first:10,category:$categoryId){
+        cmsTemplate2_SearchAscendingPostsByMostCommented(first: $first,category:$categoryId){
           items{
             postPage{
               id
               views{
                 all{
                   postTitle
+                  createdDate
+                   category{
+                    categoryId
+                    name
+                  }
                 }
               }
             }
@@ -823,16 +843,21 @@ SearchAscendingPostsByMostCommented = `
   }
 `;
 SearchDescendingPostsByMostCommented = `
-  query getDescendingPostsByMostCommented($categoryId:String!){
+  query getDescendingPostsByMostCommented($first: Int,$categoryId:String){
     cmsTemplate2{
       queries{
-        cmsTemplate2_SearchDescendingPostsByMostCommented(first:10,category:$categoryId){
+        cmsTemplate2_SearchDescendingPostsByMostCommented(first: $first,category:$categoryId){
           items{
             postPage{
               id
               views{
                 all{
                   postTitle
+                  createdDate
+                   category{
+                    categoryId
+                    name
+                  }
                 }
               }
             }
@@ -843,11 +868,11 @@ SearchDescendingPostsByMostCommented = `
   }
 `;
 createBlock = `
-  mutation createBlock($id: String!,$blockModel: CmsTemplate2_blockModelInputType!) {
+  mutation createBlock($id: String!,$blockModel: CmsTemplate2_blockModelInputType!,$pages:[String!]!) {
     cmsTemplate2{
       entities{
         layout{
-          addBlock(id:$id , blockModel:$blockModel,pages:"5700f295-613c-4800-ab92-1649d66e249c"){
+          addBlock(id:$id , blockModel:$blockModel,pages:$pages){
             id
           }
         }
