@@ -67,17 +67,16 @@
       <div class="multiple-value-item" *ngFor="let item of pages">
         
         <input
+          (change)="addValue($event, item.postTitle,item.id)"
           type="checkbox"
-          [value]="item.value"
+          [value]="item.id"
         />
         <label>{{ item.postTitle }}</label>
       </div>
     </div>
     <div *ngIf="pages">
       <app-btn
-        [disabled]="
-          !blockFormGroup.valid || (checkByCategory() && selectedCategories.length <= 0)
-        "
+        [disabled]="!blockFormGroup.valid || (checkByCategory() && selectedCategories.length <= 0)"
         [btnText]="'Create Block'"
         (clickEvent)="createBlock()"
       ></app-btn>

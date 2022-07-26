@@ -27,6 +27,8 @@ export class AddNewBlockComponent implements OnInit {
   sortingOptions = data.sortingOptions
   contentSelectionOptions = data.contentSelectionOptions
   categories =  JSON.parse(localStorage.getItem('categories'));
+  selectedItems = [];
+  pagesData=[];
   selectedCategories
   constructor(private formBuilder: FormBuilder, private generalservice: GeneralService, private dialog: MatDialog,private queries: QueriesService,
     private graphqlService: GraphqlService) {}
@@ -75,25 +77,47 @@ export class AddNewBlockComponent implements OnInit {
       if(this.blockFormGroup.get('sortingBy').value === 'ASCENDING'){
         this.graphqlService.getGraphQL(this.queries.SearchAscendingPostsByDate,{first:this.pageSize || 10 , categoryId:this.selectedCategories[0] ? this.selectedCategories[0].value : null})
         .then((results) => {
-          console.log("results",results)
           this.pages =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_SearchAscendingPostsByDate.items", []).map((x: any) => mapPagesToItem(x));
-          console.log("pages",this.pages)
           this.loader = false;
         })
       }else{
-
+        this.graphqlService.getGraphQL(this.queries.SearchDescendingPostsByDate,{first:this.pageSize || 10 , categoryId:this.selectedCategories[0] ? this.selectedCategories[0].value : null})
+        .then((results) => {
+          this.pages =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_SearchDescendingPostsByDate.items", []).map((x: any) => mapPagesToItem(x));
+          this.loader = false;
+        })
       }
-
+      
     } else if(this.blockFormGroup.get('sorting').value === 'MOST_COMMENTED'){
         if(this.blockFormGroup.get('sortingBy').value === 'ASCENDING'){
-
+          this.graphqlService.getGraphQL(this.queries.SearchAscendingPostsByMostCommented,{first:this.pageSize || 10 , categoryId:this.selectedCategories[0] ? this.selectedCategories[0].value : null})
+          .then((results) => {
+            this.pages =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_SearchAscendingPostsByMostCommented.items", []).map((x: any) => mapPagesToItem(x));
+            this.loader = false;
+          })
       }else{
-        
+        this.graphqlService.getGraphQL(this.queries.SearchDescendingPostsByMostCommented,{first:this.pageSize || 10 , categoryId:this.selectedCategories[0] ? this.selectedCategories[0].value : null})
+        .then((results) => {
+          this.pages =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_SearchDescendingPostsByMostCommented.items", []).map((x: any) => mapPagesToItem(x));
+          this.loader = false;
+        })
       }
     }
 
     else{
-
+      if(this.blockFormGroup.get('sortingBy').value === 'ASCENDING'){
+        this.graphqlService.getGraphQL(this.queries.SearchAscendingPostsByMostRead,{first:this.pageSize || 10 , categoryId:this.selectedCategories[0] ? this.selectedCategories[0].value : null})
+        .then((results) => {
+          this.pages =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_SearchAscendingPostsByMostRead.items", []).map((x: any) => mapPagesToItem(x));
+          this.loader = false;
+        })
+    }else{
+      this.graphqlService.getGraphQL(this.queries.SearchDescendingPostsByMostRead,{first:this.pageSize || 10 , categoryId:this.selectedCategories[0] ? this.selectedCategories[0].value : null})
+      .then((results) => {
+        this.pages =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_SearchDescendingPostsByMostRead.items", []).map((x: any) => mapPagesToItem(x));
+        this.loader = false;
+      })
+    }
     }
     
 
@@ -102,10 +126,18 @@ export class AddNewBlockComponent implements OnInit {
   submitBlock() {
 
   }
+  addValue(e, name, value) {
+    if (e.target.checked) {
+      this.selectedItems.push({name:name, ischecked:true, value:value});
+    } else {
+      this.selectedItems = this.selectedItems.filter((res) => res.name != name);
+    }
+  }
   createBlock(){
     this.loader = true;
     const newLayoutId = this.layoutId.replace(/"/g, '');
-    this.graphqlService.getGraphQL(this.queries.createBlock, {id : newLayoutId ,blockModel: this.blockFormGroup.value }).then((res)=>{
+    this.pagesData = this.selectedItems.map((x) => x.value);
+    this.graphqlService.getGraphQL(this.queries.createBlock, {id : newLayoutId ,blockModel: this.blockFormGroup.value,pages: this.pagesData}).then((res)=>{
       this.loader = false
       this.generalservice.navigateTo('/dashboard/layout')
     })
