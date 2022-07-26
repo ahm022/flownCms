@@ -27,6 +27,7 @@ export function mapPageToItem(post: any) {
       category: _.get(post.cmsTemplate2_post.views.all.category, 'name', ''),
       postImage: _.get(post.cmsTemplate2_post.views.all.postImage, 'imageUrl', ''),
       candeletePost: _.get(post.cmsTemplate2_post.actions, 'candeletePost', null),
+      canchangePostStatus: _.get(post.cmsTemplate2_post.actions, 'canchangePostStatus', null),
   }
 }
 
@@ -91,7 +92,7 @@ export function mapMediaToItem(post: any) {
 
 export function mapNotifications(not: any) {
   return {
-      id: _.get(not, 'id', null),
+      id: _.get(not.activity.post, 'id', null),
       message: _.get(not, 'message', null),
   }
 }

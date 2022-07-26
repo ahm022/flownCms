@@ -284,6 +284,7 @@ export class QueriesService {
                 id
                 actions{
                   candeletePost
+                  canchangePostStatus
                 }
                 views{
                   all{
@@ -330,6 +331,7 @@ export class QueriesService {
                 id
                 actions{
                   candeletePost
+                  canchangePostStatus
                 }
                 views{
                   all{
@@ -533,7 +535,7 @@ export class QueriesService {
   query{
     cmsTemplate2{
       entities{
-        mediaGallery(id:"443c92fe-baef-4c3b-94b3-f3877efc7db4"){
+        mediaGallery(id:"4795f3f7-63d4-4a47-9db3-523444bdaaac"){
           queries{
             galleryItem(first:10){
               items{
@@ -632,6 +634,9 @@ query getPageComment($id: String!){
   cmsTemplate2{
     entities{
       post(id:$id){
+        actions{
+          candeleteComment
+        }
         queries{
           commentsByStatus(first:4){
             items{
@@ -665,6 +670,13 @@ notifications = `
         messages(first:10){
           unreadMessagesCount
           items{
+            activity{
+              __typename ... on CmsTemplate2_UserNewPost {
+                post{
+                  id
+                }
+              }
+            }
             message
             id
           }
@@ -815,11 +827,11 @@ createBlock = `
 `;
 
 changeUserRole = `
-  mutation chanageUserRole($id:String!){
+  mutation chanageUserRole($id:String!, $status:String!){
     system{
       entities{
         user{
-          cmsTemplate2_addAdmin(id:$id){
+          cmsTemplate2_addAdmin(id:$id, status: $status){
             id
           }
         }

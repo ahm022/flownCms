@@ -63,7 +63,7 @@ export class GalleryComponent implements OnInit {
 
   uploadImage(){
     this.loader = true
-    this.graphqlService.getGraphQL(this.queries.uploadMedia, {id:'443c92fe-baef-4c3b-94b3-f3877efc7db4', photo: this.galleryFormGroup.controls['fileSource'].value, caption: 'Image'}).then(()=>{
+    this.graphqlService.getGraphQL(this.queries.uploadMedia, {id:'4795f3f7-63d4-4a47-9db3-523444bdaaac', photo: this.galleryFormGroup.controls['fileSource'].value, caption: 'Image'}).then(()=>{
       this.selectedImage = null;
       this.loader = false
       this.getimages()

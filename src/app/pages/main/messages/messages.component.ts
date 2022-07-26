@@ -75,9 +75,9 @@ export class MessagesComponent implements OnInit {
       });
   }
   markMessageAsRead(id) {
-    
-    console.log("id >",id);
+
     this.isloaded = true;
+    this.messagePreview = undefined
     this.graphqlService
       .getGraphQL(this.queries.setAsRead, {id : id})
       .then((results) => {

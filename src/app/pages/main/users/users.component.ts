@@ -14,11 +14,10 @@ import * as _ from "lodash";
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
-  // Data Table
-  // ELEMENT_DATA: any = data.userTableData;
+
+  loggedInUser = JSON.parse(localStorage.getItem('cms_user_id'));
   users: any;
   cursor: any;
-  // dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   displayedColumns: string[] = [
     'name',
     'email',
@@ -51,15 +50,17 @@ export class UsersComponent implements OnInit {
       this.cursor = results.cmsTemplate2.queries.cmsTemplate2_Users.cursor;
     })
     .finally(() => {
+      this.users = this.users.filter((item)=>{return item.id !== this.loggedInUser})
+      console.log(this.users);
+      console.log(this.loggedInUser);
     });
   }
   changeUserStatus(targetOption, id) {
-    this.graphqlService.getGraphQL(this.queries.changeUserRole, {id:id}).then(()=>{
+    this.graphqlService.getGraphQL(this.queries.changeUserRole, {id:id, status: targetOption}).then(()=>{
 
     }).finally(()=>{
       this.getUsers
     })
-    alert('user status was changed to ' + targetOption);
   }
   goToSendMessage(userId) {
     this.generalService.navigateTo('/dashboard/users/send-message/'+userId)
