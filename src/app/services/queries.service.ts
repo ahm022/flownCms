@@ -284,6 +284,7 @@ export class QueriesService {
                 id
                 actions{
                   candeletePost
+                  canchangePostStatus
                 }
                 views{
                   all{
@@ -330,6 +331,7 @@ export class QueriesService {
                 id
                 actions{
                   candeletePost
+                  canchangePostStatus
                 }
                 views{
                   all{
@@ -632,6 +634,9 @@ query getPageComment($id: String!){
   cmsTemplate2{
     entities{
       post(id:$id){
+        actions{
+          candeleteComment
+        }
         queries{
           commentsByStatus(first:4){
             items{
@@ -665,6 +670,13 @@ notifications = `
         messages(first:10){
           unreadMessagesCount
           items{
+            activity{
+              __typename ... on CmsTemplate2_UserNewPost {
+                post{
+                  id
+                }
+              }
+            }
             message
             id
           }

@@ -4,15 +4,15 @@
             FLOCMS
         </a>
         <div class="navbar-right-item">
-          <div (click)="getNotifications()" class="not-icon-container">
-            <img [src]="notificationIcon">
+          <div  class="not-icon-container">
+            <img (click)="getNotifications()" [src]="notificationIcon">
             <div *ngIf="showNotifications" class="not-details-container">
               <div *ngIf="notificationLoader" class="loader-container">
                 <img [src]="loaderIcons" alt="">
               </div>
               <app-empty-state [emptyLabel]="'no results found'" *ngIf="emptyState && !notificationLoader"></app-empty-state>
               <div *ngFor="let item of notifications" class="not-details-item">
-                <div class="txt">
+                <div (click)="goToItem(item.id)" class="txt">
                   {{item.message}}
                 </div>
               </div>

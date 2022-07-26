@@ -1,3 +1,4 @@
+import { GeneralService } from 'src/app/services/general.service';
 import { QueriesService } from 'src/app/services/queries.service';
 import { GraphqlService } from 'src/app/services/graphql.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -29,6 +30,7 @@ export class NavBarComponent implements OnInit {
     private storageService: StorageService,
     private graphqlService: GraphqlService,
     private queries: QueriesService,
+    private generalService: GeneralService
   ) {
     this.prepareUserInformation();
   }
@@ -69,4 +71,8 @@ export class NavBarComponent implements OnInit {
         })
       }
   }
-}
+  goToItem(id) {
+    this.showNotifications = false
+    this.generalService.navigateTo('/dashboard/page-details/'+id)
+  }
+ }

@@ -90,6 +90,7 @@
           border-bottom: 1px solid var(--gray-secondary-one);
           .txt{
             color: var(--gray-primary);
+            cursor: pointer;
           }
         }
         &.show{
