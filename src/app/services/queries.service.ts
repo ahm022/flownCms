@@ -86,8 +86,12 @@ export class QueriesService {
       cmsTemplate2{
         queries{
           cmsTemplate2_Users(first:100){
+
             items{
               system_User{
+                actions{
+                  cmsTemplate2_canaddAdmin
+                }
                 id
                 views{
                   cmsTemplate2_All{
@@ -216,6 +220,10 @@ export class QueriesService {
           items{
             cmsTemplate2_comment{
               id
+              actions{
+                candeleteComment
+                canupdateCommentStatus
+              }
               views{
                 all{
                   commentText
@@ -247,11 +255,11 @@ export class QueriesService {
   }
 `;
   deleteComments = `
-    mutation deleteCmment($postId: String!, $commentId: String!){
+    mutation deleteCmment($id: String!){
       cmsTemplate2{
         entities{
-          post{
-            deleteComment(id:$postId, CommentId:$commentId)
+          comment{
+            deleteComment(id:$id)
           }
         }
       }
@@ -372,6 +380,32 @@ export class QueriesService {
       }
     }
   `;
+  searchUsers = `
+    query searchUser($userLabel: String!){
+      cmsTemplate2{
+        queries{
+          cmsTemplate2_Users(first:5, userLabel:$userLabel){
+            items{
+              system_User{
+                actions{
+                  cmsTemplate2_canaddAdmin
+                }
+                id
+                views{
+                  cmsTemplate2_All{
+                    firstName
+                    lastName
+                    email
+                    cmsTemplate2_position
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `
   deletePages = `
     mutation deletepage($pageId : String!) {
       cmsTemplate2{
@@ -634,9 +668,6 @@ query getPageComment($id: String!){
   cmsTemplate2{
     entities{
       post(id:$id){
-        actions{
-          candeleteComment
-        }
         queries{
           commentsByStatus(first:4){
             items{

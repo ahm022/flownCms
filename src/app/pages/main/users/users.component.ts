@@ -16,6 +16,8 @@ import * as _ from "lodash";
 export class UsersComponent implements OnInit {
 
   loggedInUser = JSON.parse(localStorage.getItem('cms_user_id'));
+  isloaded
+  debounce: any;
   users: any;
   cursor: any;
   displayedColumns: string[] = [
@@ -43,6 +45,7 @@ export class UsersComponent implements OnInit {
     this.getUsers();
   }
   getUsers(){
+    this.isloaded = true;
     this.graphqlService.getGraphQL(this.queries.users, false)
     .then((results) => {
       this.users =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_Users.items", []).map((x: any) => mapSearchUserToItem(x));
@@ -51,8 +54,8 @@ export class UsersComponent implements OnInit {
     })
     .finally(() => {
       this.users = this.users.filter((item)=>{return item.id !== this.loggedInUser})
-      console.log(this.users);
-      console.log(this.loggedInUser);
+      this.isloaded = false;
+
     });
   }
   changeUserStatus(targetOption, id) {
@@ -65,5 +68,25 @@ export class UsersComponent implements OnInit {
   goToSendMessage(userId) {
     this.generalService.navigateTo('/dashboard/users/send-message/'+userId)
   }
-
+  searchUsers(e) {
+    this.isloaded = true;
+    clearTimeout(this.debounce);
+    this.debounce = setTimeout(() => {
+      this.graphqlService
+        .getGraphQL(this.queries.searchUsers, {
+          userLabel: e.target.value,
+        })
+        .then((results) => {
+          this.users = _.get(
+            results,
+            'cmsTemplate2.queries.cmsTemplate2_Users.items',
+            []
+          ).map((x: any) => mapSearchUserToItem(x));
+        })
+        .finally(() => {
+          this.isloaded = false
+          this.users = this.users.filter((item)=>{return item.id !== this.loggedInUser})
+        });
+    }, 1000);
+  }
 }

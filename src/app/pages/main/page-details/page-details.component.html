@@ -42,7 +42,7 @@
       [placeholder]="'Enter your Comment'"
     >
     </app-custom-input>
-    <app-btn [disabled]="!commentFormGroup.valid" [btnText]="'submit'" [type]="'submit'"></app-btn>
+    <app-btn [btnClass] = "'commentButton'" [disabled]="!commentFormGroup.valid" [btnText]="'submit'" [type]="'submit'"></app-btn>
   </form>
 
 </div>

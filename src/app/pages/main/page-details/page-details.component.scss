@@ -63,7 +63,7 @@
     .comment-item {
       padding: 10px;
       background-color: #f2f2f6;
-    margin-top: 8px;
+      margin-top: 8px;
       .author {
         color: var(--blue-primary);
         font-size: 16px;
@@ -77,8 +77,14 @@
     }
   }
 }
-form{
+form {
   max-width: 1000px;
   margin: auto;
   margin-top: 20px;
+  position: relative;
+  app-btn {
+    position: absolute;
+    top: -1px;
+    right: 0px;
+  }
 }

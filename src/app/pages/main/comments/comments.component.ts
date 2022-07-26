@@ -58,11 +58,12 @@ export class CommentsComponent implements OnInit {
         console.log(this.comments);
       })
       .finally(() => {
+        console.log(this.comments);
         this.isloaded = false;
       });
   }
 
-  deleteComments(id, commentId) {
+  deleteComments(commentId) {
     this.dialog
       .open(DeleteDialogComponent, {
         width: '600px',
@@ -76,7 +77,7 @@ export class CommentsComponent implements OnInit {
         if (res === 'true') {
           this.isloaded=true
           this.graphqlService
-            .getGraphQL(this.queries.deleteComments, { postId: id, commentId: commentId })
+            .getGraphQL(this.queries.deleteComments, { id: commentId })
             .then(() => {
               this.getComments();
             });
