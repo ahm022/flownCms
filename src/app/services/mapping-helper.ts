@@ -6,6 +6,7 @@ export function mapSearchUserToItem(user: any) {
 
     return {
         id: _.get(user.system_User, 'id', null),
+        canaddAdmin : _.get(user.system_User.actions, 'cmsTemplate2_canaddAdmin', null),
         name: _.get(user.system_User.views.cmsTemplate2_All, 'firstName', '') + ' ' + _.get(user.system_User.views.cmsTemplate2_All, 'lastName', ''),
         email: _.get(user.system_User.views.cmsTemplate2_All, 'email', ''),
         position : _.get(user.system_User.views.cmsTemplate2_All, 'cmsTemplate2_position', '')
@@ -59,6 +60,8 @@ export function mapCommentToItem(comment: any) {
 
   return {
       id: _.get(comment.cmsTemplate2_comment, 'id', null),
+      candeleteComment: _.get(comment.cmsTemplate2_comment.actions, 'candeleteComment', null),
+      canupdateCommentStatus: _.get(comment.cmsTemplate2_comment.actions, 'canupdateCommentStatus', null),
       commentText : _.get(comment.cmsTemplate2_comment.views.all, 'commentText', null),
       createdDate: _.get(comment.cmsTemplate2_comment.views.all, 'createdDate', null),
       status : _.get(comment.cmsTemplate2_comment.views.all, 'status', null),

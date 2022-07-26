@@ -1,6 +1,11 @@
 <app-page-header [title]="'Users'"></app-page-header>
-<app-skeleton *ngIf="!users"></app-skeleton>
-<div *ngIf="users" class="table-container">
+<div class="input-search">
+  <app-search-input (changeEvent)="searchUsers($event)"></app-search-input>
+</div>
+
+<app-empty-state [emptyLabel]="'No users Found'" *ngIf="!isloaded && users.length <= 0"></app-empty-state>
+<app-skeleton *ngIf="isloaded"></app-skeleton>
+<div *ngIf="!isloaded && users.length > 0" class="table-container">
   <table mat-table [dataSource]="users" class="mat-elevation-z8">
     <!-- Name Column -->
 
@@ -19,7 +24,7 @@
     <ng-container matColumnDef="role">
       <th mat-header-cell *matHeaderCellDef>Role</th>
       <td mat-cell *matCellDef="let element">
-        <select (change)="changeUserStatus($event.target.value, element.id)">
+        <select [disabled]="!element.canaddAdmin" (change)="changeUserStatus($event.target.value, element.id)">
           <option
             *ngFor="let item of userStatus"
             [selected]="element.position === item.value"
