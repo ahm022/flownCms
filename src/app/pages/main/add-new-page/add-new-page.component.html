@@ -64,14 +64,18 @@
       >
       </app-custom-select> -->
 
-        <app-custom-select
+        <div>
+          <app-custom-select
           [options]="categories"
           [formGroup]="pageFormGroup"
           [isRequired]="true"
           [labelText]="'Category'"
           [controlName]="'category'"
+          [labelIcon]="plusIcon"
+          (clickEvent)="openCreateCategory()"
         >
         </app-custom-select>
+        </div>
 
         <app-custom-select
           [options]="gatedPageOptions"

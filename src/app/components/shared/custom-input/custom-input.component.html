@@ -6,7 +6,7 @@
 
 <div *ngIf="type === 'editor'" [class]="'input-container editor'" [formGroup]="formGroup">
     <label class="input-label" *ngIf="labelText" [ngClass]="[isRequired ? 'required' : ''] ">{{labelText}}</label>
-    <textarea class="text-input" [froalaEditor] [formControlName]="controlName" [placeholder]="placeholder"></textarea>
+    <textarea class="text-input" [froalaEditor]="options" [formControlName]="controlName" [placeholder]="placeholder"></textarea>
     <app-input-validation-error [formGroup]="formGroup" [controlName]="controlName" [validationErrors]="validationErrors"> </app-input-validation-error>
 </div>
 

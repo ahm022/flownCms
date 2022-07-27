@@ -1,0 +1,21 @@
+<div class="dialog-multiple-value-title">
+  Add new category
+</div>
+<div class="category-container">
+  <form [formGroup]="categoryFormGroup" (ngSubmit)="submitCategory()">
+    <app-custom-input
+      labelText="Category"
+      [isRequired]="true"
+      inputType="text"
+      [controlName]="'category'"
+      [formGroup]="categoryFormGroup"
+      [type]="'simple-input'"
+      [placeholder]="'Enter a new category'"
+    >
+    </app-custom-input>
+    <div class="btn-container">
+      <app-btn [btnText]="'Add'" [type]="'submit'"></app-btn>
+      <app-btn [btnText]="'close'" (clickEvent)="closeDialog()"></app-btn>
+    </div>
+  </form>
+</div>

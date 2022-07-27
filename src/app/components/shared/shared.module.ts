@@ -23,6 +23,7 @@ import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
 import { BackDropComponent } from './back-drop/back-drop.component';
 import { SkeletonComponent } from './skeleton/skeleton.component';
 import { NotificationsContainerComponent } from './notifications-container/notifications-container.component';
+import { AddNewCategoryComponent } from './add-new-category/add-new-category.component';
 
 
 
@@ -43,6 +44,7 @@ import { NotificationsContainerComponent } from './notifications-container/notif
     BackDropComponent,
     SkeletonComponent,
     NotificationsContainerComponent,
+    AddNewCategoryComponent,
   ],
   imports: [
     CommonModule,
@@ -73,7 +75,7 @@ import { NotificationsContainerComponent } from './notifications-container/notif
     BackDropComponent,
     SkeletonComponent,
     EmptyStateComponent,
-
+    AddNewCategoryComponent,
     MatTableModule,
     MatSortModule,
     MatDialogModule,

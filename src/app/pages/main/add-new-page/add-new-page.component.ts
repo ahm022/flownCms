@@ -1,8 +1,9 @@
+import { AddNewCategoryComponent } from './../../../components/shared/add-new-category/add-new-category.component';
 import { QueriesService } from './../../../services/queries.service';
 import { GraphqlService } from './../../../services/graphql.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { data } from 'data-config';
+import { data, icons } from 'data-config';
 import { GeneralService } from 'src/app/services/general.service';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -16,7 +17,7 @@ export class AddNewPageComponent implements OnInit {
   selectedImage;
   loader= false;
   postImage;
-  // selectedCategories;
+  plusIcon = icons.closeIcon
   categories = JSON.parse(localStorage.getItem('categories'));
 
   // Status page options
@@ -31,6 +32,7 @@ export class AddNewPageComponent implements OnInit {
     slug: [{ type: 'required', message: 'Slug is required' }],
     paragraph: [{ type: 'required', message: 'paragraph is required' }],
   };
+
   constructor(private formBuilder: FormBuilder, private generalservice: GeneralService, private dialog: MatDialog, private graphqlService: GraphqlService, private queries: QueriesService ) {}
 
   ngOnInit(): void {
@@ -66,20 +68,10 @@ export class AddNewPageComponent implements OnInit {
       this.postImage = file
     }
   }
-
-  // openAddCategoryDialog() {
-  //   this.selectedCategories = []
-  //   this.dialog.open(SelectMultipleValueComponent,{
-  //     width: '100%',
-  //     maxWidth: "400px",
-  //     minHeight: '477px',
-  //     data: {
-  //       data: this.categories,
-  //       checkedData: this.selectedCategories || [],
-  //       dialogTitle: "Select Page Categories"
-  //     }
-  //   }).afterClosed().subscribe((res)=>{
-  //     this.selectedCategories = res.checkedData
-  //   })
-  // }
+  openCreateCategory() {
+    this.dialog
+    .open(AddNewCategoryComponent, {
+      width: '600px',
+    })
+  }
 }

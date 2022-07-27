@@ -1,5 +1,8 @@
 <div class="input-container" [formGroup]="formGroup">
-    <label *ngIf="labelText" [ngClass]="[isRequired ? 'required input-label' : 'input-label'] ">{{labelText}}</label>
+    <div class="label-container">
+      <label *ngIf="labelText" [ngClass]="[isRequired ? 'required input-label' : 'input-label'] ">{{labelText}}</label>
+      <img (click)="clickLabelEvent()" *ngIf="labelIcon" [src]="labelIcon" alt="">
+    </div>
     <select (change)="changeNewEvent($event)" [formControlName]="controlName" [ngStyle]="{'color': checkIfOptionIsSelected() ? 'black' :'#b6b2b2'}">
         <option value="" disabled selected>Select your option</option>
         <option *ngFor="let option of options" [ngValue]="option.value">{{option.name}}

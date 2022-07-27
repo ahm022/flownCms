@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-
+import 'froala-editor/js/plugins.pkgd.min.js'
 @Component({
   selector: 'app-custom-input',
   templateUrl: './custom-input.component.html',
@@ -16,7 +16,7 @@ export class CustomInputComponent implements OnInit {
   @Input() formGroup: FormGroup;
   @Input() controlName: string;
   @Output() changeEvent = new EventEmitter<string>();
-   
+
   constructor() { }
 
   ngOnInit(): void {
@@ -24,5 +24,7 @@ export class CustomInputComponent implements OnInit {
   changeNewEvent(e) {
     this.changeEvent.emit(e);
   }
-
+  options = {
+    toolbarButtons: ['undo', 'redo' , '|', 'bold', 'italic', 'insertImage'],
+  }
 }

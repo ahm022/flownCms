@@ -9,13 +9,13 @@ import { FormGroup } from '@angular/forms';
 export class CustomSelectComponent implements OnInit {
   @Input() labelText: string;
   @Input() isRequired: boolean;
-
+  @Input() labelIcon: string;
   @Input() defaultValueLabel: string;
   @Input() options: { value: string; label: string }[] = [];
 
   @Input() formGroup: FormGroup;
   @Input() controlName: string;
-
+  @Output() clickEvent = new EventEmitter<string>();
   @Output() changeEvent = new EventEmitter<string>();
 
   constructor() {}
@@ -31,5 +31,8 @@ export class CustomSelectComponent implements OnInit {
   }
     changeNewEvent(e) {
     this.changeEvent.emit(e);
+  }
+  clickLabelEvent() {
+    this.clickEvent.emit()
   }
 }
