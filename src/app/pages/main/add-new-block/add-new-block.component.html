@@ -76,10 +76,13 @@
     </div>
     <div *ngIf="pages">
       <app-btn
-        [disabled]="!blockFormGroup.valid || (checkByCategory() && selectedCategories.length <= 0)"
+        [disabled]="(!blockFormGroup.valid &&  (selectedItems.length < pageCount)) || (checkByCategory() && selectedCategories.length <= 0) "
         [btnText]="'Create Block'"
         (clickEvent)="createBlock()"
       ></app-btn>
+    </div>
+    <div class="alerttext">
+      {{ alertText }}
     </div>
    
 

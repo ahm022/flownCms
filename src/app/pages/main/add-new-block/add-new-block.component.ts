@@ -29,6 +29,7 @@ export class AddNewBlockComponent implements OnInit {
   categories =  JSON.parse(localStorage.getItem('categories'));
   selectedItems = [];
   pagesData=[];
+  alertText;
   selectedCategories
   constructor(private formBuilder: FormBuilder, private generalservice: GeneralService, private dialog: MatDialog,private queries: QueriesService,
     private graphqlService: GraphqlService) {}
@@ -72,10 +73,9 @@ export class AddNewBlockComponent implements OnInit {
 
   getPages() {
     this.loader = true;
-    this.pageSize = parseInt(this.blockFormGroup.get('pageCount').value);
     if(this.blockFormGroup.get('sorting').value === 'BY_DATE') {
       if(this.blockFormGroup.get('sortingBy').value === 'ASCENDING'){
-        this.graphqlService.getGraphQL(this.queries.SearchAscendingPostsByDate,{first:this.pageSize || 10 , categoryId:this.selectedCategories[0] ? this.selectedCategories[0].value : null})
+        this.graphqlService.getGraphQL(this.queries.SearchAscendingPostsByDate,{first: 10 , categoryId:this.selectedCategories[0] ? this.selectedCategories[0].value : null})
         .then((results) => {
           this.pages =  _.get(results, "cmsTemplate2.queries.cmsTemplate2_SearchAscendingPostsByDate.items", []).map((x: any) => mapPagesToItem(x));
           this.loader = false;
@@ -136,11 +136,18 @@ export class AddNewBlockComponent implements OnInit {
   createBlock(){
     this.loader = true;
     const newLayoutId = this.layoutId.replace(/"/g, '');
-    this.pagesData = this.selectedItems.map((x) => x.value);
-    this.graphqlService.getGraphQL(this.queries.createBlock, {id : newLayoutId ,blockModel: this.blockFormGroup.value,pages: this.pagesData}).then((res)=>{
-      this.loader = false
-      this.generalservice.navigateTo('/dashboard/layout')
-    })
+    console.log("11",this.selectedItems.length)
+    console.log("1s1",this.blockFormGroup.get('pageCount').value)
+    if(this.selectedItems.length == this.blockFormGroup.get('pageCount').value){
+      this.pagesData = this.selectedItems.map((x) => x.value);
+      this.graphqlService.getGraphQL(this.queries.createBlock, {id : newLayoutId ,blockModel: this.blockFormGroup.value,pages: this.pagesData}).then((res)=>{
+        this.loader = false
+        this.generalservice.navigateTo('/dashboard/layout')
+      })
+    }else{
+      this.alertText = "You should select the same number of pages as in page count"
+    }
+   
   }
 
 }
