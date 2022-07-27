@@ -18,13 +18,10 @@ export class QueriesService {
       }
     `;
   addCategoriesMutation = `
-    mutation addCategory($name: String!) {
-      cmsTemplate {
+    mutation addCategory($label: String!) {
+      cmsTemplate2 {
         actions {
-          addCategory(name: $name) {
-            name
-            categoryId
-          }
+          addNewCategory(label: $label)
         }
       }
     }
