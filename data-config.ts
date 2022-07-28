@@ -260,4 +260,5 @@ export class icons {
   static loaderIcon = '/assets/icons/loader.svg';
   static avatar = '/assets/icons/avatar.svg';
   static notification = '/assets/icons/notification.svg';
+  static plus = '/assets/icons/plus-icon.svg'
 }

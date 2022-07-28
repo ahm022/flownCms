@@ -46,7 +46,6 @@ export class AppComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.getCategories()
     if(this.storageService.checkIfUserIsLoggedIn()){
-      console.log("trueeeeeeeee")
       const layoutId: any = "b7fa81cc-dce6-456e-bcd4-92423d1fbe83";
       console.log("layoutId",layoutId)
     }else{
@@ -71,7 +70,7 @@ export class AppComponent implements OnInit, OnDestroy{
     .then((userInfo) => {
       const userDetails: any = _.get(userInfo, "cmsTemplate2.actions.getMyProfile.views", null);
       const userId:any = _.get(userInfo, "cmsTemplate2.actions.getMyProfile.id", null);
-      
+
       this.storageService.saveUserInformation(userDetails,userId,null);
       this.sharingDataService.notifyNewLoggedInUserSubscribers(userDetails);
     })
@@ -93,5 +92,5 @@ export class AppComponent implements OnInit, OnDestroy{
     }).finally(() => {
     });
   }
-  
+
 }

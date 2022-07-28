@@ -17,7 +17,7 @@ export class AddNewPageComponent implements OnInit {
   selectedImage;
   loader= false;
   postImage;
-  plusIcon = icons.closeIcon
+  plusIcon = icons.plus
   categories = JSON.parse(localStorage.getItem('categories'));
 
   // Status page options
@@ -72,6 +72,9 @@ export class AddNewPageComponent implements OnInit {
     this.dialog
     .open(AddNewCategoryComponent, {
       width: '600px',
+    }).afterClosed().subscribe(()=>{
+       this.categories = JSON.parse(localStorage.getItem('categories'));
+      console.log(JSON.parse(localStorage.getItem('categories')));
     })
   }
 }

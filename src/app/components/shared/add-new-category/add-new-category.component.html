@@ -1,7 +1,8 @@
 <div class="dialog-multiple-value-title">
   Add new category
 </div>
-<div class="category-container">
+<app-loader *ngIf="loader"></app-loader>
+<div *ngIf="!loader" class="category-container">
   <form [formGroup]="categoryFormGroup" (ngSubmit)="submitCategory()">
     <app-custom-input
       labelText="Category"
@@ -14,7 +15,7 @@
     >
     </app-custom-input>
     <div class="btn-container">
-      <app-btn [btnText]="'Add'" [type]="'submit'"></app-btn>
+      <app-btn [disabled]="!categoryFormGroup.valid" [btnText]="'Add'" [type]="'submit'"></app-btn>
       <app-btn [btnText]="'close'" (clickEvent)="closeDialog()"></app-btn>
     </div>
   </form>
