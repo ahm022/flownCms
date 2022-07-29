@@ -3,7 +3,7 @@ import { data } from 'data-config';
 import { GeneralService } from 'src/app/services/general.service';
 import { GraphqlService } from 'src/app/services/graphql.service';
 import { QueriesService } from 'src/app/services/queries.service';
-import { mapSearchLayoutToItem } from "src/app/services/mapping-helper";
+import { mapSearchLayoutToItem ,mapBlockPostToItem} from "src/app/services/mapping-helper";
 import * as _ from "lodash";
 
 @Component({
@@ -15,6 +15,8 @@ export class LayoutComponent implements OnInit {
   Blocks: any;
   cursor: any;
   layoutId = "b7fa81cc-dce6-456e-bcd4-92423d1fbe83";
+  blockId: any;
+  postsBlocks:any;
   displayedColumns: string[] = ['title', 'author', 'content', 'sorted'];
 
   constructor(private generalservice: GeneralService,
@@ -35,6 +37,15 @@ export class LayoutComponent implements OnInit {
     })
     .finally(() => {
     });
+  }
+  getPostOf(x) {
+    console.log("x",x)
+    this.graphqlService.getGraphQL(this.queries.getPostByBlock, { blockId:x}).then((postData) => {
+      console.log("dataaaaa",postData)
+      this.postsBlocks =  _.get(postData, "cmsTemplate2.entities.block.queries.posts.items", []).map((x: any) => mapBlockPostToItem(x));
+      console.log("this.postsBlocks",this.postsBlocks)
+      
+    })
   }
   goToAddNewBlock() {
     this.generalservice.navigateTo('/dashboard/add-new-block')

@@ -55,6 +55,15 @@ export function mapSearchLayoutToItem(block: any) {
         sorting: _.get(block.cmsTemplate2_Block.views.all, 'sorting', null),
     }
   }
+  export function mapBlockPostToItem(block: any) {
+    return {
+      id: _.get(block.cmsTemplate2_post, 'id', null),
+      postTitle: _.get(block.cmsTemplate2_post.views.all, 'postTitle', ''),
+      postImage: _.get(block.cmsTemplate2_post.views.all.postImage, 'imageUrl', ''),
+    }
+  }
+
+  
 
 export function mapCommentToItem(comment: any) {
 

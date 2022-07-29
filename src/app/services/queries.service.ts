@@ -893,12 +893,42 @@ SearchDescendingPostsByMostCommented = `
   }
 `;
 createBlock = `
-  mutation createBlock($id: String!,$blockModel: CmsTemplate2_blockModelInputType!,$pages:[String!]!) {
+  mutation createBlock($id: String!,$blockModel: CmsTemplate2_blockModelInputType!,$pages:String!) {
     cmsTemplate2{
       entities{
         layout{
-          addBlock(id:$id , blockModel:$blockModel,pages:$pages){
-            id
+          addBlock(id:$id , blockModel:$blockModel,pages:$pages)
+        }
+      }
+    }
+  }
+
+`;
+
+getPostByBlock = `
+  query getPostByBlock($blockId: String!){
+    cmsTemplate2{
+      entities{
+        block(id:$blockId){
+          queries{
+            posts(first:10){
+              items{
+                cmsTemplate2_post{
+                  id
+                  views{
+                    all{
+                      postTitle
+                      postImage{
+                        __typename ... on System_ImageMedia{
+                          imageUrl
+                          imageThumbnailUrl
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
