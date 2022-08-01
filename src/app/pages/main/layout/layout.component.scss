@@ -21,6 +21,7 @@
       height: 48px;
       padding: 10px;
       font-size: 13px;
+      cursor: pointer;
       img{
         height: 32px;
         border-radius: 4px;
@@ -39,6 +40,7 @@
   }
   .blockdata{
     display: flex;
+   
     img{
       height: 32px;
       border-radius: 4px;
@@ -61,6 +63,8 @@
 .blockdata{
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--gray-secondary-one);
+  padding: 8px;
   .not-details-item{
     margin-top: 20px;
     cursor: pointer;
