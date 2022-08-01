@@ -1,23 +1,25 @@
 <app-page-header [title]="'Layout'"></app-page-header>
 <app-btn [btnText]="'Add New Block'"  (clickEvent)="goToAddNewBlock()" ></app-btn>
 <div class="table-container" >
-  <div *ngFor="let item of Blocks ; index as i" class="block-details-items">
-    <div class="block-details-item">
-      <div class="title">Block page Count</div>
-      <div class="subtitle">{{ item.pageCount }}</div>
-    </div>
-    <div class="block-details-item">
-      <div class="title" >Content selection</div>
-      <div class="subtitle" (click)="getPostOf(item.id , i)">{{ item.contentSelection }}</div>
-    </div>
+  <div *ngFor="let item of Blocks ; index as i" >
+    <div class="block-details-items">
+      <div class="block-details-item">
+        <div class="title">Block page Count</div>
+        <div class="subtitle">{{ item.pageCount }}</div>
+      </div>
+      <div class="block-details-item">
+        <div class="title" >Content selection</div>
+        <div class="subtitle" (click)="getPostOf(item.id , i)">{{ item.contentSelection }}</div>
+      </div>
 
-    <div class="block-details-item">
-      <div class="title">Sorted By</div>
-      <div class="subtitle">{{ item.sortingBy }}</div>
-    </div>
-    <div class="block-details-item">
-      <div class="title">Sorting</div>
-      <div class="subtitle">{{ item.sorting }}</div>
+      <div class="block-details-item">
+        <div class="title">Sorted By</div>
+        <div class="subtitle">{{ item.sortingBy }}</div>
+      </div>
+      <div class="block-details-item">
+        <div class="title">Sorting</div>
+        <div class="subtitle">{{ item.sorting }}</div>
+      </div>
     </div>
     <div *ngIf="postsBlocks && showIndex === i" class="blockdata">
       <div *ngFor="let y of postsBlocks" class="not-details-item">

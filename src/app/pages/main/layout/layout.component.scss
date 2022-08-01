@@ -57,3 +57,21 @@
 .txt{
   display: flex;
 }
+
+.blockdata{
+  display: flex;
+  flex-direction: column;
+  .not-details-item{
+    margin-top: 20px;
+    cursor: pointer;
+    &:hover{
+      color: var(--blue-primary);
+    }
+  }
+  img{
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
+    border-radius: 4px;
+  }
+}

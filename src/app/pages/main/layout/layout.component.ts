@@ -44,10 +44,13 @@ export class LayoutComponent implements OnInit {
     console.log("this.showIndex",this.showIndex)
     this.graphqlService.getGraphQL(this.queries.getPostByBlock, { blockId:x }).then((postData) => {
       this.postsBlocks =  _.get(postData, "cmsTemplate2.entities.block.queries.posts.items", []).map((x: any) => mapBlockPostToItem(x));
-      
+
     })
   }
   goToAddNewBlock() {
     this.generalservice.navigateTo('/dashboard/add-new-block')
+  }
+  goToPage(id) {
+    this.generalservice.navigateTo('/dashboard/page-details/'+id)
   }
 }
