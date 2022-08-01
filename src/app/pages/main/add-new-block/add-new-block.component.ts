@@ -140,7 +140,7 @@ export class AddNewBlockComponent implements OnInit {
     console.log("1s1",this.blockFormGroup.get('pageCount').value)
     if(this.selectedItems.length == this.blockFormGroup.get('pageCount').value){
       this.pagesData = this.selectedItems.map((x) => x.value);
-      this.graphqlService.getGraphQL(this.queries.createBlock, {id : newLayoutId ,blockModel: this.blockFormGroup.value,pages: this.pagesData[0]}).then((res)=>{
+      this.graphqlService.getGraphQL(this.queries.createBlock, {id : newLayoutId ,blockModel: this.blockFormGroup.value,pages: this.pagesData}).then((res)=>{
         this.loader = false
         this.generalservice.navigateTo('/dashboard/layout')
       })

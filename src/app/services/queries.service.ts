@@ -893,11 +893,13 @@ SearchDescendingPostsByMostCommented = `
   }
 `;
 createBlock = `
-  mutation createBlock($id: String!,$blockModel: CmsTemplate2_blockModelInputType!,$pages:String!) {
+  mutation createBlock($id: String!,$blockModel: CmsTemplate2_blockModelInputType!,$pages:[String!]!) {
     cmsTemplate2{
       entities{
         layout{
-          addBlock(id:$id , blockModel:$blockModel,pages:$pages)
+          addBlock(id:$id , blockModel:$blockModel,pages:$pages){
+            id
+          }
         }
       }
     }

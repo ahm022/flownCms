@@ -21,6 +21,12 @@
       height: 48px;
       padding: 10px;
       font-size: 13px;
+      img{
+        height: 32px;
+        border-radius: 4px;
+        width: 32px;
+        margin-right: 16px;
+      }
     }
     &:last-child{
       .title{
@@ -31,6 +37,15 @@
       }
     }
   }
+  .blockdata{
+    display: flex;
+    img{
+      height: 32px;
+      border-radius: 4px;
+      width: 32px;
+      margin-right: 16px;
+    }
+  }
 }
 .table-container{
   display: flex;
@@ -38,4 +53,7 @@
   gap: 20px;
   min-width: 1000px;
   overflow-x: scroll;
+}
+.txt{
+  display: flex;
 }

@@ -1,21 +1,14 @@
 <app-page-header [title]="'Layout'"></app-page-header>
 <app-btn [btnText]="'Add New Block'"  (clickEvent)="goToAddNewBlock()" ></app-btn>
 <div class="table-container" >
-  <div *ngFor="let item of Blocks" class="block-details-items">
+  <div *ngFor="let item of Blocks ; index as i" class="block-details-items">
     <div class="block-details-item">
       <div class="title">Block page Count</div>
       <div class="subtitle">{{ item.pageCount }}</div>
     </div>
     <div class="block-details-item">
-      <div class="title" (click)="goToItem(item.id)">Content selection</div>
-      <div class="subtitle">{{ item.contentSelection }}</div>
-      <div *ngIf="posBlocks" class="subtitle">
-        <div *ngFor="let item of postsBlocks" class="not-details-item">
-          <div class="txt">
-            {{item.postTitle}}
-          </div>
-        </div>
-      </div>
+      <div class="title" >Content selection</div>
+      <div class="subtitle" (click)="getPostOf(item.id , i)">{{ item.contentSelection }}</div>
     </div>
 
     <div class="block-details-item">
@@ -25,6 +18,14 @@
     <div class="block-details-item">
       <div class="title">Sorting</div>
       <div class="subtitle">{{ item.sorting }}</div>
+    </div>
+    <div *ngIf="postsBlocks && showIndex === i" class="blockdata">
+      <div *ngFor="let y of postsBlocks" class="not-details-item">
+        <div class="txt" (click)="goToPage(y.id )">
+          <img *ngIf="y.postImage" [src]="y.postImage" />
+          <div>{{y.postTitle}}</div>
+        </div>
+      </div>
     </div>
 
   </div>

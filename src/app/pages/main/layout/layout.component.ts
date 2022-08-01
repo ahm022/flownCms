@@ -17,6 +17,7 @@ export class LayoutComponent implements OnInit {
   layoutId = "b7fa81cc-dce6-456e-bcd4-92423d1fbe83";
   blockId: any;
   postsBlocks:any;
+  showIndex:any;
   displayedColumns: string[] = ['title', 'author', 'content', 'sorted'];
 
   constructor(private generalservice: GeneralService,
@@ -38,12 +39,11 @@ export class LayoutComponent implements OnInit {
     .finally(() => {
     });
   }
-  getPostOf(x) {
-    console.log("x",x)
-    this.graphqlService.getGraphQL(this.queries.getPostByBlock, { blockId:x}).then((postData) => {
-      console.log("dataaaaa",postData)
+  getPostOf(x,i) {
+    this.showIndex = i;
+    console.log("this.showIndex",this.showIndex)
+    this.graphqlService.getGraphQL(this.queries.getPostByBlock, { blockId:x }).then((postData) => {
       this.postsBlocks =  _.get(postData, "cmsTemplate2.entities.block.queries.posts.items", []).map((x: any) => mapBlockPostToItem(x));
-      console.log("this.postsBlocks",this.postsBlocks)
       
     })
   }
